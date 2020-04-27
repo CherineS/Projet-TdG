@@ -18,3 +18,18 @@
 	<iostream>
 	<sstream>
 
+1588005230 source:c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\svgfile.cpp
+	<iostream>
+	<sstream>
+
+1588004124 source:c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	"svgfile.h"
+
+1587995510 c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\svgfile.h
+	<string>
+	<fstream>
+	<set>
+

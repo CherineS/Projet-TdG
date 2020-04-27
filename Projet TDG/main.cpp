@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <math.h>
 #include "svgfile.h"
+
+#define PI 3.14159265
 
 class Sommet
 {
@@ -73,6 +76,8 @@ void Sommet::Dessiner(Svgfile& index)
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
         index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
+        index.addLine(m_successeurs[i]->m_x*100 - (cos( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
+        index.addLine(m_successeurs[i]->m_x*100 - (cos( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
     }
 }
 
@@ -195,6 +200,26 @@ int main()
     G.AddArete(1, 1, 2);
     G.AddArete(2, 2, 3);
     G.AddArete(3, 2, 4);
+
+//    Graph G(1, 9, 8);
+//    G.AddSommet(0, 'A', 2, 1);
+//    G.AddSommet(1, 'B', 6, 1);
+//    G.AddSommet(2, 'C', 1, 2);
+//    G.AddSommet(3, 'D', 3, 2);
+//    G.AddSommet(4, 'E', 4, 2);
+//    G.AddSommet(5, 'F', 5, 2);
+//    G.AddSommet(6, 'G', 7, 2);
+//    G.AddSommet(7, 'H', 2, 3);
+//    G.AddSommet(8, 'I', 6, 3);
+//    G.AddArete(0, 0, 3);
+//    G.AddArete(1, 1, 5);
+//    G.AddArete(2, 2, 3);
+//    G.AddArete(3, 3, 4);
+//    G.AddArete(4, 4, 5);
+//    G.AddArete(5, 5, 6);
+//    G.AddArete(6, 7, 3);
+//    G.AddArete(7, 8, 5);
+
     G.Successeurs();
     G.Dessiner();
     G.Afficher();
