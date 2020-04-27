@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1587992750 source:c:\users\edoua\desktop\piscine\piscine\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	"svgfile.h"
+
+1575180004 source:c:\users\edoua\desktop\piscine\piscine\svgfile.cpp
+	<iostream>
+	<sstream>
+
+1587987052 c:\users\edoua\desktop\piscine\piscine\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
