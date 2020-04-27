@@ -150,7 +150,7 @@ class Graph
         void Dessiner();
         void Successeurs();
         void Afficher();
-        void Chargement();
+        void Chargement(std::string nomF);
 };
 
 Graph::Graph(bool oriente, int ordre, int taille)
@@ -205,13 +205,13 @@ void Graph::Afficher()
     }
 }
 
-void Graph::Chargement()
+void Graph::Chargement(std::string nomF)
 {
     int oriente, ordre, taille;
     int indice, x, y;
     char nom;
     bool b_oriente;
-    std::ifstream fichier("graphe-topo4.txt");
+    std::ifstream fichier(nomF);
     if(fichier)
     {
         fichier >> oriente;
@@ -248,24 +248,21 @@ void Graph::Chargement()
 int main()
 {
     Graph G(1, 5, 4);
-    G.Chargement();
-    /*G.AddSommet(0, 'A', 2, 1);
-    G.AddSommet(1, 'B', 6, 1);
-    G.AddSommet(2, 'C', 1, 2);
-    G.AddSommet(3, 'D', 3, 2);
-    G.AddSommet(4, 'E', 4, 2);
-    G.AddSommet(5, 'F', 5, 2);
-    G.AddSommet(6, 'G', 7, 2);
-    G.AddSommet(7, 'H', 2, 3);
-    G.AddSommet(8, 'I', 6, 3);
-    G.AddArete(0, 0, 3);
-    G.AddArete(1, 1, 5);
-    G.AddArete(2, 2, 3);
-    G.AddArete(3, 3, 4);
-    G.AddArete(4, 4, 5);
-    G.AddArete(5, 5, 6);
-    G.AddArete(6, 7, 3);
-    G.AddArete(7, 8, 5);*/
+    int choix;
+    std::string fichier;
+
+    std::cout << "--------------- MENU ---------------" << std::endl << "Saisir numero du fichier : ";
+    while(choix >4 || choix <1)
+        std::cin >> choix;
+
+    switch(choix)
+    {
+        case 1 : G.Chargement("graphe-topo.txt"); break;
+        case 2 : G.Chargement("graphe-topo2.txt"); break;
+        case 3 : G.Chargement("graphe-topo3.txt"); break;
+        case 4 : G.Chargement("graphe-topo4.txt"); break;
+    }
+
     G.Successeurs();
     G.Dessiner();
     G.Afficher();
