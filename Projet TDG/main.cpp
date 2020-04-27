@@ -4,7 +4,7 @@
 #include <math.h>
 #include "svgfile.h"
 
-#define PI 3.14159265
+class Arete;
 
 class Sommet
 {
@@ -17,7 +17,7 @@ class Sommet
 
     public :
         Sommet(int indice, char nom, int x, int y);
-        void Dessiner(Svgfile& index, bool oriente);
+        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
@@ -57,8 +57,7 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
 }
 
 
-
-void Sommet::Dessiner(Svgfile& index, bool oriente)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes)
 {
     std::string couleur;
     if( m_successeurs.size() <= 1)
@@ -75,6 +74,11 @@ void Sommet::Dessiner(Svgfile& index, bool oriente)
 
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
+        for(size_t j=0 ; j < aretes.size() ; j++)
+        {
+            //aretes[j].DessinerPoids(index, m_indice, m_successeurs[i]->m_indice);
+        }
+
         index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
 
         if(oriente == true) ///Dessin des flèches
@@ -112,8 +116,9 @@ class Arete
 
     public :
         Arete(int indice, int id1, int id2);
-        void Dessiner(Svgfile& index);
         void Successeurs(std::vector<Sommet>& m_sommets, bool oriente);
+        void Poids(double poids, int indice);
+        void DessinerPoids(Svgfile& index, int ext1, int ext2);
 
 };
 
@@ -130,6 +135,17 @@ void Arete::Successeurs(std::vector<Sommet>& sommets, bool oriente)
     {
         sommets[i].Successeur(m_id1, m_id2, sommets, oriente);
     }
+}
+
+void Arete::Poids(double poids, int indice)
+{
+    if(indice == m_indice)
+        m_poids = poids;
+}
+
+void Arete::DessinerPoids(Svgfile& index, int ext1, int ext2)
+{
+    //index.addText(  ,  , m_poids, "grey");
 }
 
 
@@ -151,6 +167,7 @@ class Graph
         void Successeurs();
         void Afficher();
         void Chargement(std::string nomF);
+        void Chargement_Ponderation(std::string nomF);
 };
 
 Graph::Graph(bool oriente, int ordre, int taille)
@@ -193,7 +210,7 @@ void Graph::Dessiner()
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes);
         }
 }
 
@@ -240,7 +257,27 @@ void Graph::Chargement(std::string nomF)
     }
     else
         std::cout << "Probleme ouverture fichier" <<std::endl;
+}
 
+void Graph::Chargement_Ponderation(std::string nomF)
+{
+    std::ifstream fichier(nomF);
+    if(fichier)
+    {
+        int taille, indice;
+        double poids;
+        fichier >> taille;
+        for(int i=0 ; i < taille ; i++)
+        {
+            fichier >> indice >> poids;
+            for(size_t j=0 ; j < m_aretes.size() ; j++)
+            {
+                m_aretes[j].Poids( indice, poids);
+            }
+        }
+    }
+    else
+        std::cout << "Probleme ouverture fichier" <<std::endl;
 }
 
 
@@ -260,7 +297,7 @@ int main()
         case 1 : G.Chargement("graphe-topo.txt"); break;
         case 2 : G.Chargement("graphe-topo2.txt"); break;
         case 3 : G.Chargement("graphe-topo3.txt"); break;
-        case 4 : G.Chargement("graphe-topo4.txt"); break;
+        case 4 : G.Chargement("graphe-topo4.txt"); G.Chargement_Ponderation("graphe-topo4-ponderation.txt"); break;
     }
 
     G.Successeurs();
