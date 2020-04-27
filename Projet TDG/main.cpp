@@ -17,7 +17,7 @@ class Sommet
 
     public :
         Sommet(int indice, char nom, int x, int y);
-        void Dessiner(Svgfile& index);
+        void Dessiner(Svgfile& index, bool oriente);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
@@ -58,7 +58,7 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
 
 
 
-void Sommet::Dessiner(Svgfile& index)
+void Sommet::Dessiner(Svgfile& index, bool oriente)
 {
     std::string couleur;
     if( m_successeurs.size() <= 1)
@@ -76,8 +76,19 @@ void Sommet::Dessiner(Svgfile& index)
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
         index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
-        //index.addLine(m_successeurs[i]->m_x*100 - (cos( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
-        //index.addLine(m_successeurs[i]->m_x*100 - (cos( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
+
+        if(oriente == true) ///Dessin des flèches
+        {
+            int ArrowLength = 12, ArrowWidth = 8;
+            int x1=m_x*100, x2=m_successeurs[i]->m_x*100;
+            int y1=m_y*100, y2=m_successeurs[i]->m_y*100;
+            int AB=sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+            int xC=x2+ArrowLength*(x1-x2)/AB,   yC=y2+ArrowLength*(y1-y2)/AB;
+            int xD=xC+ArrowWidth*(-(y2-y1))/AB, yD=yC+ArrowWidth*((x2-x1))/AB;
+            int xE=xC-ArrowWidth*(-(y2-y1))/AB, yE=yC-ArrowWidth*((x2-x1))/AB;
+
+            index.addTriangle(xD, yD, xE, yE,x2, y2, "lightgrey",1, "black");
+        }
     }
 }
 
@@ -182,7 +193,7 @@ void Graph::Dessiner()
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index);
+            m_sommets[i].Dessiner(index, m_oriente);
         }
 }
 

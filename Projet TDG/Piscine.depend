@@ -14,7 +14,7 @@
 	<fstream>
 	<set>
 
-1587996893 source:c:\users\edoua\desktop\piscine\projet-tdg\projet tdg\svgfile.cpp
+1588002532 source:c:\users\edoua\desktop\piscine\projet-tdg\projet tdg\svgfile.cpp
 	<iostream>
 	<sstream>
 
@@ -30,6 +30,18 @@
 	"svgfile.h"
 
 1587995510 c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1588014518 source:c:\users\edoua\desktop\piscine\projet-tdg\projet tdg\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<math.h>
+	"svgfile.h"
+
+1587996893 c:\users\edoua\desktop\piscine\projet-tdg\projet tdg\svgfile.h
 	<string>
 	<fstream>
 	<set>
