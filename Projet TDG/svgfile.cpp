@@ -210,7 +210,7 @@ void Svgfile::addGrid(double span, bool numbering, std::string color)
     {
         addLine(0, y, m_width, y, color);
         if (numbering)
-            addText(5, y-5, y, color);
+            addText(5, y-5, y/100, color);
         y+=span;
     }
 
@@ -219,7 +219,7 @@ void Svgfile::addGrid(double span, bool numbering, std::string color)
     {
         addLine(x, 0, x, m_height, color);
         if (numbering)
-            addText(x+5, 15, x, color);
+            addText(x+5, 15, x/100, color);
         x+=span;
     }
 }
