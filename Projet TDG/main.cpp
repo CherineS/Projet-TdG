@@ -2,26 +2,28 @@
 #include <vector>
 #include <fstream>
 #include "svgfile.h"
-//ça marche mange tes grands morts
 
 class Sommet
 {
     private :
+        char m_nom;
         int m_indice;
         int m_x, m_y;
         bool m_marque;
         std::vector<Sommet*> m_successeurs;
 
     public :
-        Sommet(int indice, int x, int y);
+        Sommet(int indice, char nom, int x, int y);
         void Dessiner(Svgfile& index);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets);
+        void Afficher();
 
 };
 
-Sommet::Sommet(int indice, int x, int y)
+Sommet::Sommet(int indice, char nom, int x, int y)
 {
+    m_nom = nom;
     m_indice = indice;
     m_marque = false;
     m_x = x;
@@ -50,11 +52,23 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets)
 void Sommet::Dessiner(Svgfile& index)
 {
     index.addDisk(m_x*100, m_y*100, 3, "cyan");
+    std::string c(1, m_nom);
+    index.addText(m_x*100 - 5, m_y*100 - 10, c,"black");
 
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
-        index.addLine(m_x,m_y, m_successeurs[i]->m_x, m_successeurs[i]->m_y, "black");
+        index.addLine(m_y*100,m_x*100, m_successeurs[i]->m_y*100, m_successeurs[i]->m_x*100, "black");
     }
+}
+
+void Sommet::Afficher()
+{
+    std::cout << m_indice << std::endl;
+    for(size_t i=0 ; i < m_successeurs.size() ; i++)
+    {
+        std::cout << m_successeurs[i]->m_indice << std::endl;
+    }
+    std::cout << "---------" << std::endl;
 }
 
 
@@ -86,11 +100,6 @@ void Arete::Successeurs(std::vector<Sommet>& sommets)
     }
 }
 
-/*void Arete::Dessiner(Svgfile& index)
-{
-    index.addLine();
-}*/
-
 
 
 class Graph
@@ -103,10 +112,11 @@ class Graph
 
     public :
         Graph(bool oriente, int ordre, int taille);
-        void AddSommet(int indice, int x, int y);
+        void AddSommet(int indice, char nom, int x, int y);
         void AddArete(int indice, int id1, int id2);
         void Dessiner();
         void Successeurs();
+        void Afficher();
 };
 
 Graph::Graph(bool oriente, int ordre, int taille)
@@ -116,9 +126,9 @@ Graph::Graph(bool oriente, int ordre, int taille)
     m_taille = taille;
 }
 
-void Graph::AddSommet(int indice, int x, int y)
+void Graph::AddSommet(int indice, char nom, int x, int y)
 {
-    Sommet s(indice, x, y);
+    Sommet s(indice, nom, x, y);
     m_sommets.push_back(s);
 }
 
@@ -138,25 +148,37 @@ void Graph::Successeurs()
 
 void Graph::Dessiner()
 {
-
         Svgfile index;
         index.addGrid(100, 1, "grey");
-        //index.addTriangle(1*10, 1*10, 4*10, 1*10, 1*10, 4*10, "green");*
-
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
             m_sommets[i].Dessiner(index);
         }
+}
 
+void Graph::Afficher()
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        m_sommets[i].Afficher();
+    }
 }
 
 int main()
 {
-    Graph G(0, 3, 2);
-    G.AddSommet(0, 1, 1);
+    Graph G(0, 5, 4);
+    G.AddSommet(0, 'A', 2, 1);
+    G.AddSommet(1, 'B', 1, 2);
+    G.AddSommet(2, 'C', 2, 2);
+    G.AddSommet(3, 'D', 3, 2);
+    G.AddSommet(4, 'E', 2, 3);
+    G.AddArete(0, 0, 2);
+    G.AddArete(1, 1, 2);
+    G.AddArete(2, 2, 3);
+    G.AddArete(3, 2, 4);
+    G.Successeurs();
     G.Dessiner();
-
-
+    G.Afficher();
 
 
 
