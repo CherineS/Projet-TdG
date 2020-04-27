@@ -76,8 +76,8 @@ void Sommet::Dessiner(Svgfile& index)
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
         index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
-        index.addLine(m_successeurs[i]->m_x*100 - (cos( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
-        index.addLine(m_successeurs[i]->m_x*100 - (cos( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
+        //index.addLine(m_successeurs[i]->m_x*100 - (cos( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( 30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
+        //index.addLine(m_successeurs[i]->m_x*100 - (cos( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_y*100-(sin( -30 * PI / 180.0 )*(20)), m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
     }
 }
 
@@ -200,7 +200,7 @@ void Graph::Chargement()
     int indice, x, y;
     char nom;
     bool b_oriente;
-    std::ifstream fichier("graphe-topo.txt");
+    std::ifstream fichier("graphe-topo4.txt");
     if(fichier)
     {
         fichier >> oriente;

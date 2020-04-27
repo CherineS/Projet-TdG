@@ -22,10 +22,11 @@
 	<iostream>
 	<sstream>
 
-1588004124 source:c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\main.cpp
+1588009855 source:c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\main.cpp
 	<iostream>
 	<vector>
 	<fstream>
+	<math.h>
 	"svgfile.h"
 
 1587995510 c:\users\principal\3d objects\documents\ing2 s2\informatique\projet-tdg2\projet tdg\svgfile.h
