@@ -16,7 +16,7 @@ class Sommet
         Sommet(int indice, char nom, int x, int y);
         void Dessiner(Svgfile& index);
         void AddSuccesseur(Sommet* s);
-        void Successeur(int id1, int id2, std::vector<Sommet>& sommets);
+        void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
 
 };
@@ -35,14 +35,21 @@ void Sommet::AddSuccesseur(Sommet* s)
     m_successeurs.push_back(s);
 }
 
-void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets)
+void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente)
 {
     if(id1 == m_indice)
     {
         for(size_t i=0 ; i < sommets.size() ; i++)
         {
             if(id2 == sommets[i].m_indice)
+            {
                 m_successeurs.push_back(&sommets[i]);
+
+                if(oriente == false)
+                {
+                    sommets[i].m_successeurs.push_back(this);
+                }
+            }
         }
     }
 }
@@ -51,7 +58,16 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets)
 
 void Sommet::Dessiner(Svgfile& index)
 {
-    index.addDisk(m_x*100, m_y*100, 3, "cyan");
+    std::string couleur;
+    if( m_successeurs.size() <= 1)
+        couleur = "cyan";
+    if( m_successeurs.size() == 2)
+        couleur = "green";
+    if( m_successeurs.size() == 3)
+        couleur = "blue";
+    if( m_successeurs.size() >= 4)
+        couleur = "red";
+    index.addDisk(m_x*100, m_y*100, 3, couleur);
     std::string c(1, m_nom);
     index.addText(m_x*100 - 5, m_y*100 - 10, c,"black");
 
@@ -76,12 +92,13 @@ class Arete
 {
     private :
         int m_indice;
-        int m_id1, m_id2, m_poid;
+        int m_id1, m_id2;
+        double m_poids;
 
     public :
         Arete(int indice, int id1, int id2);
         void Dessiner(Svgfile& index);
-        void Successeurs(std::vector<Sommet>& m_sommets);
+        void Successeurs(std::vector<Sommet>& m_sommets, bool oriente);
 
 };
 
@@ -92,11 +109,11 @@ Arete::Arete(int indice, int id1, int id2)
     m_id2 = id2;
 }
 
-void Arete::Successeurs(std::vector<Sommet>& sommets)
+void Arete::Successeurs(std::vector<Sommet>& sommets, bool oriente)
 {
     for(size_t i=0 ; i < sommets.size() ; i++)
     {
-        sommets[i].Successeur(m_id1, m_id2, sommets);
+        sommets[i].Successeur(m_id1, m_id2, sommets, oriente);
     }
 }
 
@@ -142,7 +159,7 @@ void Graph::Successeurs()
 {
     for(size_t i=0 ; i < m_aretes.size() ; i++)
     {
-        m_aretes[i].Successeurs(m_sommets);
+        m_aretes[i].Successeurs(m_sommets, m_oriente);
     }
 }
 
@@ -184,3 +201,4 @@ int main()
 
     return 0;
 }
+
