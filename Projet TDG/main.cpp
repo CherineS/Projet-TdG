@@ -18,7 +18,6 @@ class Sommet
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
-
 };
 
 Sommet::Sommet(int indice, char nom, int x, int y)
@@ -73,7 +72,7 @@ void Sommet::Dessiner(Svgfile& index)
 
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
-        index.addLine(m_y*100,m_x*100, m_successeurs[i]->m_y*100, m_successeurs[i]->m_x*100, "black");
+        index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
     }
 }
 
@@ -181,6 +180,9 @@ void Graph::Afficher()
     }
 }
 
+
+
+
 int main()
 {
     Graph G(0, 5, 4);
@@ -196,7 +198,6 @@ int main()
     G.Successeurs();
     G.Dessiner();
     G.Afficher();
-
 
 
     return 0;
