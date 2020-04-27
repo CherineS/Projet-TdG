@@ -128,14 +128,23 @@ class Graph
 
     public :
         Graph(bool oriente, int ordre, int taille);
+        void AddOriente_Ordre_Taille(bool oriente, int ordre, int taille);
         void AddSommet(int indice, char nom, int x, int y);
         void AddArete(int indice, int id1, int id2);
         void Dessiner();
         void Successeurs();
         void Afficher();
+        void Chargement();
 };
 
 Graph::Graph(bool oriente, int ordre, int taille)
+{
+    m_oriente = oriente;
+    m_ordre = ordre;
+    m_taille = taille;
+}
+
+void Graph::AddOriente_Ordre_Taille(bool oriente, int ordre, int taille)
 {
     m_oriente = oriente;
     m_ordre = ordre;
@@ -180,26 +189,74 @@ void Graph::Afficher()
     }
 }
 
+void Graph::Chargement()
+{
+    int oriente, ordre, taille;
+    int indice, x, y;
+    char nom;
+    bool b_oriente;
+    std::ifstream fichier("graphe-topo.txt");
+    if(fichier)
+    {
+        fichier >> oriente;
+        if(oriente == 0)
+            b_oriente = false;
+        if(oriente == 1)
+            b_oriente = true;
+
+        fichier >> ordre;
+        for(int i=0 ; i < ordre ; i++)
+        {
+            fichier >> indice >> nom >> x >> y;
+            std::cout << "Indice : " << indice << " Nom : " << nom << " x : " << x << " y : " << y << std::endl;
+            AddSommet(indice, nom, x, y);
+        }
+        fichier >> taille;
+
+        int ind, ext1, ext2;
+        for(int i=0 ; i < taille ; i++)
+        {
+            fichier >> ind >> ext1 >> ext2;
+            AddArete(ind, ext1, ext2);
+        }
+
+        AddOriente_Ordre_Taille( b_oriente, ordre, taille);
+    }
+    else
+        std::cout << "Probleme ouverture fichier" <<std::endl;
+
+}
 
 
 
 int main()
 {
-    Graph G(0, 5, 4);
-    G.AddSommet(0, 'A', 2, 1);
-    G.AddSommet(1, 'B', 1, 2);
-    G.AddSommet(2, 'C', 2, 2);
+    Graph G(1, 5, 4);
+    G.Chargement();
+    /*G.AddSommet(0, 'A', 2, 1);
+    G.AddSommet(1, 'B', 6, 1);
+    G.AddSommet(2, 'C', 1, 2);
     G.AddSommet(3, 'D', 3, 2);
-    G.AddSommet(4, 'E', 2, 3);
-    G.AddArete(0, 0, 2);
-    G.AddArete(1, 1, 2);
+    G.AddSommet(4, 'E', 4, 2);
+    G.AddSommet(5, 'F', 5, 2);
+    G.AddSommet(6, 'G', 7, 2);
+    G.AddSommet(7, 'H', 2, 3);
+    G.AddSommet(8, 'I', 6, 3);
+    G.AddArete(0, 0, 3);
+    G.AddArete(1, 1, 5);
     G.AddArete(2, 2, 3);
-    G.AddArete(3, 2, 4);
+    G.AddArete(3, 3, 4);
+    G.AddArete(4, 4, 5);
+    G.AddArete(5, 5, 6);
+    G.AddArete(6, 7, 3);
+    G.AddArete(7, 8, 5);*/
     G.Successeurs();
     G.Dessiner();
     G.Afficher();
 
 
+
     return 0;
 }
+
 

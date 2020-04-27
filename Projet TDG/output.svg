@@ -4,44 +4,61 @@
 <line x1="0" y1="0" x2="1000" y2="0" stroke="darkgrey" />
 <text x="5" y="-5" fill="darkgrey" >0</text>
 <line x1="0" y1="100" x2="1000" y2="100" stroke="darkgrey" />
-<text x="5" y="95" fill="darkgrey" >100</text>
+<text x="5" y="95" fill="darkgrey" >1</text>
 <line x1="0" y1="200" x2="1000" y2="200" stroke="darkgrey" />
-<text x="5" y="195" fill="darkgrey" >200</text>
+<text x="5" y="195" fill="darkgrey" >2</text>
 <line x1="0" y1="300" x2="1000" y2="300" stroke="darkgrey" />
-<text x="5" y="295" fill="darkgrey" >300</text>
+<text x="5" y="295" fill="darkgrey" >3</text>
 <line x1="0" y1="400" x2="1000" y2="400" stroke="darkgrey" />
-<text x="5" y="395" fill="darkgrey" >400</text>
+<text x="5" y="395" fill="darkgrey" >4</text>
 <line x1="0" y1="500" x2="1000" y2="500" stroke="darkgrey" />
-<text x="5" y="495" fill="darkgrey" >500</text>
+<text x="5" y="495" fill="darkgrey" >5</text>
 <line x1="0" y1="600" x2="1000" y2="600" stroke="darkgrey" />
-<text x="5" y="595" fill="darkgrey" >600</text>
+<text x="5" y="595" fill="darkgrey" >6</text>
 <line x1="0" y1="700" x2="1000" y2="700" stroke="darkgrey" />
-<text x="5" y="695" fill="darkgrey" >700</text>
+<text x="5" y="695" fill="darkgrey" >7</text>
 <line x1="0" y1="800" x2="1000" y2="800" stroke="darkgrey" />
-<text x="5" y="795" fill="darkgrey" >800</text>
+<text x="5" y="795" fill="darkgrey" >8</text>
 <line x1="0" y1="0" x2="0" y2="800" stroke="darkgrey" />
 <text x="5" y="15" fill="darkgrey" >0</text>
 <line x1="100" y1="0" x2="100" y2="800" stroke="darkgrey" />
-<text x="105" y="15" fill="darkgrey" >100</text>
+<text x="105" y="15" fill="darkgrey" >1</text>
 <line x1="200" y1="0" x2="200" y2="800" stroke="darkgrey" />
-<text x="205" y="15" fill="darkgrey" >200</text>
+<text x="205" y="15" fill="darkgrey" >2</text>
 <line x1="300" y1="0" x2="300" y2="800" stroke="darkgrey" />
-<text x="305" y="15" fill="darkgrey" >300</text>
+<text x="305" y="15" fill="darkgrey" >3</text>
 <line x1="400" y1="0" x2="400" y2="800" stroke="darkgrey" />
-<text x="405" y="15" fill="darkgrey" >400</text>
+<text x="405" y="15" fill="darkgrey" >4</text>
 <line x1="500" y1="0" x2="500" y2="800" stroke="darkgrey" />
-<text x="505" y="15" fill="darkgrey" >500</text>
+<text x="505" y="15" fill="darkgrey" >5</text>
 <line x1="600" y1="0" x2="600" y2="800" stroke="darkgrey" />
-<text x="605" y="15" fill="darkgrey" >600</text>
+<text x="605" y="15" fill="darkgrey" >6</text>
 <line x1="700" y1="0" x2="700" y2="800" stroke="darkgrey" />
-<text x="705" y="15" fill="darkgrey" >700</text>
+<text x="705" y="15" fill="darkgrey" >7</text>
 <line x1="800" y1="0" x2="800" y2="800" stroke="darkgrey" />
-<text x="805" y="15" fill="darkgrey" >800</text>
+<text x="805" y="15" fill="darkgrey" >8</text>
 <line x1="900" y1="0" x2="900" y2="800" stroke="darkgrey" />
-<text x="905" y="15" fill="darkgrey" >900</text>
+<text x="905" y="15" fill="darkgrey" >9</text>
 <line x1="1000" y1="0" x2="1000" y2="800" stroke="darkgrey" />
-<text x="1005" y="15" fill="darkgrey" >1000</text>
-<circle cx="100" cy="100" r="3" fill="cyan" />
+<text x="1005" y="15" fill="darkgrey" >10</text>
+<circle cx="200" cy="100" r="3" fill="cyan" />
+<text x="195" y="90" fill="black" >A</text>
+<line x1="200" y1="100" x2="200" y2="200" stroke="black" />
+<circle cx="100" cy="200" r="3" fill="cyan" />
+<text x="95" y="190" fill="black" >B</text>
+<line x1="100" y1="200" x2="200" y2="200" stroke="black" />
+<circle cx="200" cy="200" r="3" fill="red" />
+<text x="195" y="190" fill="black" >C</text>
+<line x1="200" y1="200" x2="200" y2="100" stroke="black" />
+<line x1="200" y1="200" x2="100" y2="200" stroke="black" />
+<line x1="200" y1="200" x2="300" y2="200" stroke="black" />
+<line x1="200" y1="200" x2="200" y2="300" stroke="black" />
+<circle cx="300" cy="200" r="3" fill="cyan" />
+<text x="295" y="190" fill="black" >D</text>
+<line x1="300" y1="200" x2="200" y2="200" stroke="black" />
+<circle cx="200" cy="300" r="3" fill="cyan" />
+<text x="195" y="290" fill="black" >E</text>
+<line x1="200" y1="300" x2="200" y2="200" stroke="black" />
   
 
 <defs>
