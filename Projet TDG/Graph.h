@@ -16,12 +16,13 @@ class Graph
         void AddOriente_Ordre_Taille(bool oriente, int ordre, int taille);
         void AddSommet(int indice, char nom, int x, int y);
         void AddArete(int indice, int id1, int id2);
-        void Dessiner(Svgfile& index);
+        void Dessiner(Svgfile& index, bool CVP);
         void Successeurs();
         void Afficher();
         void Chargement(std::string nomF);
         void Chargement_Ponderation(std::string nomF);
-        void Centralite_Degre(Svgfile& index);
+        void Centralite_Degre(Svgfile& index, bool CD);
+        void Centralite_Vecteur_Propre();
 };
 
 #endif // GRAPH_H_INCLUDED

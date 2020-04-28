@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Graph.h"
+#include "math.h"
 
 Graph::Graph(bool oriente, int ordre, int taille)
 {
@@ -36,12 +37,12 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(Svgfile& index)
+void Graph::Dessiner(Svgfile& index, bool CVP)
 {
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP);
         }
 }
 
@@ -118,11 +119,35 @@ void Graph::Chargement_Ponderation(std::string nomF)
         std::cout << "Probleme ouverture fichier" <<std::endl;
 }
 
-void Graph::Centralite_Degre(Svgfile& index)
+void Graph::Centralite_Degre(Svgfile& index, bool CD)
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++ )
     {
-        m_sommets[i].Centralite_Degre(m_ordre, index);
+        m_sommets[i].Centralite_Degre(m_ordre, index, CD);
     }
+}
+
+void Graph::Centralite_Vecteur_Propre()
+{
+    double lambda = 0, lambda_prec = 0;
+
+    do{
+    lambda_prec=lambda;
+    std::vector<double> Vec_Csi;
+    lambda = 0;
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        lambda += (m_sommets[i].Csi())*(m_sommets[i].Csi());
+        Vec_Csi.push_back(m_sommets[i].Csi());
+    }
+    lambda = sqrt(lambda);
+
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        m_sommets[i].Recalcul_Indices(lambda, Vec_Csi[i]);
+    }
+    }while( (lambda < (lambda_prec-0.01)) || (lambda > (lambda_prec +0.01)) );
+
+    std::cout << "Lambda : " << lambda << std::endl;
 }
 
