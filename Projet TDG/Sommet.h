@@ -11,17 +11,18 @@ class Sommet
         char m_nom;
         int m_indice;
         int m_x, m_y;
+        double m_Cd;
         double m_Cvp;
         bool m_marque;
         std::vector<Sommet*> m_successeurs;
 
     public :
         Sommet(int indice, char nom, int x, int y);
-        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP);
+        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
-        void Centralite_Degre(int m_ordre, Svgfile& index, bool CD);
+        void Centralite_Degre(int m_ordre);
         void Somme_Indices();
         void Recalcul_Indices(double lambda, double Csi);
         double Csi();

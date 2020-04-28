@@ -40,20 +40,36 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD)
 {
     std::string couleur;
-    if( m_successeurs.size() <= 1)
+    if( m_Cd < 0.25)
         couleur = "cyan";
-    if( m_successeurs.size() == 2)
+    if( m_Cd >= 0.25 && m_Cd < 0.375)
         couleur = "green";
-    if( m_successeurs.size() == 3)
+    if( m_Cd >= 0.375 && m_Cd < 0.5)
         couleur = "blue";
-    if( m_successeurs.size() >= 4)
+    if( m_Cd >= 0.5 && m_Cd < 0.75)
+        couleur = "orange";
+    if( m_Cd >= 0.75)
         couleur = "red";
     index.addDisk(m_x*100, m_y*100, 3, couleur);
     std::string c(1, m_nom);
     index.addText(m_x*100 - 5, m_y*100 - 10, c,"black");
+
+    if(CD == true)
+    {
+    index.addText(m_x*100 - 14, m_y*100 + 16, m_Cd, "yellow");
+    index.addText(m_x*100 - 16, m_y*100 + 18, m_Cd, "yellow");
+    index.addText(m_x*100 - 15, m_y*100 + 17, m_Cd, "black");
+
+
+    index.addLine(30, 51, 50, 51, "yellow");
+    index.addLine(30, 49, 50, 49, "yellow");
+    index.addLine(30, 50, 50, 50, "black");
+
+    index.addText(65, 55, "Indice de centralite par degre", "black");
+    }
 
 
     if(CVP == true)
@@ -94,23 +110,11 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     }
 }
 
-void Sommet::Centralite_Degre(int n, Svgfile& index, bool CD)
+void Sommet::Centralite_Degre(int n)
 {
     double ordre = m_successeurs.size();
     ordre = ordre / (n-1) ;
-    if(CD == true)
-    {
-    index.addText(m_x*100 - 14, m_y*100 + 16, ordre, "yellow");
-    index.addText(m_x*100 - 16, m_y*100 + 18, ordre, "yellow");
-    index.addText(m_x*100 - 15, m_y*100 + 17, ordre, "black");
-
-
-    index.addLine(30, 51, 50, 51, "yellow");
-    index.addLine(30, 49, 50, 49, "yellow");
-    index.addLine(30, 50, 50, 50, "black");
-
-    index.addText(65, 55, "Indice de centralite par degre", "black");
-    }
+    m_Cd = ordre;
 }
 
 void Sommet::Somme_Indices()

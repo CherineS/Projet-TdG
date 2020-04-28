@@ -31,9 +31,9 @@ int main()
     }
 
     G.Successeurs();
-    G.Centralite_Degre(index, CD);
+    G.Centralite_Degre();
     G.Centralite_Vecteur_Propre();
-    G.Dessiner(index, CVP);
+    G.Dessiner(index, CVP, CD);
     G.Afficher();
 
 

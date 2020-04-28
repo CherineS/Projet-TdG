@@ -37,12 +37,12 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(Svgfile& index, bool CVP)
+void Graph::Dessiner(Svgfile& index, bool CVP , bool CD)
 {
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD);
         }
 }
 
@@ -119,11 +119,11 @@ void Graph::Chargement_Ponderation(std::string nomF)
         std::cout << "Probleme ouverture fichier" <<std::endl;
 }
 
-void Graph::Centralite_Degre(Svgfile& index, bool CD)
+void Graph::Centralite_Degre()
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++ )
     {
-        m_sommets[i].Centralite_Degre(m_ordre, index, CD);
+        m_sommets[i].Centralite_Degre(m_ordre);
     }
 }
 
