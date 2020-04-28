@@ -20,6 +20,7 @@ class Sommet
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
+        void Centralite_Degre(int m_ordre, Svgfile& index);
 };
 
 

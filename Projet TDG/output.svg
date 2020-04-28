@@ -98,6 +98,69 @@
 <line x1="500" y1="500" x2="400" y2="200" stroke="black" />
 <line x1="500" y1="500" x2="400" y2="400" stroke="black" />
 <line x1="500" y1="500" x2="100" y2="500" stroke="black" />
+<text x="286" y="116" fill="yellow" >0.25</text>
+<text x="284" y="118" fill="yellow" >0.25</text>
+<text x="285" y="117" fill="black" >0.25</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="186" y="216" fill="yellow" >0.375</text>
+<text x="184" y="218" fill="yellow" >0.375</text>
+<text x="185" y="217" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="386" y="216" fill="yellow" >0.375</text>
+<text x="384" y="218" fill="yellow" >0.375</text>
+<text x="385" y="217" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="286" y="316" fill="yellow" >0.5</text>
+<text x="284" y="318" fill="yellow" >0.5</text>
+<text x="285" y="317" fill="black" >0.5</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="186" y="416" fill="yellow" >0.375</text>
+<text x="184" y="418" fill="yellow" >0.375</text>
+<text x="185" y="417" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="286" y="416" fill="yellow" >0.25</text>
+<text x="284" y="418" fill="yellow" >0.25</text>
+<text x="285" y="417" fill="black" >0.25</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="386" y="416" fill="yellow" >0.375</text>
+<text x="384" y="418" fill="yellow" >0.375</text>
+<text x="385" y="417" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="86" y="516" fill="yellow" >0.375</text>
+<text x="84" y="518" fill="yellow" >0.375</text>
+<text x="85" y="517" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
+<text x="486" y="516" fill="yellow" >0.375</text>
+<text x="484" y="518" fill="yellow" >0.375</text>
+<text x="485" y="517" fill="black" >0.375</text>
+<line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
+<line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
+<line x1="30" y1="50" x2="50" y2="50" stroke="black" />
+<text x="65" y="55" fill="black" >Indice de centralite</text>
   
 
 <defs>

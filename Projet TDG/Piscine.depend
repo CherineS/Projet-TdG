@@ -78,3 +78,51 @@
 	"Sommet.h"
 	"Arete.h"
 
+1588038943 source:c:\users\edoua\desktop\projet tdg\arete.cpp
+	<iostream>
+	<vector>
+	"Arete.h"
+
+1588036676 c:\users\edoua\desktop\projet tdg\arete.h
+	<vector>
+	"Sommet.h"
+
+1588066977 c:\users\edoua\desktop\projet tdg\sommet.h
+	<vector>
+	"svgfile.h"
+
+1587996893 c:\users\edoua\desktop\projet tdg\svgfile.h
+	<string>
+	<fstream>
+	<set>
+
+1588066912 source:c:\users\edoua\desktop\projet tdg\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<math.h>
+	"svgfile.h"
+	"Arete.h"
+	"Sommet.h"
+	"Graph.h"
+
+1588066912 c:\users\edoua\desktop\projet tdg\graph.h
+	<vector>
+	"Arete.h"
+
+1588067702 source:c:\users\edoua\desktop\projet tdg\sommet.cpp
+	<iostream>
+	<vector>
+	"math.h"
+	"Sommet.h"
+	"Arete.h"
+
+1588002532 source:c:\users\edoua\desktop\projet tdg\svgfile.cpp
+	<iostream>
+	<sstream>
+
+1588066977 source:c:\users\edoua\desktop\projet tdg\graph.cpp
+	<iostream>
+	<vector>
+	"Graph.h"
+

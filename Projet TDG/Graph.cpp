@@ -36,9 +36,8 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner()
+void Graph::Dessiner(Svgfile& index)
 {
-        Svgfile index;
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
@@ -118,3 +117,12 @@ void Graph::Chargement_Ponderation(std::string nomF)
     else
         std::cout << "Probleme ouverture fichier" <<std::endl;
 }
+
+void Graph::Centralite_Degre(Svgfile& index)
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++ )
+    {
+        m_sommets[i].Centralite_Degre(m_ordre, index);
+    }
+}
+

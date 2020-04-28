@@ -77,6 +77,24 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes)
     }
 }
 
+void Sommet::Centralite_Degre(int n, Svgfile& index)
+{
+    double ordre = m_successeurs.size();
+    ordre = ordre / (n-1) ;
+
+    index.addText(m_x*100 - 14, m_y*100 + 16, ordre, "yellow");
+    index.addText(m_x*100 - 16, m_y*100 + 18, ordre, "yellow");
+    index.addText(m_x*100 - 15, m_y*100 + 17, ordre, "black");
+
+
+    index.addLine(30, 51, 50, 51, "yellow");
+    index.addLine(30, 49, 50, 49, "yellow");
+    index.addLine(30, 50, 50, 50, "black");
+
+    index.addText(65, 55, "Indice de centralite", "black");
+}
+
+
 void Sommet::Afficher()
 {
     std::cout << m_indice << std::endl;

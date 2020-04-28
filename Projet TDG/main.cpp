@@ -11,6 +11,7 @@
 
 int main()
 {
+    Svgfile index;
     Graph G(1, 5, 4);
     int choix;
     std::string fichier;
@@ -28,7 +29,8 @@ int main()
     }
 
     G.Successeurs();
-    G.Dessiner();
+    G.Dessiner(index);
+    G.Centralite_Degre(index);
     G.Afficher();
 
 
