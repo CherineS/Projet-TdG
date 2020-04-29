@@ -26,7 +26,12 @@ class Sommet
         void Somme_Indices();
         void Recalcul_Indices(double lambda, double Csi);
         double Csi();
-
+        int getIndice();
+        bool getMarquage();
+        char getNom();
+        void setMarquage(bool marque);
+        void ResetMarquage();
+        void BFSrecursif(std::vector<int> &Queue, int compteur);
 };
 
 

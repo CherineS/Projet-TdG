@@ -151,3 +151,49 @@ void Graph::Centralite_Vecteur_Propre()
     std::cout << "Lambda : " << lambda << std::endl;
 }
 
+void Graph::Centralite_Intermediarite()
+{
+}
+
+void Graph::Recherche_Connexite()
+{
+    int nbConnex=0, compteur=0, compteur2=0;
+    std::vector<int> ListeConnex;
+
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        m_sommets[i].ResetMarquage();
+    }
+
+    for(int j=0;j<m_sommets.size();++j)  ///Recherche si le sommet a deja ete parcouru
+    {
+        if(m_sommets[j].getMarquage()==false)
+        {
+            compteur2+=compteur;
+            compteur=0;
+
+            ListeConnex.push_back(j);
+            m_sommets[j].setMarquage(true);
+
+            //std::cout << "pushed back " << ListeConnex[compteur];
+
+            do
+            {
+                ///push back des indices des successeurs directs non presents dans ListeConnex
+                m_sommets[j].BFSrecursif(ListeConnex, compteur);
+                ++compteur;
+                //std::cout << "\ncompteur " << compteur;
+            }while(compteur<ListeConnex.size());
+
+            //std::cout << "\ncompteur2 " << compteur2;
+
+            nbConnex++;
+
+            ///Affichage
+            std::cout << std::endl << "Composante connexe " << nbConnex << " : ";
+            for(size_t i=compteur2;i<ListeConnex.size();++i)
+                std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+            std::cout << std::endl;
+        }
+    }
+}

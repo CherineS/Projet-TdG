@@ -155,3 +155,67 @@ void Sommet::Afficher()
     }
     std::cout << "---------" << std::endl;
 }
+
+int Sommet::getIndice()
+{
+    return m_indice;
+}
+
+char Sommet::getNom()
+{
+    return m_nom;
+}
+
+bool Sommet::getMarquage()
+{
+    return m_marque;
+}
+
+void Sommet::setMarquage(bool marque)
+{
+    m_marque=marque;
+}
+
+void Sommet::ResetMarquage()
+{
+    for(size_t i=0 ; i < m_successeurs.size() ; i++)
+    {
+        m_successeurs[i]->m_marque=false;
+    }
+}
+
+void Sommet::BFSrecursif(std::vector<int> &Queue, int compteur)
+{
+    std::vector<int> temp;
+
+    bool present=0;
+
+    for(size_t i=0;i<m_successeurs.size();++i)
+    {
+        for(size_t j=0;j<Queue.size();++j)
+        {
+            present=0;
+            if(m_successeurs[i]->getMarquage()==true)   ///Si le sommet est marque (parcouru) on ne l'ajoute pas
+            {
+                present=1;
+                break; ///Pas besoin d'aller plus loin
+            }
+        }
+        if(present!=1)
+        {
+            Queue.push_back(m_successeurs[i]->getIndice());
+            m_successeurs[i]->setMarquage(true);
+            //std::cout << "\ns pushed back " << m_successeurs[i]->getIndice();
+            temp.push_back(i);
+        }
+    }
+
+    if(present!=1)
+    {
+        ++compteur;
+        for(size_t j=0;j<temp.size();++j)
+        {
+            m_successeurs[temp[j]]->BFSrecursif(Queue, compteur);
+        }
+    }
+}

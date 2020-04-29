@@ -35,7 +35,7 @@ int main()
     G.Centralite_Vecteur_Propre();
     G.Dessiner(index, CVP, CD);
     G.Afficher();
-
+    G.Recherche_Connexite();
 
 
     return 0;

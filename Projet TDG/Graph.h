@@ -23,6 +23,8 @@ class Graph
         void Chargement_Ponderation(std::string nomF);
         void Centralite_Degre();
         void Centralite_Vecteur_Propre();
+        void Centralite_Intermediarite();
+        void Recherche_Connexite();
 };
 
 #endif // GRAPH_H_INCLUDED
