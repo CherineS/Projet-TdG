@@ -13,6 +13,8 @@ Sommet::Sommet(int indice, char nom, int x, int y)
     m_x = x;
     m_y = y;
     m_Cvp=1;
+    m_Cp=0;
+    m_precedent=NULL;
 }
 
 void Sommet::AddSuccesseur(Sommet* s)
@@ -40,7 +42,7 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP)
 {
     std::string couleur;
     if( m_Cd < 0.25)
@@ -64,11 +66,13 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     index.addText(m_x*100 - 15, m_y*100 + 17, m_Cd, "black");
 
 
-    index.addLine(30, 51, 50, 51, "yellow");
-    index.addLine(30, 49, 50, 49, "yellow");
-    index.addLine(30, 50, 50, 50, "black");
+    index.addLine(30, 31, 50, 31, "yellow");
+    index.addLine(30, 29, 50, 29, "yellow");
+    index.addLine(30, 30, 50, 30, "black");
 
-    index.addText(65, 55, "Indice de centralite par degre", "black");
+    index.addText(66, 36, "Indice de centralite par Degre", "yellow");
+    index.addText(64, 34, "Indice de centralite par Degre", "yellow");
+    index.addText(65, 35, "Indice de centralite par Degre", "black");
     }
 
 
@@ -79,10 +83,27 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         int entier = (int)((0.0005 + valeur) * 1000.0);
         double result = (double)entier / 1000.0;
         //float x = m_Cvp;
-        index.addText(m_x*100-16, m_y*100+33, result,"green");
+        if(result >= 0)
+            index.addText(m_x*100-16, m_y*100+33, result,"green");
+        if(result < 0)
+            index.addText(m_x*100-16, m_y*100+33, "nan","green");
 
-        index.addLine(30, 70, 50, 70, "green");
-        index.addText(65, 75, "Indice de centralite par Vecteur Propre", "green");
+        index.addLine(30, 50, 50, 50, "green");
+        index.addText(65, 55, "Indice de centralite par Vecteur Propre", "green");
+    }
+
+    if(CP == true)
+    {
+        double valeur = m_Cp;
+        int entier = (int)((0.0005 + valeur) * 1000.0);
+        double result = (double)entier / 1000.0;
+        if(result >= 0)
+            index.addText(m_x*100-16, m_y*100+51, result,"blue");
+        if(result < 0)
+            index.addText(m_x*100-16, m_y*100+51, "inf","blue");
+
+        index.addLine(30, 70, 50, 70, "blue");
+        index.addText(65, 75, "Indice de centralite de Proximite", "blue");
     }
 
 
@@ -148,10 +169,91 @@ void Sommet::Afficher()
 {
     std::cout << m_indice << std::endl;
     std::cout << "Cvp : " << m_Cvp << std::endl;
+    std::cout << "Cp : " << m_Cp << std::endl;
     std::cout << "Successeurs : " << std::endl;
     for(size_t i=0 ; i < m_successeurs.size() ; i++)
     {
         std::cout << m_successeurs[i]->m_indice << std::endl;
     }
     std::cout << "---------" << std::endl;
+}
+
+void Sommet::Marquage()
+{
+    m_marque=true;
+}
+
+bool Sommet::RechercheSommet(int ind)
+{
+    bool resultat=false;
+    if(ind == m_indice)
+        resultat = true;
+
+    return resultat;
+}
+
+bool Sommet::Marque()
+{
+    bool resultat = false;
+    if(m_marque == true)
+        resultat = true;
+    return resultat;
+}
+
+void Sommet::Fini(int distance, Sommet* precedent)
+{
+    m_precedent = precedent;
+    m_distance = distance;
+}
+
+int Sommet::get_indice()
+{
+    return m_indice;
+}
+
+Sommet* Sommet::Get_precedent()
+{
+    return m_precedent;
+}
+
+void Sommet::Dijkstra( std::vector<double>&distances, std::vector<Sommet*>&sommetprec, std::vector<Sommet*>&sommets, double distance, std::vector<Arete>aretes, Sommet* s, bool oriente)
+{
+    double poids=0, poids2=0;
+    for(size_t i=0 ; i < m_successeurs.size() ; i++)
+        {
+            if(m_successeurs[i]->Marque() == false)
+            {
+                for(size_t j=0 ; j < aretes.size() ; j++)
+                {
+                    poids2 = aretes[j].Recherche_Poids( m_indice, m_successeurs[i]->m_indice, oriente);
+                    if(poids2 != 0)
+                        poids=poids2;
+                }
+                distances.push_back( poids + distance);
+                sommetprec.push_back(s);
+                sommets.push_back(m_successeurs[i]);
+            }
+        }
+}
+
+void Sommet::Reset_Dijkstra()
+{
+    m_marque = false;
+    m_distance = 0;
+    m_precedent = NULL;
+}
+
+void Sommet::AddCp(double Cp, int n)
+{
+    m_Cp = Cp;
+    m_Cp= m_Cp*(n-1);
+}
+
+bool Sommet::TestNombreSuccesseurs()
+{
+    bool impossible = false;
+    if(m_successeurs.size() == 0)
+        impossible = true;
+
+    return impossible;
 }

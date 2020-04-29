@@ -16,6 +16,7 @@ class Arete
         void Poids(double poids, int indice);
         void DessinerPoids(Svgfile& index, int indice1, int x1, int y1, int indice2, int x2, int y2);
         void Afficher();
+        double Recherche_Poids(double ind1, double ind2, bool oriente);
 };
 
 #endif // ARETE_H_INCLUDED

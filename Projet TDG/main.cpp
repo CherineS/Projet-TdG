@@ -11,9 +11,13 @@
 
 int main()
 {
-    Svgfile index;
     bool  CD = true;
     bool CVP = true;
+    bool  CP = true;
+
+    //int indice_sommet_arrivee = 6 ;
+    //int indice_sommet_depart = 0 ;
+
     Graph G(1, 5, 4);
     int choix;
     std::string fichier;
@@ -33,10 +37,32 @@ int main()
     G.Successeurs();
     G.Centralite_Degre();
     G.Centralite_Vecteur_Propre();
-    G.Dessiner(index, CVP, CD);
+    G.Auto_Dijkstra();
+    G.Dessiner(CVP, CD, CP);
     G.Afficher();
 
 
+    /*int continuer=1;
+    do{
+        std::cout << "Saisir Indice sommet Depart Dijkstra : ";
+        std::cin >> indice_sommet_depart;
+        std::cout << "Saisir Indice sommet Arrivee Dijkstra : ";
+        std::cin >> indice_sommet_arrivee;
+        std::cout << std::endl << std::endl;
+
+        G.Reset_Dijkstra();
+        double d=0;
+        G.Dijkstra(indice_sommet_depart);
+        G.AfficherParcoursDijkstra(indice_sommet_arrivee, d);
+
+        std::cout << std::endl << std::endl;
+        std::cout << "      Continuer ?    " << std::endl << " 0 : Non || Oui : 1 " << std::endl << "         ";
+        std::cin >> continuer;
+
+    }while(continuer != 0);*/
+    int Fini=0;
+    std::cout << "FINI  =  ";
+    std::cin >> Fini;
 
     return 0;
 }

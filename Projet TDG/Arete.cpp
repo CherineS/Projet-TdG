@@ -39,3 +39,22 @@ void Arete::Afficher()
 {
     std::cout << "indice : " << m_indice << " id1 : " << m_id1 << " id2 : " << m_id2 << " Poids : " << m_poids << std::endl;
 }
+
+double Arete::Recherche_Poids(double ind1, double ind2, bool oriente)
+{
+    double poids=0;
+    if(oriente == true)
+        if((m_id1 == ind1) && (m_id2 == ind2))
+            poids = m_poids;
+    if(oriente == false)
+    {
+        if(((m_id1 == ind1) && (m_id2 == ind2)) || ((m_id1 == ind2) && (m_id2 == ind1)))
+        {
+            poids = m_poids;
+        }
+
+    }
+
+    return poids;
+}
+
