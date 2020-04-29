@@ -52,187 +52,187 @@
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="284" y="133" fill="green" >0.226</text>
+<text x="284" y="133" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="284" y="151" fill="blue" >0.148</text>
+<text x="284" y="151" fill="blue" >0.138</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
 <line x1="300" y1="100" x2="200" y2="200" stroke="black" />
 <text x="246" y="142" fill="black" >5</text>
+<polygon points=" 203,187 213,197 200,200" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="300" y1="100" x2="400" y2="200" stroke="black" />
 <text x="346" y="142" fill="black" >3</text>
-<circle cx="200" cy="200" r="3" fill="blue" />
+<polygon points=" 387,197 397,187 400,200" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="200" cy="200" r="3" fill="green" />
 <text x="195" y="190" fill="black" >B</text>
-<text x="186" y="216" fill="yellow" >0.375</text>
-<text x="184" y="218" fill="yellow" >0.375</text>
-<text x="185" y="217" fill="black" >0.375</text>
+<text x="186" y="216" fill="yellow" >0.25</text>
+<text x="184" y="218" fill="yellow" >0.25</text>
+<text x="185" y="217" fill="black" >0.25</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="184" y="233" fill="green" >0.34</text>
+<text x="184" y="233" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="184" y="251" fill="blue" >0.222</text>
+<text x="184" y="251" fill="blue" >0.211</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="200" y1="200" x2="300" y2="100" stroke="black" />
 <line x1="200" y1="200" x2="300" y2="300" stroke="black" />
 <text x="246" y="242" fill="black" >2</text>
+<polygon points=" 287,297 297,287 300,300" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="200" y1="200" x2="100" y2="500" stroke="black" />
 <text x="146" y="342" fill="black" >1</text>
-<circle cx="400" cy="200" r="3" fill="blue" />
+<polygon points=" 96,487 110,491 100,500" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="400" cy="200" r="3" fill="green" />
 <text x="395" y="190" fill="black" >C</text>
-<text x="386" y="216" fill="yellow" >0.375</text>
-<text x="384" y="218" fill="yellow" >0.375</text>
-<text x="385" y="217" fill="black" >0.375</text>
+<text x="386" y="216" fill="yellow" >0.25</text>
+<text x="384" y="218" fill="yellow" >0.25</text>
+<text x="385" y="217" fill="black" >0.25</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="384" y="233" fill="green" >0.34</text>
+<text x="384" y="233" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
 <text x="384" y="251" fill="blue" >0.205</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="400" y1="200" x2="300" y2="100" stroke="black" />
 <line x1="400" y1="200" x2="300" y2="300" stroke="black" />
 <text x="346" y="242" fill="black" >1</text>
+<polygon points=" 303,287 313,297 300,300" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="400" y1="200" x2="500" y2="500" stroke="black" />
 <text x="446" y="342" fill="black" >2</text>
-<circle cx="300" cy="300" r="3" fill="orange" />
+<polygon points=" 490,491 504,487 500,500" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="300" cy="300" r="3" fill="green" />
 <text x="295" y="290" fill="black" >D</text>
-<text x="286" y="316" fill="yellow" >0.5</text>
-<text x="284" y="318" fill="yellow" >0.5</text>
-<text x="285" y="317" fill="black" >0.5</text>
+<text x="286" y="316" fill="yellow" >0.25</text>
+<text x="284" y="318" fill="yellow" >0.25</text>
+<text x="285" y="317" fill="black" >0.25</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="284" y="333" fill="green" >0.453</text>
+<text x="284" y="333" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="284" y="351" fill="blue" >0.222</text>
+<text x="284" y="351" fill="blue" >0.182</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="300" y1="300" x2="200" y2="200" stroke="black" />
-<line x1="300" y1="300" x2="400" y2="200" stroke="black" />
 <line x1="300" y1="300" x2="200" y2="400" stroke="black" />
 <text x="246" y="342" fill="black" >6</text>
+<polygon points=" 203,387 213,397 200,400" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="300" y1="300" x2="400" y2="400" stroke="black" />
 <text x="346" y="342" fill="black" >8</text>
-<circle cx="200" cy="400" r="3" fill="blue" />
+<polygon points=" 387,397 397,387 400,400" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="200" cy="400" r="3" fill="green" />
 <text x="195" y="390" fill="black" >E</text>
-<text x="186" y="416" fill="yellow" >0.375</text>
-<text x="184" y="418" fill="yellow" >0.375</text>
-<text x="185" y="417" fill="black" >0.375</text>
+<text x="186" y="416" fill="yellow" >0.25</text>
+<text x="184" y="418" fill="yellow" >0.25</text>
+<text x="185" y="417" fill="black" >0.25</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="184" y="433" fill="green" >0.34</text>
+<text x="184" y="433" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="184" y="451" fill="blue" >0.143</text>
+<text x="184" y="451" fill="blue" >0.444</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="200" y1="400" x2="300" y2="300" stroke="black" />
 <line x1="200" y1="400" x2="300" y2="400" stroke="black" />
 <text x="246" y="392" fill="black" >3</text>
+<polygon points=" 288,408 288,392 300,400" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="200" y1="400" x2="100" y2="500" stroke="black" />
 <text x="146" y="442" fill="black" >3</text>
-<circle cx="300" cy="400" r="3" fill="green" />
+<polygon points=" 103,487 113,497 100,500" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="300" cy="400" r="3" fill="cyan" />
 <text x="295" y="390" fill="black" >F</text>
-<text x="286" y="416" fill="yellow" >0.25</text>
-<text x="284" y="418" fill="yellow" >0.25</text>
-<text x="285" y="417" fill="black" >0.25</text>
+<text x="286" y="416" fill="yellow" >0.125</text>
+<text x="284" y="418" fill="yellow" >0.125</text>
+<text x="285" y="417" fill="black" >0.125</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="284" y="433" fill="green" >0.226</text>
+<text x="284" y="433" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="284" y="451" fill="blue" >0.167</text>
+<text x="284" y="451" fill="blue" >1.333</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="300" y1="400" x2="200" y2="400" stroke="black" />
 <line x1="300" y1="400" x2="400" y2="400" stroke="black" />
 <text x="346" y="392" fill="black" >1</text>
-<circle cx="400" cy="400" r="3" fill="blue" />
+<polygon points=" 388,408 388,392 400,400" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="400" cy="400" r="3" fill="cyan" />
 <text x="395" y="390" fill="black" >G</text>
-<text x="386" y="416" fill="yellow" >0.375</text>
-<text x="384" y="418" fill="yellow" >0.375</text>
-<text x="385" y="417" fill="black" >0.375</text>
+<text x="386" y="416" fill="yellow" >0.125</text>
+<text x="384" y="418" fill="yellow" >0.125</text>
+<text x="385" y="417" fill="black" >0.125</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="384" y="433" fill="green" >0.34</text>
+<text x="384" y="433" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="384" y="451" fill="blue" >0.17</text>
+<text x="384" y="451" fill="blue" >2</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="400" y1="400" x2="300" y2="300" stroke="black" />
-<line x1="400" y1="400" x2="300" y2="400" stroke="black" />
 <line x1="400" y1="400" x2="500" y2="500" stroke="black" />
 <text x="446" y="442" fill="black" >4</text>
-<circle cx="100" cy="500" r="3" fill="blue" />
+<polygon points=" 487,497 497,487 500,500" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="100" cy="500" r="3" fill="cyan" />
 <text x="95" y="490" fill="black" >H</text>
-<text x="86" y="516" fill="yellow" >0.375</text>
-<text x="84" y="518" fill="yellow" >0.375</text>
-<text x="85" y="517" fill="black" >0.375</text>
+<text x="86" y="516" fill="yellow" >0.125</text>
+<text x="84" y="518" fill="yellow" >0.125</text>
+<text x="85" y="517" fill="black" >0.125</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="84" y="533" fill="green" >0.34</text>
+<text x="84" y="533" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="84" y="551" fill="blue" >0.17</text>
+<text x="84" y="551" fill="blue" >1.6</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="100" y1="500" x2="200" y2="200" stroke="black" />
-<line x1="100" y1="500" x2="200" y2="400" stroke="black" />
 <line x1="100" y1="500" x2="500" y2="500" stroke="black" />
 <text x="296" y="492" fill="black" >5</text>
-<circle cx="500" cy="500" r="3" fill="blue" />
+<polygon points=" 488,508 488,492 500,500" style="fill:lightgrey;stroke:black;stroke-width:1" />
+<circle cx="500" cy="500" r="3" fill="cyan" />
 <text x="495" y="490" fill="black" >I</text>
-<text x="486" y="516" fill="yellow" >0.375</text>
-<text x="484" y="518" fill="yellow" >0.375</text>
-<text x="485" y="517" fill="black" >0.375</text>
+<text x="486" y="516" fill="yellow" >0</text>
+<text x="484" y="518" fill="yellow" >0</text>
+<text x="485" y="517" fill="black" >0</text>
 <line x1="30" y1="31" x2="50" y2="31" stroke="yellow" />
 <line x1="30" y1="29" x2="50" y2="29" stroke="yellow" />
 <line x1="30" y1="30" x2="50" y2="30" stroke="black" />
 <text x="66" y="36" fill="yellow" >Indice de centralite par Degre</text>
 <text x="64" y="34" fill="yellow" >Indice de centralite par Degre</text>
 <text x="65" y="35" fill="black" >Indice de centralite par Degre</text>
-<text x="484" y="533" fill="green" >0.34</text>
+<text x="484" y="533" fill="green" >nan</text>
 <line x1="30" y1="50" x2="50" y2="50" stroke="green" />
 <text x="65" y="55" fill="green" >Indice de centralite par Vecteur Propre</text>
-<text x="484" y="551" fill="blue" >0.211</text>
+<text x="484" y="551" fill="blue" >inf</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="blue" />
 <text x="65" y="75" fill="blue" >Indice de centralite de Proximite</text>
-<line x1="500" y1="500" x2="400" y2="200" stroke="black" />
-<line x1="500" y1="500" x2="400" y2="400" stroke="black" />
-<line x1="500" y1="500" x2="100" y2="500" stroke="black" />
   
 
 <defs>

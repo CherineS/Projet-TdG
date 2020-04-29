@@ -195,9 +195,18 @@ void Graph::Dijkstra(int s_depart)
             s->Fini(0, NULL);
         if(impossible == false)
             s=sommets[s_position];
-        s->Marquage();
-        if(impossible == false)
+        /*if(s->Marque() == false)
+            s->Marquage();*/
+        //std::cout << "MARQUAGE : " << s->get_indice() << std::endl;
+        //std::cout <<  std::endl;
+        if(impossible == false && s->Marque() == false)
+        {
             s->Fini(distances[s_position], sommetprec[s_position]);
+            std::cout << "MARQUAGE : " << s->get_indice() << std::endl;
+            std::cout <<  std::endl;
+        }
+        if(s->Marque() == false)
+            s->Marquage();
         if(impossible == false)
             distance = distances[s_position];
         if(distances.size()>0)

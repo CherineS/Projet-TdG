@@ -223,12 +223,14 @@ void Sommet::Dijkstra( std::vector<double>&distances, std::vector<Sommet*>&somme
         {
             if(m_successeurs[i]->Marque() == false)
             {
+                std::cout << "INDICE : " << m_indice << "  Indice successeur : " << m_successeurs[i]->get_indice() << std::endl;
                 for(size_t j=0 ; j < aretes.size() ; j++)
                 {
                     poids2 = aretes[j].Recherche_Poids( m_indice, m_successeurs[i]->m_indice, oriente);
                     if(poids2 != 0)
                         poids=poids2;
                 }
+                 std::cout << "                      Chemin : " << poids+distance  << std::endl;
                 distances.push_back( poids + distance);
                 sommetprec.push_back(s);
                 sommets.push_back(m_successeurs[i]);

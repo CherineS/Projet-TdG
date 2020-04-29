@@ -28,9 +28,9 @@ int main()
 
     switch(choix)
     {
-        case 1 : G.Chargement("graphe-topo.txt"); break;
-        case 2 : G.Chargement("graphe-topo2.txt"); break;
-        case 3 : G.Chargement("graphe-topo3.txt"); break;
+        case 1 : G.Chargement("graphe-topo.txt"); G.Chargement_Ponderation("graphe-topo-ponderation.txt"); break;
+        case 2 : G.Chargement("graphe-topo2.txt"); G.Chargement_Ponderation("graphe-topo2-ponderation.txt"); break;
+        case 3 : G.Chargement("graphe-topo3.txt"); G.Chargement_Ponderation("graphe-topo3-ponderation.txt"); break;
         case 4 : G.Chargement("graphe-topo4.txt"); G.Chargement_Ponderation("graphe-topo4-ponderation.txt"); break;
     }
 
