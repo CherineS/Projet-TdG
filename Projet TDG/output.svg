@@ -50,12 +50,11 @@
 <line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
 <line x1="30" y1="50" x2="50" y2="50" stroke="black" />
 <text x="65" y="55" fill="black" >Indice de centralite par degre</text>
-<text x="184" y="133" fill="green" >-2.14748e+006</text>
+<text x="184" y="133" fill="green" >0.224</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="green" />
 <text x="65" y="75" fill="green" >Indice de centralite par Vecteur Propre</text>
 <line x1="200" y1="100" x2="200" y2="200" stroke="black" />
 <text x="196" y="142" fill="black" >4.24791e-314</text>
-<polygon points=" 192,188 208,188 200,200" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <circle cx="100" cy="200" r="3" fill="green" />
 <text x="95" y="190" fill="black" >B</text>
 <text x="86" y="216" fill="yellow" >0.25</text>
@@ -65,54 +64,55 @@
 <line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
 <line x1="30" y1="50" x2="50" y2="50" stroke="black" />
 <text x="65" y="55" fill="black" >Indice de centralite par degre</text>
-<text x="84" y="233" fill="green" >-2.14748e+006</text>
+<text x="84" y="233" fill="green" >0.224</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="green" />
 <text x="65" y="75" fill="green" >Indice de centralite par Vecteur Propre</text>
 <line x1="100" y1="200" x2="200" y2="200" stroke="black" />
 <text x="146" y="192" fill="black" >4.24791e-314</text>
-<polygon points=" 188,208 188,192 200,200" style="fill:lightgrey;stroke:black;stroke-width:1" />
-<circle cx="200" cy="200" r="3" fill="orange" />
+<circle cx="200" cy="200" r="3" fill="red" />
 <text x="195" y="190" fill="black" >C</text>
-<text x="186" y="216" fill="yellow" >0.5</text>
-<text x="184" y="218" fill="yellow" >0.5</text>
-<text x="185" y="217" fill="black" >0.5</text>
+<text x="186" y="216" fill="yellow" >1</text>
+<text x="184" y="218" fill="yellow" >1</text>
+<text x="185" y="217" fill="black" >1</text>
 <line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
 <line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
 <line x1="30" y1="50" x2="50" y2="50" stroke="black" />
 <text x="65" y="55" fill="black" >Indice de centralite par degre</text>
-<text x="184" y="233" fill="green" >-2.14748e+006</text>
+<text x="184" y="233" fill="green" >0.894</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="green" />
 <text x="65" y="75" fill="green" >Indice de centralite par Vecteur Propre</text>
+<line x1="200" y1="200" x2="200" y2="100" stroke="black" />
+<line x1="200" y1="200" x2="100" y2="200" stroke="black" />
 <line x1="200" y1="200" x2="300" y2="200" stroke="black" />
 <text x="246" y="192" fill="black" >4.24791e-314</text>
-<polygon points=" 288,208 288,192 300,200" style="fill:lightgrey;stroke:black;stroke-width:1" />
 <line x1="200" y1="200" x2="200" y2="300" stroke="black" />
 <text x="196" y="242" fill="black" >6.3699e-314</text>
-<polygon points=" 192,288 208,288 200,300" style="fill:lightgrey;stroke:black;stroke-width:1" />
-<circle cx="300" cy="200" r="3" fill="cyan" />
+<circle cx="300" cy="200" r="3" fill="green" />
 <text x="295" y="190" fill="black" >D</text>
-<text x="286" y="216" fill="yellow" >0</text>
-<text x="284" y="218" fill="yellow" >0</text>
-<text x="285" y="217" fill="black" >0</text>
+<text x="286" y="216" fill="yellow" >0.25</text>
+<text x="284" y="218" fill="yellow" >0.25</text>
+<text x="285" y="217" fill="black" >0.25</text>
 <line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
 <line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
 <line x1="30" y1="50" x2="50" y2="50" stroke="black" />
 <text x="65" y="55" fill="black" >Indice de centralite par degre</text>
-<text x="284" y="233" fill="green" >-2.14748e+006</text>
+<text x="284" y="233" fill="green" >0.224</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="green" />
 <text x="65" y="75" fill="green" >Indice de centralite par Vecteur Propre</text>
-<circle cx="200" cy="300" r="3" fill="cyan" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="black" />
+<circle cx="200" cy="300" r="3" fill="green" />
 <text x="195" y="290" fill="black" >E</text>
-<text x="186" y="316" fill="yellow" >0</text>
-<text x="184" y="318" fill="yellow" >0</text>
-<text x="185" y="317" fill="black" >0</text>
+<text x="186" y="316" fill="yellow" >0.25</text>
+<text x="184" y="318" fill="yellow" >0.25</text>
+<text x="185" y="317" fill="black" >0.25</text>
 <line x1="30" y1="51" x2="50" y2="51" stroke="yellow" />
 <line x1="30" y1="49" x2="50" y2="49" stroke="yellow" />
 <line x1="30" y1="50" x2="50" y2="50" stroke="black" />
 <text x="65" y="55" fill="black" >Indice de centralite par degre</text>
-<text x="184" y="333" fill="green" >-2.14748e+006</text>
+<text x="184" y="333" fill="green" >0.224</text>
 <line x1="30" y1="70" x2="50" y2="70" stroke="green" />
 <text x="65" y="75" fill="green" >Indice de centralite par Vecteur Propre</text>
+<line x1="200" y1="300" x2="200" y2="200" stroke="black" />
   
 
 <defs>

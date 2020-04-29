@@ -39,3 +39,30 @@ void Arete::Afficher()
 {
     std::cout << "indice : " << m_indice << " id1 : " << m_id1 << " id2 : " << m_id2 << " Poids : " << m_poids << std::endl;
 }
+
+void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain)
+{
+    bool present1=0, present2=0;
+
+    for(size_t j=0;j<Queue.size();++j)
+    {
+        if(m_id1==Queue[j])   ///Si le sommet est parcouru on ne l'ajoute pas
+            present1=1;
+
+        if(m_id2==Queue[j])   ///Si le sommet est parcouru on ne l'ajoute pas
+            present2=1;
+    }
+
+    if(present1!=1 && present2==1)
+    {
+        Queue.push_back(m_id1);
+        compteur++;
+    }
+    else if(present1==1 && present2!=1)
+    {
+        Queue.push_back(m_id2);
+        compteur++;
+    }
+    else
+        prochain=m_id1;
+}

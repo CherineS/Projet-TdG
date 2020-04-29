@@ -157,43 +157,31 @@ void Graph::Centralite_Intermediarite()
 
 void Graph::Recherche_Connexite()
 {
-    int nbConnex=0, compteur=0, compteur2=0;
+    int nbConnex=0, compteur=1, compteur2=0, prochain=0;
     std::vector<int> ListeConnex;
 
-    for(size_t i=0;i<m_sommets.size();++i)
-    {
-        m_sommets[i].ResetMarquage();
-    }
+    do{
+        compteur=1;
 
-    for(int j=0;j<m_sommets.size();++j)  ///Recherche si le sommet a deja ete parcouru
-    {
-        if(m_sommets[j].getMarquage()==false)
+        ListeConnex.push_back(prochain);
+
+        for(size_t i=0;i<2;++i) ///Le refaire plusieurs fois pour être sûr..
         {
-            compteur2+=compteur;
-            compteur=0;
-
-            ListeConnex.push_back(j);
-            m_sommets[j].setMarquage(true);
-
-            //std::cout << "pushed back " << ListeConnex[compteur];
-
-            do
+            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si le sommet a deja ete parcouru
             {
-                ///push back des indices des successeurs directs non presents dans ListeConnex
-                m_sommets[j].BFSrecursif(ListeConnex, compteur);
-                ++compteur;
-                //std::cout << "\ncompteur " << compteur;
-            }while(compteur<ListeConnex.size());
-
-            //std::cout << "\ncompteur2 " << compteur2;
-
-            nbConnex++;
-
-            ///Affichage
-            std::cout << std::endl << "Composante connexe " << nbConnex << " : ";
-            for(size_t i=compteur2;i<ListeConnex.size();++i)
-                std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
-            std::cout << std::endl;
+                m_aretes[j].ParcoursConnex(ListeConnex,compteur,prochain);
+            }
         }
-    }
+
+        nbConnex++;
+
+        ///Affichage
+        std::cout << std::endl << "Composante connexe " << nbConnex << " : ";
+        for(size_t i=compteur2;i<ListeConnex.size();++i)
+            std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+        std::cout << std::endl;
+
+        compteur2+=compteur;
+    }while(compteur2<m_ordre);
+
 }
