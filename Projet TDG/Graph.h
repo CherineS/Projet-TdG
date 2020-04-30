@@ -31,6 +31,9 @@ class Graph
         Sommet* RechercheSommet(int num);
 
         void Auto_Dijkstra();
+
+        void AfficherPcc();
+        void Test(Sommet* s_depart);
 };
 
 #endif // GRAPH_H_INCLUDED

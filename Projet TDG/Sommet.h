@@ -14,10 +14,12 @@ class Sommet
         double m_Cd;
         double m_Cvp;
         double m_Cp;
+        double m_Ci;
 
         bool m_marque;
         double m_distance;
         Sommet* m_precedent;
+        std::vector<Sommet*> m_PccPrecedents;
 
         std::vector<Sommet*> m_successeurs;
 
@@ -43,6 +45,13 @@ class Sommet
         bool TestNombreSuccesseurs();
 
         void AddCp(double Cp, int n);
+
+        void AddPccPrecedent(Sommet* s);
+        void AfficherPcc();
+        void CalculPccPrec(Sommet* s_depart, std::vector<Arete>aretes, bool oriente);
+        void TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double distance, std::vector<Arete>aretes, bool oriente, double poids, Sommet* arrive, Sommet* prec);
+        double RechercheAretePoids(std::vector<Arete> aretes, int ind1, int ind2, bool oriente);
+        bool TestListe(std::vector<int> liste);
 
 };
 

@@ -39,7 +39,9 @@ int main()
     G.Centralite_Vecteur_Propre();
     G.Auto_Dijkstra();
     G.Dessiner(CVP, CD, CP);
-    G.Afficher();
+    //G.Afficher();
+
+    G.AfficherPcc();
 
 
     /*int continuer=1;

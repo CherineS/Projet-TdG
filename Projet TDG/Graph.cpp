@@ -180,6 +180,10 @@ void Graph::Dijkstra(int s_depart)
 
     for(int i=0 ; i < m_ordre ; i++)
     {
+        /// ///////
+        //std::cout << "///////////" << std::endl;
+        //std::cout << "  Etape : " << i+1 << std::endl;
+        /// ///////
         s->Dijkstra(distances, sommetprec, sommets, distance, m_aretes, s, m_oriente);
         int minn=10000000;
         int s_position=0;
@@ -191,6 +195,22 @@ void Graph::Dijkstra(int s_depart)
                 s_position=k;
             }
         }
+        /// ///////////
+       /* for(size_t l=0 ; l < sommetprec.size() ; l++)
+        {
+            std::cout << "Ind sommet_prec : " << sommetprec[l]->get_indice() << std::endl;
+        }
+        for(size_t l=0 ; l < sommets.size() ; l++)
+        {
+            std::cout << "Ind sommets : " << sommets[l]->get_indice() << std::endl;
+        }
+        for(size_t l=0 ; l < distances.size() ; l++)
+        {
+            std::cout << "Ind distances : " << distances[l] << std::endl;
+        }
+        /// //////////*/
+
+
         if(impossible == true)
             s->Fini(0, NULL);
         if(impossible == false)
@@ -202,9 +222,38 @@ void Graph::Dijkstra(int s_depart)
         if(impossible == false && s->Marque() == false)
         {
             s->Fini(distances[s_position], sommetprec[s_position]);
-            std::cout << "MARQUAGE : " << s->get_indice() << std::endl;
-            std::cout <<  std::endl;
+          //  std::cout << "MARQUAGE : " << s->get_indice() << std::endl;
+          //  std::cout <<  std::endl;
         }
+
+
+        // //////////////
+        for(size_t l=0 ; l < distances.size() ; l++)
+        {
+            for(size_t m=0 ; m < distances.size() ; m++)
+            {
+                if(m!=l)
+                    if(distances[l] == distances[m])
+                    {
+                        if(sommets[m]->get_indice() == sommets[l]->get_indice())
+                        {
+                           /* std::cout << "DOUBLE PCC : distances : " << distances[l] << " | Indice : " << sommets[m]->get_indice() << std::endl;
+                            std::cout << "(" << sommetprec[m]->get_indice() << "," << sommets[m]->get_indice() << ")" << std::endl;
+                            std::cout << "(" << sommetprec[l]->get_indice() << "," << sommets[l]->get_indice() << ")" << std::endl;
+                            *//*do{
+                                prec = sommetprec[m-1];
+                                prec2 = sommetprec[l-1];
+                            }while( prec->get_indice() != prec2->get_indice() );*/
+                            sommets[m]->AddPccPrecedent(sommetprec[m]);
+                            sommets[l]->AddPccPrecedent(sommetprec[l]);
+
+                        }
+                    }
+            }
+        }
+        // //////////////
+
+
         if(s->Marque() == false)
             s->Marquage();
         if(impossible == false)
@@ -307,7 +356,34 @@ void Graph::Auto_Dijkstra()
         Cp=1/Cp;
         m_sommets[i].AddCp(Cp, m_ordre);
         Cp=0;
+
+        /// ////
+        Test(&m_sommets[i]);
+        /// ////
+
     }
-    std::cout << "Distance TOTAL = " << sommeTotale << std::endl;
+    //std::cout << "Distance TOTAL = " << sommeTotale << std::endl;
 }
+
+
+void Graph::Test(Sommet* s_depart)
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        m_sommets[i].CalculPccPrec(s_depart, m_aretes, m_oriente);
+    }
+    std::cout << std::endl;
+}
+
+
+
+void Graph::AfficherPcc()
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        //m_sommets[i].AfficherPcc();
+    }
+}
+
+
 
