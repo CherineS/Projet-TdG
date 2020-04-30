@@ -25,6 +25,7 @@ class Graph
         void Centralite_Vecteur_Propre();
         void Centralite_Intermediarite();
         void Recherche_Connexite();
+        void SupprimerArete();
 };
 
 #endif // GRAPH_H_INCLUDED

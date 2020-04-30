@@ -185,3 +185,14 @@ void Graph::Recherche_Connexite()
     }while(compteur2<m_ordre);
 
 }
+
+void Graph::SupprimerArete()
+{
+    int choix=-1;
+    std::cout << "\nSupprimer :\n1. Une certaine arete (saisir son indice)\n2. Une arete au hasard\n\nChoix : ";
+
+    while(choix<0 || choix >m_aretes.size())
+        std::cin >> choix;
+
+
+}
