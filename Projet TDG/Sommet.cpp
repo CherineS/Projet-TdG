@@ -42,6 +42,14 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
     }
 }
 
+double Arrondir(double valeur)
+{
+    int entier = (int)((0.0005 + valeur) * 1000.0);
+    double result = (double)entier / 1000.0;
+
+    return result;
+}
+
 
 void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI)
 {
@@ -79,14 +87,9 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CVP == true)
     {
-        ///Arrondie de virgule
-        double valeur = m_Cvp;
-        int entier = (int)((0.0005 + valeur) * 1000.0);
-        double result = (double)entier / 1000.0;
-        //float x = m_Cvp;
-        if(result >= 0)
-            index.addText(m_x*100-16, m_y*100+33, result,"green");
-        if(result < 0)
+        if(m_Cvp >= 0)
+            index.addText(m_x*100-16, m_y*100+33, Arrondir(m_Cvp),"green");
+        if(m_Cvp < 0)
             index.addText(m_x*100-16, m_y*100+33, "nan","green");
 
         index.addLine(30, 50, 50, 50, "green");
@@ -95,12 +98,9 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CP == true)
     {
-        double valeur = m_Cp;
-        int entier = (int)((0.0005 + valeur) * 1000.0);
-        double result = (double)entier / 1000.0;
-        if(result >= 0)
-            index.addText(m_x*100-16, m_y*100+51, result,"blue");
-        if(result < 0)
+        if(m_Cp >= 0)
+            index.addText(m_x*100-16, m_y*100+51, Arrondir(m_Cp),"blue");
+        if(m_Cp < 0)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
         index.addLine(30+300+235, 30, 50+300+235, 30, "blue");
@@ -109,13 +109,9 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CI == true)
     {
-        double valeur = m_Ci;
-        int entier = (int)((0.0005 + valeur) * 1000.0);
-        double result = (double)entier / 1000.0;
-
-        if(result >= 0)
-            index.addText(m_x*100-16, m_y*100+69, result,"red");
-        if(result < 0)
+        if(m_Ci >= 0)
+            index.addText(m_x*100-16, m_y*100+69, Arrondir(m_Ci),"red");
+        if(m_Ci < 0)
             index.addText(m_x*100-16, m_y*100+69, "inf","red");
 
         index.addLine(30+300+235, 50, 50+300+235, 50, "red");

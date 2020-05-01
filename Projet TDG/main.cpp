@@ -7,7 +7,13 @@
 #include "Sommet.h"
 #include "Graph.h"
 
-
+void Update_Univers(std::vector<Graph>&Univers)
+{
+    if(Univers.size() > 0)
+        Univers.pop_back();
+    Graph G(1, 5, 4);
+    Univers.push_back(G);
+}
 
 int main()
 {
@@ -16,27 +22,62 @@ int main()
 
     //int indice_sommet_arrivee = 6 ;
     //int indice_sommet_depart = 0 ;
-
+    std::vector<Graph>Univers;
     Graph G(1, 5, 4);
-    int choix;
+    int choix_m=0;
     std::string fichier;
 
-    std::cout << "--------------- MENU ---------------" << std::endl << "Saisir numero du fichier : ";
-    while(choix >4 || choix <1)
+    do{
+   std::cout <<  "--------------- MENU ---------------" << std::endl
+              << "            0 : Arreter             " << std::endl
+              << "       1 : Charger un Graphe        " << std::endl
+              << " 2 : Charger systeme de ponderation " << std::endl
+              << " 3 : Calculer indices de centralite " << std::endl
+              << "     4 : Tester la vulnerabilite    " << std::endl
+              << "             Choix : " ;
+    do{
+    std::cin >> choix_m;
+    }
+    while (choix_m != 0 && choix_m != 1 && choix_m != 2 && choix_m != 3 && choix_m != 4);
+
+    switch(choix_m)
+    {
+    case 1 :
+        {
+        Update_Univers(Univers);
+        Univers[0].Menu1(fichier);
+        }
+        break;
+    case 2 :
+        break;
+    case 3 :
+        break;
+    case 4 :
+        break;
+    }
+    }while(choix_m != 0);
+
+
+
+
+
+   /* std::cout << "--------------- MENU ---------------" << std::endl << "Saisir numero du fichier : ";
+    do{
         std::cin >> choix;
+    }while(choix >4 || choix <1);
 
     switch(choix)
     {
-        case 1 : G.Chargement("graphe-topo.txt"); G.Chargement_Ponderation("graphe-topo-ponderation.txt"); break;
+        case 1 : G.Chargement("graphe-topo.txt");  G.Chargement_Ponderation("graphe-topo-ponderation.txt"); break;
         case 2 : G.Chargement("graphe-topo2.txt"); G.Chargement_Ponderation("graphe-topo2-ponderation.txt"); break;
         case 3 : G.Chargement("graphe-topo3.txt"); G.Chargement_Ponderation("graphe-topo3-ponderation.txt"); break;
         case 4 : G.Chargement("graphe-topo4.txt"); G.Chargement_Ponderation("graphe-topo4-ponderation.txt"); break;
-    }
+    }*/
 
-    G.Successeurs();
+    /*G.Successeurs();
     G.Centralite_Degre();
     G.Centralite_Vecteur_Propre();
-    G.Auto_Dijkstra();
+    G.Auto_Dijkstra();*/
     G.Normaliser( Norm_CD, true, Norm_CP, Norm_CI);
     G.Dessiner(CVP, CD, CP, CI);
     //G.Afficher();

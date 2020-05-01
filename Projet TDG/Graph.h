@@ -37,6 +37,12 @@ class Graph
         void CalculPcci(Sommet* s_arrive);
 
         void Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci);
+
+        void Calcul();
+        void Memoire(std::string& fichier, int& num);
+        void Memoire_Ponderation(std::string& fichier, int num);
+        void Menu1(std::string& fichier);
+
 };
 
 #endif // GRAPH_H_INCLUDED

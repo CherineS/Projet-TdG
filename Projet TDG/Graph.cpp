@@ -405,3 +405,91 @@ void Graph::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci)
         m_sommets[i].Normaliser( Norm_Cd, Norm_Cvp, Norm_Cp, Norm_Ci, m_ordre);
     }
 }
+
+void Graph::Memoire(std::string& fichier, int& num)
+{
+    if(fichier == "1")
+    {
+        num = 1;
+        fichier = "graphe-topo.txt";
+    }
+    if(fichier == "2")
+    {
+        num = 2;
+        fichier = "graphe-topo2.txt";
+    }
+    if(fichier == "3")
+    {
+        num = 3;
+        fichier = "graphe-topo3.txt";
+    }
+    if(fichier == "4")
+    {
+        num = 4;
+        fichier = "graphe-topo4.txt";
+    }
+}
+
+void Graph::Memoire_Ponderation(std::string& fichier, int num)
+{
+    if(num == 1)
+        fichier = "graphe-topo-ponderation.txt";
+
+    if(num == 2)
+        fichier = "graphe-topo2-ponderation.txt";
+
+    if(num == 3)
+        fichier = "graphe-topo3-ponderation.txt";
+
+    if(num == 4)
+        fichier = "graphe-topo4-ponderation.txt";
+}
+
+void Graph::Menu1(std::string& fichier)
+{
+    int num=0;
+    std::cout << "Saisir le nom du fichier : ";
+    std::cin >> fichier;
+    Memoire(fichier, num);
+    Chargement(fichier);
+
+    std::cout << "Charger ponderation ?" << std::endl
+              << " NON : 0  |  1 : OUI " << std::endl;
+    int choix=0;
+    do{
+    std::cin >> choix;
+    }while(choix != 0 && choix != 1);
+
+    if(num == 0)
+        if(choix == 1)
+        {
+            std::cout << "Saisir le nom du fichier : ";
+            std::cin >> fichier;
+            Chargement_Ponderation(fichier);
+        }
+
+    if(num != 0)
+        if( choix == 1)
+        {
+            Memoire_Ponderation(fichier, num);
+            Chargement_Ponderation(fichier);
+        }
+
+    if(choix == 0)
+    {
+            for(size_t j=0 ; j < m_aretes.size() ; j++)
+            {
+                m_aretes[j].Poids( 1, j);
+            }
+    }
+    Calcul();
+    Dessiner(true, true, true, true);
+}
+
+void Graph::Calcul()
+{
+    Successeurs();
+    Centralite_Degre();
+    Centralite_Vecteur_Propre();
+    Auto_Dijkstra();
+}
