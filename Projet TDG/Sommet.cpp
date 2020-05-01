@@ -14,6 +14,7 @@ Sommet::Sommet(int indice, char nom, int x, int y)
     m_y = y;
     m_Cvp=1;
     m_Cp=0;
+    m_Ci=0;
     m_precedent=NULL;
 }
 
@@ -42,7 +43,7 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI)
 {
     std::string couleur;
     if( m_Cd < 0.25)
@@ -102,8 +103,19 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         if(result < 0)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
-        index.addLine(30, 70, 50, 70, "blue");
-        index.addText(65, 75, "Indice de centralite de Proximite", "blue");
+        index.addLine(30+300+235, 30, 50+300+235, 30, "blue");
+        index.addText(65+300-40, 35, "Indice de centralite de Proximite", "blue");
+    }
+
+    if(CI == true)
+    {
+        if(m_Ci >= 0)
+            index.addText(m_x*100-16, m_y*100+69, m_Ci,"red");
+        if(m_Ci < 0)
+            index.addText(m_x*100-16, m_y*100+69, "inf","red");
+
+        index.addLine(30+300+235, 50, 50+300+235, 50, "red");
+        index.addText(65+300-40, 55, "Indice de centralite d'Intermediarite", "red");
     }
 
 
@@ -252,6 +264,12 @@ void Sommet::Reset_Dijkstra()
     m_marque = false;
     m_distance = 0;
     m_precedent = NULL;
+    m_PccPrecedents.clear();
+    for(size_t i=0 ; i < m_Pcc.size() ; i++)
+    {
+        m_Pcc[i].clear();
+    }
+    m_Pcc.clear();
 }
 
 void Sommet::AddCp(double Cp, int n)
@@ -281,107 +299,94 @@ void Sommet::AddPccPrecedent(Sommet* s)
         m_PccPrecedents.push_back(s);
 }
 
-void Sommet::AfficherPcc()
+void Sommet::ClearListe2(std::vector<int>& liste2, double poids, Sommet* s_depart, Sommet* s_arrive, bool oriente, std::vector<Arete> aretes, double poidsprec)
 {
-    std::cout << "Indice : " << m_nom << " PccPrecedent : " << std::endl;
-    for(size_t i=0 ; i < m_PccPrecedents.size() ; i++)
+    if(poids == 0 )
     {
-        std::cout << "Indice : " << m_PccPrecedents[i]->m_nom << std::endl;
+        poidsprec = 0;
+        liste2.clear();
     }
-    std::cout << std::endl;
+
+    double manquant = 0;
+    if(liste2.size() > 0 )
+        manquant = RechercheAretePoids(aretes, s_depart->m_indice, liste2[liste2.size()-1], oriente);
+    poidsprec += manquant;
+
+    if(liste2.size() >= 1)
+    {
+        poidsprec -= RechercheAretePoids(aretes, s_depart->m_indice, liste2[liste2.size()-1], oriente);
+    }
+    while(poidsprec != poids)
+    {
+        if(liste2.size() == 1)
+        {
+            poidsprec -= RechercheAretePoids(aretes, liste2[liste2.size()-1], s_arrive->m_indice, oriente);
+            liste2.pop_back();
+        }
+        if(liste2.size() >= 2)
+        {
+            poidsprec -= RechercheAretePoids(aretes, liste2[liste2.size()-1], liste2[liste2.size()-2], oriente);
+            liste2.pop_back();
+        }
+    }
 }
-/*
-void Sommet::TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double distance, std::vector<Arete>aretes, bool oriente, double& poids)
-{
 
 
-    //std::cout << "IND : " << m_nom << std::endl;
-    /// //
-    AfficherPcc();
-    /// //
-    bool stop = false;
-    for(size_t j=0 ; j < liste.size() ; j++)
-    {
-        if((liste[j] == m_indice))
-            stop = true;
-    }
 
-    if(stop == false)
-    {
-    liste.push_back(m_indice);
-
-
-    if(m_PccPrecedents.size() > 0)
-        n   +=  m_PccPrecedents.size()-1;
-    for(size_t i=0 ; i < m_PccPrecedents.size() ; i++)
-    {
-        /// ////
-        if(liste.size() > 0)
-            if((liste[0] == m_PccPrecedents[i]->m_indice))
-                stop = true;
-        double poids3=0;
-        if((stop == false) && (m_indice != s_depart->m_indice))
-        {
-            poids3 = RechercheAretePoids(aretes, m_indice, m_PccPrecedents[i]->m_indice, oriente);
-            poids+=poids3;
-        }
-        std::cout << m_nom << " -> " << m_PccPrecedents[i]->m_nom << std::endl;
-        std::cout << "Poids " << poids << " = " << poids-poids3 << " + " << poids3 << std::endl << std::endl;
-        /// ////
-        stop=false;
-
-
-        if(m_indice != s_depart->m_indice)
-            m_PccPrecedents[i]->TestRec(s_depart, n, liste, distance, aretes, oriente, poids);
-
-    }
-    /// ////
-    if((m_indice != s_depart->m_indice) && (m_PccPrecedents.size() == 0))
-    {
-        double poids3=0;
-        if(m_precedent!=NULL)
-        {
-            poids3 = RechercheAretePoids(aretes, m_indice, m_precedent->m_indice, oriente);
-            poids+=poids3;
-        }
-        std::cout << m_nom << " -> " << m_precedent->m_nom << std::endl;
-        std::cout << "Poids " << poids << " = " << poids-poids3 << " + " << poids3 << std::endl << std::endl;
-    }
-    /// ////
-
-
-    if((m_indice != s_depart->m_indice) && (m_PccPrecedents.size() == 0))
-        m_precedent->TestRec(s_depart, n, liste, distance, aretes, oriente, poids);
-
-
-    if(m_indice == s_depart->m_indice && n==0)
-        n=1;
-    }
-}*/
-
-
-void Sommet::TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double distance, std::vector<Arete>aretes, bool oriente, double poids, Sommet* arrive, Sommet* prec)
+void Sommet::TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double distance, std::vector<Arete>aretes, bool oriente, double poids, Sommet* arrive, Sommet* prec, double& poidsprec, std::vector<int>& liste2, bool& test)
 {
     if(poids <= arrive->m_distance)
     {
-        poids += RechercheAretePoids(aretes, prec->m_indice, m_indice, oriente);
+
+        if(poids <= poidsprec)
+        {
+            if(test == true)
+            {
+                ClearListe2(liste2, poids, s_depart, arrive, oriente, aretes, poidsprec);
+            }
+            else{
+                ClearListe2(liste2, poids, s_depart, arrive, oriente, aretes, poidsprec);
+            }
+            test=false;
+        }
+
+        poidsprec = poids;
+
+        ///poids += RechercheAretePoids(aretes, prec->m_indice, m_indice, oriente);
+        poids += RechercheAretePoids(aretes, m_indice, prec->m_indice, oriente);
         if( m_indice != s_depart->m_indice )
+        {
             liste.push_back(m_indice);
+
+            if(m_indice != arrive->m_indice)
+                liste2.push_back(m_indice);
+
+        }
 
         for(size_t i=0 ; i < m_PccPrecedents.size() ; i++)
         {
-            m_PccPrecedents[i]->TestRec( s_depart, n, liste, distance, aretes, oriente, poids, arrive, this);
+            m_PccPrecedents[i]->TestRec( s_depart, n, liste, distance, aretes, oriente, poids, arrive, this, poidsprec, liste2, test);
         }
 
         if((m_PccPrecedents.size() == 0) && ((m_indice != s_depart->m_indice)))
         {
-            m_precedent->TestRec( s_depart, n, liste, distance, aretes, oriente, poids, arrive, this);
+            m_precedent->TestRec( s_depart, n, liste, distance, aretes, oriente, poids, arrive, this, poidsprec, liste2, test);
         }
-        //std::cout << "POIDS = " << poids << " = " << poids-RechercheAretePoids(aretes, prec->m_indice, m_indice, oriente) << " + " << RechercheAretePoids(aretes, prec->m_indice, m_indice, oriente) << std::endl;
-        //std::cout << prec->m_nom << " -> " << m_nom << std::endl;
 
         if(m_indice == s_depart->m_indice)
             n+=1;
+
+        /// ////
+        if(poids == arrive->m_distance && m_indice == s_depart->m_indice)
+        {
+            ///AfficherListe(liste2); /// OMG CA MARCHE
+            arrive->AjouterPcc(liste2, n);
+        }
+        /// ////
+
+    }
+    else{
+        test = true;
     }
 }
 
@@ -389,36 +394,14 @@ void Sommet::TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double d
 void Sommet::CalculPccPrec(Sommet* s_depart, std::vector<Arete>aretes, bool oriente)
 {
     int n=0;
-    std::vector<int> liste;
-
-    ///std::cout << "SOMMET : " << m_nom << std::endl;
-    ///std::cout << "Distance : " << m_distance << std::endl;
-
+    std::vector<int> liste, liste2;
     double p=0;
+    bool test=false;
 
-    TestRec(s_depart, n, liste, m_distance, aretes, oriente, p, this, this);
+    if(m_distance > 0)
+        TestRec(s_depart, n, liste, m_distance, aretes, oriente, p, this, this, p, liste2, test);
 
-   /* for(size_t i=0 ; i < liste.size() ; i++)
-    {
-        std::cout << " Sommet " << i << " : ";
-        switch(liste[i]){
-            case 0 : std::cout << "A"; break;
-            case 1 : std::cout << "B"; break;
-            case 2 : std::cout << "C"; break;
-            case 3 : std::cout << "D"; break;
-            case 4 : std::cout << "E"; break;
-            case 5 : std::cout << "F"; break;
-            case 6 : std::cout << "G"; break;
-            case 7 : std::cout << "H"; break;
-            case 8 : std::cout << "I"; break;}
-            std::cout << std::endl;
-    }
-
-    std::cout << " Poid Total : " << p << std::endl;*/
-
-
-    std::cout << "Il y a " << n << " plus courts chemins entre " << s_depart->m_nom << " et " << m_nom << std::endl;
-
+    ///std::cout << "Il y a " << n << " plus courts chemins entre " << s_depart->m_nom << " et " << m_nom << std::endl;
 }
 
 double Sommet::RechercheAretePoids(std::vector<Arete> aretes, int ind1, int ind2, bool oriente)
@@ -444,5 +427,68 @@ bool Sommet::TestListe(std::vector<int> liste)
             stop = true;
     }
     return stop;
+}
+
+void Sommet::AjouterPcc(std::vector<int> liste, int n)
+{
+    //AfficherListe(liste);
+    m_Pcc.push_back(liste);
+}
+
+void AfficherListe(std::vector<int> liste2)
+{
+    for(size_t i=0 ; i < liste2.size() ; i++)
+    {
+        std::cout << "Parcours : ";
+        switch(liste2[i]){
+            case 0 : std::cout << "A"; break;
+            case 1 : std::cout << "B"; break;
+            case 2 : std::cout << "C"; break;
+            case 3 : std::cout << "D"; break;
+            case 4 : std::cout << "E"; break;
+            case 5 : std::cout << "F"; break;
+            case 6 : std::cout << "G"; break;
+            case 7 : std::cout << "H"; break;
+            case 8 : std::cout << "I"; break;}
+        std::cout << std::endl;
+    }
+    //if(liste2.size() > 0)
+    //std::cout << "STOP" << std::endl;
+}
+
+void Sommet::AfficherPcc(Sommet* s_depart)
+{
+    std::cout << "Il y a " << m_Pcc.size() << " plus court(s) chemin(s) entre " << s_depart->m_nom << " et " << m_nom <<std::endl;
+    if(m_Pcc.size() > 0)
+        std::cout << "Passant(s) par : " << std::endl;
+    for(size_t i=0 ; i < m_Pcc.size() ; i++)
+    {
+        std::cout << "Chemin " << i+1 << " : " <<std::endl;
+        AfficherListe(m_Pcc[i]);
+    }
+    std::cout << "--------------------------------------------------" << std::endl;
+}
+
+void Sommet::CalculPcci(Sommet* si, Sommet* s_depart)
+{
+    double pcci = 0;
+    for(size_t i=0 ; i < m_Pcc.size() ; i++)
+    {
+        for(size_t j=0 ; j < m_Pcc[i].size() ; j++)
+        {
+            if(s_depart->m_indice < m_indice)
+                if(si->m_indice == m_Pcc[i][j])
+                    pcci += 1;
+        }
+    }
+    if(m_Pcc.size()>0)
+        pcci = pcci / m_Pcc.size();
+    si->m_Ci += pcci;
+    std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
+}
+
+void Sommet::NormaliserCI(int n)
+{
+    m_Ci = m_Ci / ((n*n) - (3*n) + 2) ;
 }
 

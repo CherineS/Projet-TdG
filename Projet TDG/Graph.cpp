@@ -50,13 +50,13 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool CVP , bool CD, bool CP)
+void Graph::Dessiner(bool CVP , bool CD, bool CP, bool CI)
 {
     Svgfile index;
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI);
         }
 }
 
@@ -347,22 +347,21 @@ void Graph::Auto_Dijkstra()
             distance=0;
             AfficherParcoursDijkstra(m_sommets[j].get_indice(), distance);
 
-            //std::cout << "Distance = " << distance << std::endl;
             m_distances[i][j]=distance;
             sommeTotale+=distance;
             Cp+=distance;
         }
-        std::cout << std::endl;
         Cp=1/Cp;
         m_sommets[i].AddCp(Cp, m_ordre);
         Cp=0;
 
         /// ////
         Test(&m_sommets[i]);
+
+        AfficherPcc(&m_sommets[i]);
         /// ////
 
     }
-    //std::cout << "Distance TOTAL = " << sommeTotale << std::endl;
 }
 
 
@@ -371,19 +370,40 @@ void Graph::Test(Sommet* s_depart)
     for(size_t i=0 ; i < m_sommets.size() ; i++)
     {
         m_sommets[i].CalculPccPrec(s_depart, m_aretes, m_oriente);
+        /// ////
+        for(size_t k=0 ; k < m_sommets.size() ; k++)
+        {
+            m_sommets[i].CalculPcci( &m_sommets[k], s_depart);
+        }
+        /// ////
     }
-    std::cout << std::endl;
 }
 
 
 
-void Graph::AfficherPcc()
+void Graph::AfficherPcc(Sommet* s_depart)
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++)
     {
-        //m_sommets[i].AfficherPcc();
+        m_sommets[i].AfficherPcc(s_depart);
+        std::cout << "--------------------------------------------------" << std::endl;
     }
 }
 
+void Graph::CalculPcci(Sommet* s_arrive)
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        //CalculPcci( m_sommets[i], s_arrive);
+    }
+}
+
+void Graph::NormaliserCI()
+{
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        m_sommets[i].NormaliserCI(m_ordre);
+    }
+}
 
 

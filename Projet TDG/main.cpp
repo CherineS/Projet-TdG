@@ -14,6 +14,7 @@ int main()
     bool  CD = true;
     bool CVP = true;
     bool  CP = true;
+    bool  CI = true;
 
     //int indice_sommet_arrivee = 6 ;
     //int indice_sommet_depart = 0 ;
@@ -38,10 +39,11 @@ int main()
     G.Centralite_Degre();
     G.Centralite_Vecteur_Propre();
     G.Auto_Dijkstra();
-    G.Dessiner(CVP, CD, CP);
+    G.NormaliserCI();
+    G.Dessiner(CVP, CD, CP, CI);
     //G.Afficher();
 
-    G.AfficherPcc();
+    //G.AfficherPcc();
 
 
     /*int continuer=1;

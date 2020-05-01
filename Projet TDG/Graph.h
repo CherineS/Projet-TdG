@@ -17,7 +17,7 @@ class Graph
         void AddOriente_Ordre_Taille(bool oriente, int ordre, int taille);
         void AddSommet(int indice, char nom, int x, int y);
         void AddArete(int indice, int id1, int id2);
-        void Dessiner(bool CVP, bool CD, bool CP);
+        void Dessiner(bool CVP, bool CD, bool CP, bool CI);
         void Successeurs();
         void Afficher();
         void Chargement(std::string nomF);
@@ -32,8 +32,10 @@ class Graph
 
         void Auto_Dijkstra();
 
-        void AfficherPcc();
+        void AfficherPcc(Sommet* s_depart);
         void Test(Sommet* s_depart);
+        void CalculPcci(Sommet* s_arrive);
+        void NormaliserCI();
 };
 
 #endif // GRAPH_H_INCLUDED
