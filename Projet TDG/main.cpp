@@ -11,10 +11,8 @@
 
 int main()
 {
-    bool  CD = true;
-    bool CVP = true;
-    bool  CP = true;
-    bool  CI = true;
+    bool  CD = true , CVP = true , CP = true , CI = true;
+    bool Norm_CD = true , Norm_CP = true , Norm_CI = true ;
 
     //int indice_sommet_arrivee = 6 ;
     //int indice_sommet_depart = 0 ;
@@ -39,7 +37,7 @@ int main()
     G.Centralite_Degre();
     G.Centralite_Vecteur_Propre();
     G.Auto_Dijkstra();
-    G.NormaliserCI();
+    G.Normaliser( Norm_CD, true, Norm_CP, Norm_CI);
     G.Dessiner(CVP, CD, CP, CI);
     //G.Afficher();
 

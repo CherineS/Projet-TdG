@@ -35,7 +35,8 @@ class Graph
         void AfficherPcc(Sommet* s_depart);
         void Test(Sommet* s_depart);
         void CalculPcci(Sommet* s_arrive);
-        void NormaliserCI();
+
+        void Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci);
 };
 
 #endif // GRAPH_H_INCLUDED

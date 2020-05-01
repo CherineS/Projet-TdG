@@ -146,7 +146,6 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 void Sommet::Centralite_Degre(int n)
 {
     double ordre = m_successeurs.size();
-    ordre = ordre / (n-1) ;
     m_Cd = ordre;
 }
 
@@ -275,7 +274,6 @@ void Sommet::Reset_Dijkstra()
 void Sommet::AddCp(double Cp, int n)
 {
     m_Cp = Cp;
-    m_Cp= m_Cp*(n-1);
 }
 
 bool Sommet::TestNombreSuccesseurs()
@@ -487,8 +485,23 @@ void Sommet::CalculPcci(Sommet* si, Sommet* s_depart)
     std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
 }
 
-void Sommet::NormaliserCI(int n)
+void Sommet::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci, int n)
 {
-    m_Ci = m_Ci / ((n*n) - (3*n) + 2) ;
+    if(Norm_Cd == true)
+    {
+        m_Cd = m_Cd / (n-1) ;
+    }
+    if(Norm_Cvp == true)
+    {
+
+    }
+    if(Norm_Cp == true)
+    {
+        m_Cp = m_Cp*(n-1) ;
+    }
+    if(Norm_Ci == true)
+    {
+        m_Ci = m_Ci / ((n*n) - (3*n) + 2) ;
+    }
 }
 

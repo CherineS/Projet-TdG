@@ -398,12 +398,10 @@ void Graph::CalculPcci(Sommet* s_arrive)
     }
 }
 
-void Graph::NormaliserCI()
+void Graph::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci)
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++)
     {
-        m_sommets[i].NormaliserCI(m_ordre);
+        m_sommets[i].Normaliser( Norm_Cd, Norm_Cvp, Norm_Cp, Norm_Ci, m_ordre);
     }
 }
-
-
