@@ -11,9 +11,12 @@ class Sommet
         char m_nom;
         int m_indice;
         int m_x, m_y;
+        double m_N_Cd;
         double m_Cd;
         double m_Cvp;
+        double m_N_Cp;
         double m_Cp;
+        double m_N_Ci;
         double m_Ci;
 
         bool m_marque;
@@ -26,7 +29,7 @@ class Sommet
 
     public :
         Sommet(int indice, char nom, int x, int y);
-        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI);
+        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool N_CD, bool N_CP, bool N_CI);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
@@ -58,7 +61,8 @@ class Sommet
         void AjouterPcc(std::vector<int> liste, int n);
         void AfficherPcc(Sommet* s_depart);
         void CalculPcci(Sommet* si, Sommet* s_arrive, bool oriente);
-        void Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci, int n);
+        void Normaliser(int n);
+        void AfficherTout();
 };
 
 

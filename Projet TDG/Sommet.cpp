@@ -12,9 +12,13 @@ Sommet::Sommet(int indice, char nom, int x, int y)
     m_marque = false;
     m_x = x;
     m_y = y;
+    m_Cd=0;
+    m_N_Cd=0;
     m_Cvp=1;
     m_Cp=0;
+    m_N_Cp=0;
     m_Ci=0;
+    m_N_Ci=0;
     m_precedent=NULL;
 }
 
@@ -51,18 +55,25 @@ double Arrondir(double valeur)
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool N_CD, bool N_CP, bool N_CI)
 {
+    double cd=0, cp=0, ci=0;
     std::string couleur;
-    if( m_Cd < 0.25)
+
+    if(N_CD == true)
+        cd = m_N_Cd;
+    if(N_CD == false)
+        cd = m_Cd;
+
+    if( cd < 0.25)
         couleur = "cyan";
-    if( m_Cd >= 0.25 && m_Cd < 0.375)
+    if( cd >= 0.25 && cd < 0.375)
         couleur = "green";
-    if( m_Cd >= 0.375 && m_Cd < 0.5)
+    if( cd >= 0.375 && cd < 0.5)
         couleur = "blue";
-    if( m_Cd >= 0.5 && m_Cd < 0.75)
+    if( cd >= 0.5 && cd < 0.75)
         couleur = "orange";
-    if( m_Cd >= 0.75)
+    if( cd >= 0.75)
         couleur = "red";
     index.addDisk(m_x*100, m_y*100, 3, couleur);
     std::string c(1, m_nom);
@@ -70,9 +81,9 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CD == true)
     {
-    index.addText(m_x*100 - 14, m_y*100 + 16, m_Cd, "yellow");
-    index.addText(m_x*100 - 16, m_y*100 + 18, m_Cd, "yellow");
-    index.addText(m_x*100 - 15, m_y*100 + 17, m_Cd, "black");
+    index.addText(m_x*100 - 14, m_y*100 + 16, cd, "yellow");
+    index.addText(m_x*100 - 16, m_y*100 + 18, cd, "yellow");
+    index.addText(m_x*100 - 15, m_y*100 + 17, cd, "black");
 
 
     index.addLine(30, 31, 50, 31, "yellow");
@@ -83,7 +94,6 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     index.addText(64, 34, "Indice de centralite par Degre", "yellow");
     index.addText(65, 35, "Indice de centralite par Degre", "black");
     }
-
 
     if(CVP == true)
     {
@@ -96,22 +106,32 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         index.addText(65, 55, "Indice de centralite par Vecteur Propre", "green");
     }
 
+    if(N_CP == true)
+        cp = m_N_Cp;
+    if(N_CP == false)
+        cp = m_Cp;
+
     if(CP == true)
     {
-        if(m_Cp >= 0)
-            index.addText(m_x*100-16, m_y*100+51, Arrondir(m_Cp),"blue");
-        if(m_Cp < 0)
+        if(cp >= 0)
+            index.addText(m_x*100-16, m_y*100+51, Arrondir(cp),"blue");
+        if(cp < 0)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
         index.addLine(30+300+235, 30, 50+300+235, 30, "blue");
         index.addText(65+300-40, 35, "Indice de centralite de Proximite", "blue");
     }
 
+    if(N_CI == true)
+        ci = m_N_Ci;
+    if(N_CI == false)
+        ci = m_Ci;
+
     if(CI == true)
     {
-        if(m_Ci >= 0)
-            index.addText(m_x*100-16, m_y*100+69, Arrondir(m_Ci),"red");
-        if(m_Ci < 0)
+        if(ci >= 0)
+            index.addText(m_x*100-16, m_y*100+69, Arrondir(ci),"red");
+        if(ci < 0)
             index.addText(m_x*100-16, m_y*100+69, "inf","red");
 
         index.addLine(30+300+235, 50, 50+300+235, 50, "red");
@@ -123,6 +143,7 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     {
         index.addLine(m_x*100,m_y*100, m_successeurs[i]->m_x*100, m_successeurs[i]->m_y*100, "black");
 
+        if(pondere == true)
         for(size_t j=0 ; j < aretes.size() ; j++)
         {
             aretes[j].DessinerPoids(index, m_indice, m_x, m_y, m_successeurs[i]->m_indice, m_successeurs[i]->m_x, m_successeurs[i]->m_y);
@@ -485,24 +506,11 @@ void Sommet::CalculPcci(Sommet* si, Sommet* s_depart, bool oriente)
     std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
 }
 
-void Sommet::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci, int n)
+void Sommet::Normaliser(int n)
 {
-    if(Norm_Cd == true)
-    {
-        m_Cd = m_Cd / (n-1) ;
-    }
-    if(Norm_Cvp == true)
-    {
-
-    }
-    if(Norm_Cp == true)
-    {
-        m_Cp = m_Cp*(n-1) ;
-    }
-    if(Norm_Ci == true)
-    {
-        m_Ci = 2 * m_Ci / ((n*n) - (3*n) + 2) ;
-    }
+    m_N_Cd = m_Cd / (n-1) ;
+    m_N_Cp = m_Cp*(n-1) ;
+    m_N_Ci = 2 * m_Ci / ((n*n) - (3*n) + 2) ;
 }
 
 
@@ -510,3 +518,18 @@ char Sommet::getNom()
 {
     return m_nom;
 }
+#include <iostream>
+namespace std {
+    const char* tab = "\t";
+}
+
+void Sommet::AfficherTout()
+{
+    //std::cout << "| Sommets ||   Degre   |  Deg Norm  || Vect Propre || Proximite | Prox Norm ||  Intermed  | Inter Norm |" << std::endl;
+    //std::cout << "|    " << m_nom << "    ||     " << m_Cd << "     |    " << m_N_Cd << "   ||   " << m_Cvp << std::endl;
+    std::cout << "|    " << m_nom << "    ||     " << m_Cd << std::tab << m_N_Cd << std::tab << std::tab << m_Cvp << std::tab << m_Cp << std::tab << m_N_Cp << std::tab << m_Ci << std::tab << std::tab << m_N_Ci << std::endl;
+}
+
+
+
+

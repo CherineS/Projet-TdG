@@ -50,13 +50,13 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool CVP , bool CD, bool CP, bool CI)
+void Graph::Dessiner(bool CVP , bool CD, bool CP, bool CI, bool N_CD, bool N_CP, bool N_CI)
 {
     Svgfile index;
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI);
         }
 }
 
@@ -466,11 +466,11 @@ void Graph::CalculPcci(Sommet* s_arrive)
     }
 }
 
-void Graph::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci)
+void Graph::Normaliser()
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++)
     {
-        m_sommets[i].Normaliser( Norm_Cd, Norm_Cvp, Norm_Cp, Norm_Ci, m_ordre);
+        m_sommets[i].Normaliser(m_ordre);
     }
 }
 
@@ -513,27 +513,38 @@ void Graph::Memoire_Ponderation(std::string& fichier, int num)
         fichier = "graphe-topo4-ponderation.txt";
 }
 
-void Graph::Menu1(std::string& fichier)
+bool OuvertureFichier(std::string fichiern);
+
+void Graph::Menu1(std::string& fichierG)
 {
     int num=0;
-    std::cout << "Saisir le nom du fichier : ";
+    std::string fichier;
+    do{
+    std::cout << "                                    Saisir le nom du fichier : ";
     std::cin >> fichier;
+    }while(OuvertureFichier(fichier) == false && fichier != "1" && fichier != "2" && fichier != "3" && fichier != "4");
     Memoire(fichier, num);
+    fichierG=fichier;
     Chargement(fichier);
 
-    std::cout << "Charger ponderation ?" << std::endl
-              << " NON : 0  |  1 : OUI " << std::endl;
+
+    std::cout << "                                        Charger ponderation ?" << std::endl
+              << "                                        NON : 0  | |  1 : OUI " << std::endl;
     int choix=0;
     do{
+    std::cout << "                                               -> ";
     std::cin >> choix;
     }while(choix != 0 && choix != 1);
 
     if(num == 0)
         if(choix == 1)
         {
-            std::cout << "Saisir le nom du fichier : ";
+            do{
+            std::cout << "                                   Saisir le nom du fichier : ";
             std::cin >> fichier;
+            }while(OuvertureFichier(fichier) == false);
             Chargement_Ponderation(fichier);
+            m_pondere = true;
         }
 
     if(num != 0)
@@ -541,17 +552,37 @@ void Graph::Menu1(std::string& fichier)
         {
             Memoire_Ponderation(fichier, num);
             Chargement_Ponderation(fichier);
+            m_pondere = true;
         }
 
     if(choix == 0)
     {
+            m_pondere = false;
             for(size_t j=0 ; j < m_aretes.size() ; j++)
             {
                 m_aretes[j].Poids( 1, j);
             }
     }
     Calcul();
-    Dessiner(true, true, true, true);
+    Dessiner(false, false, false, false, false, false, false);
+}
+
+void Graph::Menu2(std::string fichierG)
+{
+    Chargement(fichierG);
+
+    std::string fichierP;
+    do{
+    std::cout << "                                   Saisir le nom du fichier : " ;
+    std::cin >> fichierP;
+    }while(OuvertureFichier(fichierP) == false);
+
+
+    Chargement_Ponderation(fichierP);
+    m_pondere=true;
+
+    Calcul();
+    Dessiner(false, false, false, false, false, false, false);
 }
 
 void Graph::Calcul()
@@ -560,4 +591,167 @@ void Graph::Calcul()
     Centralite_Degre();
     Centralite_Vecteur_Propre();
     Auto_Dijkstra();
+    Normaliser();
 }
+
+void Graph::Menu3()
+{
+    bool  CD = false , CVP = false , CP = false , CI = false;
+    bool NCD = false ,             NCP = false, NCI = false;
+    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI);
+    std::string line = "vide";
+
+    std::cout << "                                         LISTE DES COMMANDES   " << std::endl;
+    std::cout << "                                     --------------------------" << std::endl;
+    std::cout << "                                     |           ALL          |" << std::endl;
+    std::cout << "                                     |  CD |  CVP |  CP |  CI |" << std::endl;
+    std::cout << "                                     | NCD | NCVP | NCP | NCI |" << std::endl;
+    std::cout << "                                     |          NALL          |" << std::endl;
+    std::cout << "                                     |         return         |" << std::endl;
+    std::cout << "                                     --------------------------" << std::endl;
+
+    do{
+    getline(std::cin, line);
+
+    if(line == "ALL")
+    {
+        CD = true;
+        CVP = true;
+        CP = true;
+        CI = true;
+        line = "dessin";
+    }
+    if(line == "NALL")
+    {
+        NCD = true;
+        NCP = true;
+        NCI = true;
+        line = "dessin";
+    }
+
+    if(line == "CD")
+    {
+        if(CD == true && line =="CD")
+        {
+            CD=false;
+            line = "dessin";
+        }
+        if(CD == false && line =="CD")
+        {
+            CD=true;
+            line = "dessin";
+        }
+    }
+        ///
+    if(line == "CVP")
+    {
+        if(CVP == true && line =="CVP")
+        {
+            CVP=false;
+            line = "dessin";
+        }
+        if(CVP == false && line =="CVP")
+        {
+            CVP=true;
+            line = "dessin";
+        }
+    }
+        ///
+    if(line == "CP")
+    {
+        if(CP == true && line =="CP")
+        {
+            CP=false;
+            line = "dessin";
+        }
+        if(CP == false && line =="CP")
+        {
+            CP=true;
+            line = "dessin";
+        }
+    }
+        ///
+    if(line == "CI")
+    {
+        if(CI == true && line =="CI")
+        {
+            CI=false;
+            line = "dessin";
+        }
+        if(CI == false && line =="CI")
+        {
+            CI=true;
+            line = "dessin";
+        }
+    }
+        ///
+        ///
+    if(line == "NCD")
+    {
+        if(NCD == true && line =="NCD")
+        {
+            NCD=false;
+            line = "dessin";
+        }
+        if(NCD == false && line =="NCD")
+        {
+            NCD=true;
+            line = "dessin";
+        }
+    }
+        ///
+        ///
+    if(line == "NCP")
+    {
+        if(NCP == true && line =="NCP")
+        {
+            NCP=false;
+            line = "dessin";
+        }
+        if(NCP == false && line =="NCP")
+        {
+            NCP=true;
+            line = "dessin";
+        }
+    }
+        ///
+    if(line == "NCI")
+    {
+        if(NCI == true && line =="NCI")
+        {
+            NCI=false;
+            line = "dessin";
+        }
+        if(NCI == false && line =="NCI")
+        {
+            NCI=true;
+            line = "dessin";
+        }
+    }
+        ///
+        ///
+
+
+    if(line == "dessin")
+    {
+        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI);
+        line = "vide";
+    }
+    }while(line != "return");
+}
+
+void Graph::AfficherTout()
+{
+    std::cout << std::endl << std::endl;
+    std::cout << "| Sommets ||   Degre    Deg Norm  ||   Vect Propre  ||  Proximite       Prox Norm   ||  Intermed        Inter Norm " << std::endl;
+    for(size_t i=0 ; i < m_sommets.size() ; i++)
+    {
+        m_sommets[i].AfficherTout();
+    }
+    std::cout << "| Sommets ||   Degre    Deg Norm  ||   Vect Propre  ||  Proximite       Prox Norm   ||  Intermed        Inter Norm " << std::endl;
+    std::cout << std::endl << std::endl;
+}
+
+
+
+

@@ -8,7 +8,7 @@
 #include "Sommet.h"
 #include "Graph.h"
 
-bool OuvertureFichier(std::string fichiern)
+bool TestFichier(std::string fichiern)
 {
     bool ouverture = false;
     std::ifstream fichier(fichiern);
@@ -33,18 +33,17 @@ int main()
     srand(time(NULL));
 
     do{
-   std::cout <<  "                              ------------------ MENU ------------------" << std::endl
-              << "                              1-          Charger un Graphe           -1" << std::endl
-              << "                              2-     Charger systeme de ponderation   -2" << std::endl
-              << "                              3-     Calculer indices de centralite   -3" << std::endl
-              << "                              4-        Tester la vulnerabilite       -4" << std::endl
-              << "                              5-     Affcihage Console des Indices    -5" << std::endl
-              << "                              0-               Arreter                -0" << std::endl << std::endl
-              << "                                               -> ";
+   std::cout <<  "------------------ MENU ------------------" << std::endl
+              << "1-          Charger un Graphe           -1" << std::endl
+              << "2-     Charger systeme de ponderation   -2" << std::endl
+              << "3-     Calculer indices de centralite   -3" << std::endl
+              << "4-        Tester la vulnerabilite       -4" << std::endl
+              << "0-               Arreter                -0" << std::endl << std::endl
+              << "                 -> ";
     do{
     std::cin >> choix_m;
     }
-    while (choix_m != 0 && choix_m != 1 && choix_m != 2 && choix_m != 3 && choix_m != 4 && choix_m!= 5);
+    while (choix_m != 0 && choix_m != 1 && choix_m != 2 && choix_m != 3 && choix_m != 4);
 
     switch(choix_m)
     {
@@ -70,8 +69,6 @@ int main()
     case 4 :
         break;
     case 5 :
-        if(Univers.size()>0)
-           Univers[0].AfficherTout();
         break;
     }
     }while(choix_m != 0);

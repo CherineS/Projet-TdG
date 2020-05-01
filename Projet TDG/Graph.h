@@ -6,6 +6,7 @@
 class Graph
 {
     private :
+        bool m_pondere;
         bool m_oriente;
         int m_ordre, m_taille;
         std::vector<Arete> m_aretes;
@@ -17,7 +18,7 @@ class Graph
         void AddOriente_Ordre_Taille(bool oriente, int ordre, int taille);
         void AddSommet(int indice, char nom, int x, int y);
         void AddArete(int indice, int id1, int id2);
-        void Dessiner(bool CVP, bool CD, bool CP, bool CI);
+        void Dessiner(bool CVP, bool CD, bool CP, bool CI, bool N_CD, bool N_CP, bool N_CI);
         void Successeurs();
         void Afficher();
         void Chargement(std::string nomF);
@@ -38,12 +39,15 @@ class Graph
         void Test(Sommet* s_depart);
         void CalculPcci(Sommet* s_arrive);
 
-        void Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci);
+        void Normaliser();
 
         void Calcul();
         void Memoire(std::string& fichier, int& num);
         void Memoire_Ponderation(std::string& fichier, int num);
-        void Menu1(std::string& fichier);
+        void Menu1(std::string& fichierG);
+        void Menu2(std::string fichierG);
+        void Menu3();
+        void AfficherTout();
 
 };
 
