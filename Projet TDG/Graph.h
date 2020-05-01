@@ -24,6 +24,8 @@ class Graph
         void Chargement_Ponderation(std::string nomF);
         void Centralite_Degre();
         void Centralite_Vecteur_Propre();
+        void Recherche_Connexite();
+        void SupprimerArete();
 
         void Dijkstra(int s_depart);
         void AfficherParcoursDijkstra(int s_arrivee, double& d);

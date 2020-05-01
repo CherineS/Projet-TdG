@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <math.h>
+#include <time.h>
 #include "svgfile.h"
 #include "Arete.h"
 #include "Sommet.h"
@@ -26,6 +27,7 @@ int main()
     Graph G(1, 5, 4);
     int choix_m=0;
     std::string fichier;
+    srand(time(NULL));
 
     do{
    std::cout <<  "--------------- MENU ---------------" << std::endl
@@ -66,7 +68,11 @@ int main()
         std::cin >> choix;
     }while(choix >4 || choix <1);
 
-    switch(choix)
+    std::cout << "Saisir numero du fichier : ";
+    while(choixF >4 || choixF <1)
+        std::cin >> choixF;
+
+    switch(choixF)
     {
         case 1 : G.Chargement("graphe-topo.txt");  G.Chargement_Ponderation("graphe-topo-ponderation.txt"); break;
         case 2 : G.Chargement("graphe-topo2.txt"); G.Chargement_Ponderation("graphe-topo2-ponderation.txt"); break;
@@ -84,6 +90,10 @@ int main()
 
     //G.AfficherPcc();
 
+        std::cout << "\n\n--------------- MENU ---------------" << std::endl;
+        std::cout << "\n\n1. Supprimer une arete\n2. Changer de fichier\n3. Quitter\n\nChoix : ";
+        while(choix >3 || choix <1)
+                std::cin >> choix;
 
     /*int continuer=1;
     do{

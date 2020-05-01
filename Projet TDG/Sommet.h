@@ -34,6 +34,7 @@ class Sommet
         void Somme_Indices();
         void Recalcul_Indices(double lambda, double Csi);
         double Csi();
+        char getNom();
 
         int get_indice();
         Sommet* Get_precedent();

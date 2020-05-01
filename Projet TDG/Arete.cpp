@@ -58,3 +58,42 @@ double Arete::Recherche_Poids(double ind1, double ind2, bool oriente)
     return poids;
 }
 
+
+void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain)
+{
+    bool present1=0, present2=0;
+
+    for(size_t j=0;j<Queue.size();++j)
+    {
+        if(m_id1==Queue[j])   ///Si le sommet est parcouru on ne l'ajoute pas
+            present1=1;
+
+        if(m_id2==Queue[j])   ///Si le sommet est parcouru on ne l'ajoute pas
+            present2=1;
+    }
+
+    if(present1!=1 && present2==1)
+    {
+        Queue.push_back(m_id1);
+        compteur++;
+    }
+    else if(present1==1 && present2!=1)
+    {
+        Queue.push_back(m_id2);
+        compteur++;
+    }
+    else if(present1!=1 && present2!=1)
+        prochain=m_id1;
+}
+
+bool Arete::RechercheIndice(int indice)
+{
+    if(m_indice==indice)
+        return true;
+    else return false;
+}
+
+int Arete::getIndice()
+{
+    return m_indice;
+}

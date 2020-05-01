@@ -165,6 +165,74 @@ void Graph::Centralite_Vecteur_Propre()
     std::cout << "Lambda : " << lambda << std::endl;
 }
 
+void Graph::Recherche_Connexite()
+{
+    int nbConnex=0, compteur=1, compteur2=0, prochain=0;
+    std::vector<int> ListeConnex;
+
+    do{
+        compteur=1;
+
+        ListeConnex.push_back(prochain);
+
+        for(size_t i=0;i<m_aretes.size()/2;++i) ///Le refaire plusieurs fois pour �tre s�r..
+        {
+            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si le sommet a deja ete parcouru
+            {
+                m_aretes[j].ParcoursConnex(ListeConnex,compteur,prochain);
+            }
+        }
+
+        nbConnex++;
+
+        ///Affichage
+        std::cout << std::endl << "Composante connexe " << nbConnex << " : ";
+        for(size_t i=compteur2;i<ListeConnex.size();++i)
+            std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+        std::cout << std::endl;
+
+        compteur2+=compteur;
+    }while(compteur2<m_ordre);
+
+}
+
+void Graph::SupprimerArete()
+{
+    int choix=-1, indice=-1, found=0;
+    size_t i=0;
+
+    std::cout << "\nSupprimer :\n1. Une certaine arete (saisir son indice)\n2. Une arete au hasard\n\nChoix : ";
+
+    while(choix<1 || choix>2)
+    std::cin >> choix;
+
+    if(choix==1)
+    {
+        std::cout << "Saisir son indice : ";
+        while(indice<0 || indice>m_aretes.size())
+            std::cin >> indice;
+    }
+    else if(choix==2)
+    {
+        i=rand()%m_aretes.size();
+        indice=m_aretes[i].getIndice();
+    }
+
+    for(size_t i=0;i<m_aretes.size();++i)
+    {
+        if(m_aretes[i].RechercheIndice(indice)==true)
+        {
+            found=1;
+            m_aretes.erase(m_aretes.begin()+i);
+            m_aretes.shrink_to_fit();
+            std::cout << "Arete no" << i << " supprimee\n";
+            break;
+        }
+    }
+
+    if(found==0)
+        std::cout << "\nAucune arete ne correspond a cet indice\n\n";
+}
 
 
 
