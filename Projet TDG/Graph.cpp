@@ -2,6 +2,7 @@
 #include <vector>
 #include "Graph.h"
 #include "math.h"
+#include <fstream>
 
 Graph::Graph(bool oriente, int ordre, int taille)
 {
@@ -167,19 +168,40 @@ void Graph::Centralite_Vecteur_Propre()
 
 void Graph::Recherche_Connexite()
 {
-    int nbConnex=0, compteur=1, compteur2=0, prochain=0;
+    int nbConnex=0, compteur=1, compteur2=0, prochain=0, present;
     std::vector<int> ListeConnex;
+
+    std::cout << std::endl;
 
     do{
         compteur=1;
 
+        for(size_t i=0;i<m_sommets.size();++i)  ///Recherche si il existe un sommet non marque
+        {
+            present=0;
+
+            for(size_t j=0;j<ListeConnex.size();++j)
+            {
+                if(ListeConnex[j]==i)
+                {
+                    present=1;
+                    break;
+                }
+            }
+            if(present!=1)
+            {
+                prochain=i;
+                break;
+            }
+        }
+
         ListeConnex.push_back(prochain);
 
-        for(size_t i=0;i<m_aretes.size()/2;++i) ///Le refaire plusieurs fois pour �tre s�r..
+        for(size_t i=0;i<m_aretes.size()/2;++i) ///Le refaire plusieurs fois
         {
-            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si le sommet a deja ete parcouru
+            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si l'arete a deja ete parcouru
             {
-                m_aretes[j].ParcoursConnex(ListeConnex,compteur,prochain);
+                m_aretes[j].ParcoursConnex(ListeConnex,compteur);
             }
         }
 
@@ -193,45 +215,65 @@ void Graph::Recherche_Connexite()
 
         compteur2+=compteur;
     }while(compteur2<m_ordre);
-
+    std::cout << std::endl;
 }
 
 void Graph::SupprimerArete()
 {
-    int choix=-1, indice=-1, found=0;
+    int choix, indice, found=0;
+    int id1=0,id2=0;
     size_t i=0;
 
-    std::cout << "\nSupprimer :\n1. Une certaine arete (saisir son indice)\n2. Une arete au hasard\n\nChoix : ";
+    std::cout << "\n\t   ---Supprimer---\n\t1. Une certaine arete\n\t2. Une arete au hasard\n\t     Choix : ";
 
-    while(choix<1 || choix>2)
+    do
     std::cin >> choix;
+    while(choix<1 || choix>2);
 
     if(choix==1)
     {
         std::cout << "Saisir son indice : ";
-        while(indice<0 || indice>m_aretes.size())
-            std::cin >> indice;
+        std::cin >> indice;
+
+        for(size_t i=0;i<m_aretes.size();++i)
+        {
+            if(m_aretes[i].RechercheIndice(indice)==true)
+            {
+                found=1;
+                m_aretes[i].setArete(indice,id1,id2);
+                indice=i;
+                break;
+            }
+        }
     }
     else if(choix==2)
     {
-        i=rand()%m_aretes.size();
-        indice=m_aretes[i].getIndice();
-    }
-
-    for(size_t i=0;i<m_aretes.size();++i)
-    {
-        if(m_aretes[i].RechercheIndice(indice)==true)
-        {
-            found=1;
-            m_aretes.erase(m_aretes.begin()+i);
-            m_aretes.shrink_to_fit();
-            std::cout << "Arete no" << i << " supprimee\n";
-            break;
-        }
+        i=rand()%m_aretes[m_aretes.size()-1].getIndice();
+        m_aretes[i].setArete(indice,id1,id2);
+        indice=i;
+        found=1;
     }
 
     if(found==0)
-        std::cout << "\nAucune arete ne correspond a cet indice\n\n";
+        std::cout << "\nAucune arete ne correspond a cette indice\n\n";
+    else if(found==1)
+    {
+        ///Suppression des successeurs
+        if(m_oriente==false)
+        {
+            m_sommets[id1].SuppSommet(id2);
+            m_sommets[id2].SuppSommet(id1);
+        }
+        else if(m_oriente==true)
+            m_sommets[id1].SuppSommet(id2);
+
+        ///Suppression des aretes
+        m_aretes.erase(m_aretes.begin()+indice);
+        m_aretes.shrink_to_fit();
+        std::cout << "\nArete no " << indice << " supprimee\n";
+
+        m_taille-=1;
+    }
 }
 
 
@@ -755,3 +797,60 @@ void Graph::AfficherTout()
 
 
 
+
+void Graph::Sauvegarder(int mode)
+{
+    int indice, x, y, ind, ext1, ext2;
+    char nom;
+    std::ofstream fichier;
+
+    if(mode==0)
+        fichier.open("GraphePrecedent.txt");
+    else if(mode==1)
+        fichier.open("GrapheActuel.txt");
+
+    if(fichier)
+    {
+        fichier << m_oriente << std::endl;
+        fichier << m_ordre << std::endl;
+        for(int i=0 ; i < m_ordre ; i++)
+        {
+            m_sommets[i].setSommet(indice,nom,x,y);
+            fichier << indice << " " << nom << " " << x << " " << y << std::endl;
+            //std::cout << "Indice : " << indice << " Nom : " << nom << " x : " << x << " y : " << y << std::endl;
+        }
+        fichier << m_taille << std::endl;
+
+        for(int i=0 ; i < m_taille ; i++)
+        {
+            m_aretes[i].setArete(ind,ext1,ext2);
+            fichier << ind << " " << ext1 << " " << ext2 << std::endl;
+        }
+    }
+    else
+        std::cout << "Probleme ouverture de fichier pour sauvegarde" <<std::endl;
+}
+
+void Graph::Sauvegarder_Ponderation(int mode)
+{
+    int indice;
+    double poids;
+    std::ofstream fichier;
+
+    if(mode==0)
+        fichier.open("PonderationPrecedente.txt");
+    else if(mode==1)
+        fichier.open("PonderationActuelle.txt");
+
+    if(fichier)
+    {
+        fichier << m_taille << std::endl;
+        for(int i=0 ; i < m_taille ; i++)
+        {
+            m_aretes[i].setPoids(indice,poids);
+            fichier << indice << " " << poids << std::endl;
+        }
+    }
+    else
+        std::cout << "Probleme ouverture fichier" << std::endl;
+}

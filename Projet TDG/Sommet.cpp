@@ -523,6 +523,27 @@ namespace std {
     const char* tab = "\t";
 }
 
+void Sommet::setSommet(int &indice, char &nom, int &x, int &y)
+{
+    indice=m_indice;
+    nom=m_nom;
+    x=m_x;
+    y=m_y;
+}
+
+void Sommet::SuppSommet(int &id2)
+{
+    for(size_t i=0; i<m_successeurs.size(); ++i)
+    {
+        if(m_successeurs[i]->get_indice()==id2)
+        {
+            m_successeurs.erase(m_successeurs.begin()+i);
+            m_successeurs.shrink_to_fit();
+            break;
+        }
+    }
+}
+
 void Sommet::AfficherTout()
 {
     //std::cout << "| Sommets ||   Degre   |  Deg Norm  || Vect Propre || Proximite | Prox Norm ||  Intermed  | Inter Norm |" << std::endl;

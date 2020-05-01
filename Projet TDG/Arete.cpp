@@ -59,7 +59,7 @@ double Arete::Recherche_Poids(double ind1, double ind2, bool oriente)
 }
 
 
-void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain)
+void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur)
 {
     bool present1=0, present2=0;
 
@@ -82,8 +82,6 @@ void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain
         Queue.push_back(m_id2);
         compteur++;
     }
-    else if(present1!=1 && present2!=1)
-        prochain=m_id1;
 }
 
 bool Arete::RechercheIndice(int indice)
@@ -91,6 +89,19 @@ bool Arete::RechercheIndice(int indice)
     if(m_indice==indice)
         return true;
     else return false;
+}
+
+void Arete::setArete(int &ind, int &ext1, int &ext2)
+{
+    ind=m_indice;
+    ext1=m_id1;
+    ext2=m_id2;
+}
+
+void Arete::setPoids(int &ind, double &pds)
+{
+    ind=m_indice;
+    pds=m_poids;
 }
 
 int Arete::getIndice()

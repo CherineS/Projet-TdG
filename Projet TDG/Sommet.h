@@ -63,6 +63,8 @@ class Sommet
         void CalculPcci(Sommet* si, Sommet* s_arrive, bool oriente);
         void Normaliser(int n);
         void AfficherTout();
+        void setSommet(int &indice, char &nom, int &x, int &y);
+        void SuppSommet(int &id2);
 };
 
 

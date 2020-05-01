@@ -17,8 +17,10 @@ class Arete
         void DessinerPoids(Svgfile& index, int indice1, int x1, int y1, int indice2, int x2, int y2);
         void Afficher();
         double Recherche_Poids(double ind1, double ind2, bool oriente);
-        void ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain);
+        void ParcoursConnex(std::vector<int> &Queue, int &compteur);
         bool RechercheIndice(int indice);
+        void setArete(int &ind, int &ext1, int &ext2);
+        void setPoids(int &ind, double &pds);
         int getIndice();
 };
 

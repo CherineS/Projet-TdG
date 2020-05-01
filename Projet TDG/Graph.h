@@ -48,7 +48,8 @@ class Graph
         void Menu2(std::string fichierG);
         void Menu3();
         void AfficherTout();
-
+        void Sauvegarder(int mode);
+        void Sauvegarder_Ponderation(int mode);
 };
 
 #endif // GRAPH_H_INCLUDED
