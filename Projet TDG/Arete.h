@@ -19,7 +19,8 @@ class Arete
         double Recherche_Poids(double ind1, double ind2, bool oriente);
         void ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain);
         bool RechercheIndice(int indice);
-        int getIndice();
+        void setArete(int &ind, int &ext1, int &ext2);
+        void setPoids(int &ind, double &pds);
 };
 
 #endif // ARETE_H_INCLUDED

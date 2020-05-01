@@ -93,7 +93,15 @@ bool Arete::RechercheIndice(int indice)
     else return false;
 }
 
-int Arete::getIndice()
+void Arete::setArete(int &ind, int &ext1, int &ext2)
 {
-    return m_indice;
+    ind=m_indice;
+    ext1=m_id1;
+    ext2=m_id2;
+}
+
+void Arete::setPoids(int &ind, double &pds)
+{
+    ind=m_indice;
+    pds=m_poids;
 }

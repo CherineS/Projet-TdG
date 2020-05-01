@@ -44,7 +44,8 @@ class Graph
         void Memoire(std::string& fichier, int& num);
         void Memoire_Ponderation(std::string& fichier, int num);
         void Menu1(std::string& fichier);
-
+        void Sauvegarder(int mode);
+        void Sauvegarder_Ponderation(int mode);
 };
 
 #endif // GRAPH_H_INCLUDED

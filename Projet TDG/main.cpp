@@ -61,8 +61,20 @@ int main()
         std::cin >> choix_m;
         while (choix_m != 1 && choix_m != 2);
 
-        if(choix_m==2)
-            Univers[0].Recherche_Connexite();
+        if(choix_m==1)
+        {
+            Univers[0].Sauvegarder(0);
+            Univers[0].Sauvegarder_Ponderation(0);
+            Univers[0].SupprimerArete();
+            Univers[0].Sauvegarder(1);
+            Univers[0].Sauvegarder_Ponderation(1);
+            Update_Univers(Univers);
+            Univers[0].Chargement("GrapheActuel.txt");
+            Univers[0].Chargement_Ponderation("PonderationActuelle.txt");
+            Univers[0].Calcul();
+            Univers[0].Dessiner(true, true, true, true);
+        }
+        else Univers[0].Recherche_Connexite();
         }
 
         break;
