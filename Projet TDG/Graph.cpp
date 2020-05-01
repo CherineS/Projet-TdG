@@ -51,7 +51,7 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool CVP , bool CD, bool CP, bool CI, bool N_CD, bool N_CP, bool N_CI)
+void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI)
 {
     Svgfile index;
         index.addGrid(100, 1, "grey");
@@ -163,7 +163,7 @@ void Graph::Centralite_Vecteur_Propre()
     }
     }while( (lambda < (lambda_prec-0.01)) || (lambda > (lambda_prec +0.01)) );
 
-    std::cout << "Lambda : " << lambda << std::endl;
+    //std::cout << "Lambda : " << lambda << std::endl;
 }
 
 void Graph::Recherche_Connexite()
@@ -394,8 +394,8 @@ void Graph::AfficherParcoursDijkstra(int s_arrivee, double& d)
     Sommet* s;
     std::vector<double>longueur;
     s=RechercheSommet(s_arrivee);
-    if(s->Get_precedent()!=NULL)
-        std::cout << s->get_indice();
+//    if(s->Get_precedent()!=NULL)
+//        std::cout << s->get_indice();
     double poids=0;
     double poids2=0;
     while(s->Get_precedent()!=NULL)
@@ -411,22 +411,22 @@ void Graph::AfficherParcoursDijkstra(int s_arrivee, double& d)
         longueur.push_back(poids);
 
 
-        std::cout << " <-- " << s->Get_precedent()->get_indice();
+        //std::cout << " <-- " << s->Get_precedent()->get_indice();
         s=s->Get_precedent();
     }
     if(longueur.size() == 0)
     {
-        std::cout << "Impossible" << std::endl;
+        //std::cout << "Impossible" << std::endl;
     }
     else{
-        std::cout << " : longueur " << longueur[0] ;
+        //std::cout << " : longueur " << longueur[0] ;
         double somme=longueur[0];
         for(size_t i=1 ; i < longueur.size() ; i++)
         {
-            std::cout << " + " << longueur[i];
+            //std::cout << " + " << longueur[i];
             somme+=longueur[i];
         }
-        std::cout << " = " << somme <<std::endl;
+        //std::cout << " = " << somme <<std::endl;
         d=somme;
     }
 }
@@ -468,7 +468,7 @@ void Graph::Auto_Dijkstra()
         /// ////
         Test(&m_sommets[i]);
 
-        AfficherPcc(&m_sommets[i]);
+        //AfficherPcc(&m_sommets[i]);
         /// ////
 
     }
@@ -557,7 +557,7 @@ void Graph::Memoire_Ponderation(std::string& fichier, int num)
 
 bool OuvertureFichier(std::string fichiern);
 
-void Graph::Menu1(std::string& fichierG)
+void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
 {
     int num=0;
     std::string fichier;
@@ -606,12 +606,12 @@ void Graph::Menu1(std::string& fichierG)
             }
     }
     Calcul();
-    Dessiner(false, false, false, false, false, false, false);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI);
 }
 
-void Graph::Menu2(std::string fichierG)
+void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
 {
-    Chargement(fichierG);
+    Chargement("GrapheActuel.txt");
 
     std::string fichierP;
     do{
@@ -624,7 +624,7 @@ void Graph::Menu2(std::string fichierG)
     m_pondere=true;
 
     Calcul();
-    Dessiner(false, false, false, false, false, false, false);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI);
 }
 
 void Graph::Calcul()
@@ -636,10 +636,8 @@ void Graph::Calcul()
     Normaliser();
 }
 
-void Graph::Menu3()
+void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
 {
-    bool  CD = false , CVP = false , CP = false , CI = false;
-    bool NCD = false ,             NCP = false, NCI = false;
     Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI);
     std::string line = "vide";
 

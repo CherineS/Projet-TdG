@@ -55,14 +55,14 @@ double Arrondir(double valeur)
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool N_CD, bool N_CP, bool N_CI)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI)
 {
     double cd=0, cp=0, ci=0;
     std::string couleur;
 
-    if(N_CD == true)
+    if(NCD == true)
         cd = m_N_Cd;
-    if(N_CD == false)
+    if(NCD == false)
         cd = m_Cd;
 
     if( cd < 0.25)
@@ -106,25 +106,25 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         index.addText(65, 55, "Indice de centralite par Vecteur Propre", "green");
     }
 
-    if(N_CP == true)
+    if(NCP == true)
         cp = m_N_Cp;
-    if(N_CP == false)
+    if(NCP == false)
         cp = m_Cp;
 
     if(CP == true)
     {
-        if(cp >= 0)
+        if(cp >= 0 && cp<100000)
             index.addText(m_x*100-16, m_y*100+51, Arrondir(cp),"blue");
-        if(cp < 0)
+        if(cp < 0 || cp>100000)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
         index.addLine(30+300+235, 30, 50+300+235, 30, "blue");
         index.addText(65+300-40, 35, "Indice de centralite de Proximite", "blue");
     }
 
-    if(N_CI == true)
+    if(NCI == true)
         ci = m_N_Ci;
-    if(N_CI == false)
+    if(NCI == false)
         ci = m_Ci;
 
     if(CI == true)
@@ -234,8 +234,8 @@ bool Sommet::Marque()
 
 void Sommet::Fini(int distance, Sommet* precedent)
 {
-    if(distance == m_distance)
-        std::cout << "C'EST CA" << std::endl << "distance = " << distance << std::endl << std::endl;
+//    if(distance == m_distance)
+//        std::cout << "C'EST CA" << std::endl << "distance = " << distance << std::endl << std::endl;
 
 
     m_precedent = precedent;
@@ -503,7 +503,7 @@ void Sommet::CalculPcci(Sommet* si, Sommet* s_depart, bool oriente)
     if(m_Pcc.size()>0)
         pcci = pcci / m_Pcc.size();
     si->m_Ci += pcci;
-    std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
+    //std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
 }
 
 void Sommet::Normaliser(int n)
