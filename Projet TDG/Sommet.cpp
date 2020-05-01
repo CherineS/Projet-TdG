@@ -505,7 +505,7 @@ void Sommet::Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci,
     }
     if(Norm_Ci == true)
     {
-        m_Ci = m_Ci / ((n*n) - (3*n) + 2) ;
+        m_Ci = 2 * m_Ci / ((n*n) - (3*n) + 2) ;
     }
 }
 
