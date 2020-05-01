@@ -56,7 +56,7 @@ int main()
         break;
     case 4 :
         {
-        std::cout << "\n1. Supprimer une arete\n2. Afficher les connexites\nChoix : ";
+        std::cout << "\n      1 : Supprimer une arete\n    2 : Afficher les connexites\n\t     Choix : ";
         do
         std::cin >> choix_m;
         while (choix_m != 1 && choix_m != 2);

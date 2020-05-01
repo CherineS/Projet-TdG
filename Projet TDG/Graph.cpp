@@ -168,19 +168,40 @@ void Graph::Centralite_Vecteur_Propre()
 
 void Graph::Recherche_Connexite()
 {
-    int nbConnex=0, compteur=1, compteur2=0, prochain=0;
+    int nbConnex=0, compteur=1, compteur2=0, prochain=0, present;
     std::vector<int> ListeConnex;
+
+    std::cout << std::endl;
 
     do{
         compteur=1;
+
+        for(size_t i=0;i<m_sommets.size();++i)  ///Recherche si il existe un sommet non marque
+        {
+            present=0;
+
+            for(size_t j=0;j<ListeConnex.size();++j)
+            {
+                if(ListeConnex[j]==i)
+                {
+                    present=1;
+                    break;
+                }
+            }
+            if(present!=1)
+            {
+                prochain=i;
+                break;
+            }
+        }
 
         ListeConnex.push_back(prochain);
 
         for(size_t i=0;i<m_aretes.size()/2;++i) ///Le refaire plusieurs fois
         {
-            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si le sommet a deja ete parcouru
+            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si l'arete a deja ete parcouru
             {
-                m_aretes[j].ParcoursConnex(ListeConnex,compteur,prochain);
+                m_aretes[j].ParcoursConnex(ListeConnex,compteur);
             }
         }
 
@@ -203,7 +224,7 @@ void Graph::SupprimerArete()
     int id1=0,id2=0;
     size_t i=0;
 
-    std::cout << "\nSupprimer :\n1. Une certaine arete (saisir son indice)\n2. Une arete au hasard\n\nChoix : ";
+    std::cout << "\n\t   ---Supprimer---\n\t1. Une certaine arete\n\t2. Une arete au hasard\n\t     Choix : ";
 
     do
     std::cin >> choix;
@@ -227,7 +248,7 @@ void Graph::SupprimerArete()
     }
     else if(choix==2)
     {
-        i=rand()%m_aretes.size();
+        i=rand()%m_aretes[m_aretes.size()-1].getIndice();
         m_aretes[i].setArete(indice,id1,id2);
         indice=i;
         found=1;
@@ -249,7 +270,7 @@ void Graph::SupprimerArete()
         ///Suppression des aretes
         m_aretes.erase(m_aretes.begin()+indice);
         m_aretes.shrink_to_fit();
-        std::cout << "Arete no " << indice << " supprimee\n";
+        std::cout << "\nArete no " << indice << " supprimee\n";
 
         m_taille-=1;
     }
