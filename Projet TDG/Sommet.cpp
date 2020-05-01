@@ -149,7 +149,7 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
             aretes[j].DessinerPoids(index, m_indice, m_x, m_y, m_successeurs[i]->m_indice, m_successeurs[i]->m_x, m_successeurs[i]->m_y);
         }
 
-        if(oriente == true) ///Dessin des fl�ches
+        if(oriente == true) ///Dessin des fleches
         {
             int ArrowLength = 12, ArrowWidth = 8;
             int x1=m_x*100, x2=m_successeurs[i]->m_x*100;
