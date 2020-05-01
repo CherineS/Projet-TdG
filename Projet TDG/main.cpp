@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <math.h>
+#include <time.h>
 #include "svgfile.h"
 #include "Arete.h"
 #include "Sommet.h"
@@ -16,6 +17,7 @@ int main()
     bool CVP = true;
     Graph G(1, 5, 4);
     int choix=2, choixF=0;
+    srand(time(NULL));
 
     std::cout << "--------------- MENU ---------------" << std::endl;
 
@@ -47,8 +49,8 @@ int main()
         while(choix >3 || choix <1)
                 std::cin >> choix;
 
-        //if(choix==1)
-            //G.SupprimerArete();
+        if(choix==1)
+            G.SupprimerArete();
     }
 
     return 0;

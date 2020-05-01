@@ -63,6 +63,18 @@ void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur, int &prochain
         Queue.push_back(m_id2);
         compteur++;
     }
-    else
+    else if(present1!=1 && present2!=1)
         prochain=m_id1;
+}
+
+bool Arete::RechercheIndice(int indice)
+{
+    if(m_indice==indice)
+        return true;
+    else return false;
+}
+
+int Arete::getIndice()
+{
+    return m_indice;
 }
