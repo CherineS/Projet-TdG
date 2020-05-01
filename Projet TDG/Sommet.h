@@ -56,7 +56,7 @@ class Sommet
 
         void AjouterPcc(std::vector<int> liste, int n);
         void AfficherPcc(Sommet* s_depart);
-        void CalculPcci(Sommet* si, Sommet* s_arrive);
+        void CalculPcci(Sommet* si, Sommet* s_arrive, bool oriente);
         void Normaliser(bool Norm_Cd, bool Norm_Cvp, bool Norm_Cp, bool Norm_Ci, int n);
 };
 

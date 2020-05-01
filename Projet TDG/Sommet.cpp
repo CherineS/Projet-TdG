@@ -109,9 +109,13 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CI == true)
     {
-        if(m_Ci >= 0)
-            index.addText(m_x*100-16, m_y*100+69, m_Ci,"red");
-        if(m_Ci < 0)
+        double valeur = m_Ci;
+        int entier = (int)((0.0005 + valeur) * 1000.0);
+        double result = (double)entier / 1000.0;
+
+        if(result >= 0)
+            index.addText(m_x*100-16, m_y*100+69, result,"red");
+        if(result < 0)
             index.addText(m_x*100-16, m_y*100+69, "inf","red");
 
         index.addLine(30+300+235, 50, 50+300+235, 50, "red");
@@ -467,14 +471,14 @@ void Sommet::AfficherPcc(Sommet* s_depart)
     std::cout << "--------------------------------------------------" << std::endl;
 }
 
-void Sommet::CalculPcci(Sommet* si, Sommet* s_depart)
+void Sommet::CalculPcci(Sommet* si, Sommet* s_depart, bool oriente)
 {
     double pcci = 0;
     for(size_t i=0 ; i < m_Pcc.size() ; i++)
     {
         for(size_t j=0 ; j < m_Pcc[i].size() ; j++)
         {
-            if(s_depart->m_indice < m_indice)
+            if(s_depart->m_indice < m_indice || oriente == true)
                 if(si->m_indice == m_Pcc[i][j])
                     pcci += 1;
         }

@@ -373,7 +373,7 @@ void Graph::Test(Sommet* s_depart)
         /// ////
         for(size_t k=0 ; k < m_sommets.size() ; k++)
         {
-            m_sommets[i].CalculPcci( &m_sommets[k], s_depart);
+            m_sommets[i].CalculPcci( &m_sommets[k], s_depart, m_oriente);
         }
         /// ////
     }
