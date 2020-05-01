@@ -193,7 +193,7 @@ void Graph::Recherche_Connexite()
 
         compteur2+=compteur;
     }while(compteur2<m_ordre);
-
+    std::cout << std::endl;
 }
 
 void Graph::SupprimerArete()

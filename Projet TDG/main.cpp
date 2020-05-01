@@ -55,6 +55,16 @@ int main()
     case 3 :
         break;
     case 4 :
+        {
+        std::cout << "\n1. Supprimer une arete\n2. Afficher les connexites\nChoix : ";
+        do
+        std::cin >> choix_m;
+        while (choix_m != 1 && choix_m != 2);
+
+        if(choix_m==2)
+            Univers[0].Recherche_Connexite();
+        }
+
         break;
     }
     }while(choix_m != 0);
@@ -89,11 +99,6 @@ int main()
     //G.Afficher();
 
     //G.AfficherPcc();
-
-        std::cout << "\n\n--------------- MENU ---------------" << std::endl;
-        std::cout << "\n\n1. Supprimer une arete\n2. Changer de fichier\n3. Quitter\n\nChoix : ";
-        while(choix >3 || choix <1)
-                std::cin >> choix;
 
     /*int continuer=1;
     do{
