@@ -8,6 +8,18 @@
 #include "Sommet.h"
 #include "Graph.h"
 
+std::vector<double> RechercheSommetVec(int indice, std::vector<std::vector<double>>vec)
+{
+    double ind = indice;
+    int position=0;
+    for(size_t i=0 ; i < vec.size() ; i++)
+    {
+        if(vec[i][0] == ind)
+            position = i;
+    }
+    return vec[position];
+}
+
 bool OuvertureFichier(std::string fichiern)
 {
     bool ouverture = false;
@@ -28,8 +40,9 @@ void Update_Univers(std::vector<Graph>&Univers)
 int main()
 {
     std::vector<Graph>Univers;
+    std::vector<std::vector<double>> IndicesPrec,  NIndicesPrec;
     int choix_m=0;
-    bool CVP=false, CD=false, CP=false, CI=false, NCD=false, NCP=false, NCI=false;
+    bool CVP=false, CD=false, CP=false, CI=false, NCD=false, NCP=false, NCI=false, DIFF=false;
     std::string fichier;
     srand(time(NULL));
 
@@ -52,7 +65,7 @@ int main()
     case 1 :
         {
         Update_Univers(Univers);
-        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI);
+        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
         Univers[0].Sauvegarder(1);
         Univers[0].Sauvegarder_Ponderation(1);
         }
@@ -61,13 +74,13 @@ int main()
         {
         Update_Univers(Univers);
         if(Univers.size()>0)
-            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI);
+            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
         }
         break;
     case 3 :
         {
         if(Univers.size()>0)
-           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI);
+           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
         }
         break;
     case 4 :
@@ -82,6 +95,7 @@ int main()
                 if(choix_m==1)
                 {
                     Univers[0].Sauvegarder(0);
+                    Univers[0].SaveComparaison();
                     Univers[0].Sauvegarder_Ponderation(0);
                     Univers[0].SupprimerArete();
                     Univers[0].Sauvegarder(1);
@@ -89,8 +103,9 @@ int main()
                     Update_Univers(Univers);
                     Univers[0].Chargement("GrapheActuel.txt");
                     Univers[0].Chargement_Ponderation("PonderationActuelle.txt");
+                    Univers[0].ChargerComparaison(IndicesPrec,  NIndicesPrec);
                     Univers[0].Calcul();
-                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI);
+                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
                 }
                 else Univers[0].Recherche_Connexite();
             }

@@ -4,8 +4,9 @@
 #include "Sommet.h"
 #include "Arete.h"
 #include <iomanip>
+std::vector<double> RechercheSommetVec(int indice,std::vector<std::vector<double>> IndicesPrec);
 
-Sommet::Sommet(int indice, char nom, int x, int y)
+Sommet::Sommet(int indice, char nom, double x, double y)
 {
     m_nom = nom;
     m_indice = indice;
@@ -55,10 +56,17 @@ double Arrondir(double valeur)
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF)
 {
     double cd=0, cp=0, ci=0;
-    std::string couleur;
+    int decalage=0;
+    std::vector<double>vec;
+    std::vector<double>Nvec;
+    std::string couleur, couleurDiff, red = "red", green = "lightgreen";
+    if(IndicesPrec.size() > 0)
+        vec = RechercheSommetVec(m_indice, IndicesPrec);
+    if(NIndicesPrec.size() > 0)
+        Nvec = RechercheSommetVec(m_indice, NIndicesPrec);
 
     if(NCD == true)
         cd = m_N_Cd;
@@ -81,6 +89,48 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CD == true)
     {
+        if(DIFF == true)
+        {
+        if(vec.size() > 1)
+        if(NCD == false)
+            if(vec[1] != cd)
+            {
+                if((cd - vec[1]) > 0)
+                    couleurDiff = red;
+                if((cd - vec[1]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 17, "(" , couleurDiff);
+                if(Arrondir(cd - vec[1]) < 0)
+                    decalage=0;
+                if(Arrondir(cd - vec[1]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 17, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 17, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 17, cd - vec[1], couleurDiff);
+            }
+        if(Nvec.size() > 1)
+        if(NCD == true)
+            if(Nvec[1] != cd)
+            {
+                if((cd - Nvec[1]) > 0)
+                    couleurDiff = red;
+                if((cd - Nvec[1]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 17, "(" , couleurDiff);
+                if(Arrondir(cd - Nvec[1]) < 0)
+                    decalage=0;
+                if(Arrondir(cd - Nvec[1]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 17, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 17, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 17, cd - Nvec[1], couleurDiff);
+            }
+        }
+
     index.addText(m_x*100 - 14, m_y*100 + 16, cd, "yellow");
     index.addText(m_x*100 - 16, m_y*100 + 18, cd, "yellow");
     index.addText(m_x*100 - 15, m_y*100 + 17, cd, "black");
@@ -95,8 +145,32 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     index.addText(65, 35, "Indice de centralite par Degre", "black");
     }
 
+
     if(CVP == true)
     {
+        if(DIFF == true)
+        {
+        if(m_Cvp >= 0)
+        if(vec.size() > 2)
+            if(vec[2] != m_Cvp)
+            {
+                if(Arrondir(m_Cvp - vec[2]) > 0)
+                    couleurDiff = red;
+                if(Arrondir(m_Cvp - vec[2]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 33, "(" , couleurDiff);
+                if(Arrondir(m_Cvp - vec[2]) < 0)
+                    decalage=0;
+                if(Arrondir(m_Cvp - vec[2]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 33, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 33, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 33, Arrondir(m_Cvp - vec[2]), couleurDiff);
+            }
+        }
+
         if(m_Cvp >= 0)
             index.addText(m_x*100-16, m_y*100+33, Arrondir(m_Cvp),"green");
         if(m_Cvp < 0)
@@ -113,6 +187,57 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CP == true)
     {
+
+        if(DIFF == true)
+        {
+        if(cp >= 0 && cp<100000)
+        if(vec.size() > 3)
+        if(NCP == false)
+            if(vec[3] != cp)
+            {
+                if(Arrondir(cp - vec[3]) > 0)
+                    couleurDiff = red;
+                if(Arrondir(cp - vec[3]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 51, "(" , couleurDiff);
+                if(Arrondir(cp - vec[3]) < 0)
+                    decalage=0;
+                if(Arrondir(cp - vec[3]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 51, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 51, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 51, Arrondir(cp - vec[3]), couleurDiff);
+            }
+        if(cp >= 0 && cp<100000)
+        if(Nvec.size() > 3)
+        if(NCP == true)
+            if(Nvec[3] != cp)
+            {
+                if(Arrondir(cp - Nvec[3]) > 0)
+                    couleurDiff = red;
+                if(Arrondir(cp - Nvec[3]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 51, "(" , couleurDiff);
+                if(Arrondir(cp - Nvec[3]) < 0)
+                    decalage=0;
+                if(Arrondir(cp - Nvec[3]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 51, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 51, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 51, Arrondir(cp - Nvec[3]), couleurDiff);
+            }
+            if(cp < 0 || cp>100000)
+            {
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 51, "(+inf)" , red);
+            }
+        }
+
+
+
         if(cp >= 0 && cp<100000)
             index.addText(m_x*100-16, m_y*100+51, Arrondir(cp),"blue");
         if(cp < 0 || cp>100000)
@@ -129,13 +254,64 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
 
     if(CI == true)
     {
-        if(ci >= 0)
-            index.addText(m_x*100-16, m_y*100+69, Arrondir(ci),"red");
-        if(ci < 0)
-            index.addText(m_x*100-16, m_y*100+69, "inf","red");
 
-        index.addLine(30+300+235, 50, 50+300+235, 50, "red");
-        index.addText(65+300-40, 55, "Indice de centralite d'Intermediarite", "red");
+        if(DIFF == true)
+        {
+        if(ci >= 0 && ci < 100000)
+        if(vec.size() > 4)
+        if(NCI == false)
+            if(vec[4] != ci)
+            {
+                if(Arrondir(ci - vec[4]) > 0 )
+                        couleurDiff = red;
+                    if(Arrondir(ci - vec[4]) < 0 )
+                        couleurDiff = green;
+                    index.addText(m_x*100 - 22 + 45, m_y*100 + 69, "(" , couleurDiff);
+                if(Arrondir(ci - vec[4]) < 0)
+                    decalage=0;
+                if(Arrondir(ci - vec[4]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 69, "+" , couleurDiff);
+                }
+                    if(Arrondir(ci - vec[4]) < 100 && Arrondir(ci - vec[4]) > -10)
+                        index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 69, ")" , couleurDiff);
+                    if(Arrondir(ci - vec[4]) >= 100 || Arrondir(ci - vec[4]) <= -10)
+                        index.addText(m_x*100 - 22 + 91 + 8 + decalage, m_y*100 + 69, ")" , couleurDiff);
+                        index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 69, Arrondir(ci - vec[4]), couleurDiff);
+            }
+        if(ci >= 0 && ci < 100000)
+        if(Nvec.size() > 4)
+        if(NCI == true)
+            if(Nvec[4] != ci)
+            {
+                if(Arrondir(ci - Nvec[4]) > 0)
+                    couleurDiff = red;
+                if(Arrondir(ci - Nvec[4]) < 0)
+                    couleurDiff = green;
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 69, "(" , couleurDiff);
+                if(Arrondir(ci - Nvec[4]) < 0)
+                    decalage=0;
+                if(Arrondir(ci - Nvec[4]) > 0)
+                {
+                    decalage=8;
+                    index.addText(m_x*100 - 22 + 45 + 4, m_y*100 + 69, "+" , couleurDiff);
+                }
+                index.addText(m_x*100 - 22 + 91 + decalage, m_y*100 + 69, ")" , couleurDiff);
+                index.addText(m_x*100 - 17 + 45 + decalage, m_y*100 + 69, Arrondir(ci - Nvec[4]), couleurDiff);
+            }
+            if(ci < 0 || ci > 100000)
+                index.addText(m_x*100 - 22 + 45, m_y*100 + 69, "(+inf)" , red);
+        }
+
+
+        if(ci >= 0 && ci < 100000)
+            index.addText(m_x*100-16, m_y*100+69, Arrondir(ci),"darkred");
+        if(ci < 0 || ci > 100000)
+            index.addText(m_x*100-16, m_y*100+69, "inf","darkred");
+
+        index.addLine(30+300+235, 50, 50+300+235, 50, "darkred");
+        index.addText(65+300-40, 55, "Indice de centralite d'Intermediarite", "darkred");
     }
 
 
@@ -549,6 +725,10 @@ void Sommet::AfficherTout()
     //std::cout << "| Sommets ||   Degre   |  Deg Norm  || Vect Propre || Proximite | Prox Norm ||  Intermed  | Inter Norm |" << std::endl;
     //std::cout << "|    " << m_nom << "    ||     " << m_Cd << "     |    " << m_N_Cd << "   ||   " << m_Cvp << std::endl;
     std::cout << "|    " << m_nom << "    ||     " << m_Cd << std::tab << m_N_Cd << std::tab << std::tab << m_Cvp << std::tab << m_Cp << std::tab << m_N_Cp << std::tab << m_Ci << std::tab << std::tab << m_N_Ci << std::endl;
+}
+void Sommet::SaveComparaison(std::ofstream& fichier)
+{
+    fichier << m_indice << " " << m_Cd << " " << m_Cvp << " " << m_Cp << " " << m_Ci<< " " << m_N_Cd << " " << m_Cvp << " " << m_N_Cp << " " << m_N_Ci  << std::endl;
 }
 
 

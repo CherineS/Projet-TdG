@@ -31,7 +31,7 @@ void Graph::AddOriente_Ordre_Taille(bool oriente, int ordre, int taille)
 
 }
 
-void Graph::AddSommet(int indice, char nom, int x, int y)
+void Graph::AddSommet(int indice, char nom, double x, double y)
 {
     Sommet s(indice, nom, x, y);
     m_sommets.push_back(s);
@@ -51,13 +51,13 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI)
+void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF)
 {
     Svgfile index;
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI, IndicesPrec, NIndicesPrec, DIFF);
         }
 }
 
@@ -79,7 +79,8 @@ void Graph::Afficher()
 void Graph::Chargement(std::string nomF)
 {
     int oriente, ordre, taille;
-    int indice, x, y;
+    int indice;
+    double x, y;
     char nom;
     bool b_oriente;
     std::ifstream fichier(nomF);
@@ -182,7 +183,7 @@ void Graph::Recherche_Connexite()
 
             for(size_t j=0;j<ListeConnex.size();++j)
             {
-                if(ListeConnex[j]==i)
+                if(ListeConnex[j]==m_sommets[i].get_indice())
                 {
                     present=1;
                     break;
@@ -190,7 +191,7 @@ void Graph::Recherche_Connexite()
             }
             if(present!=1)
             {
-                prochain=i;
+                prochain=m_sommets[i].get_indice();
                 break;
             }
         }
@@ -557,7 +558,7 @@ void Graph::Memoire_Ponderation(std::string& fichier, int num)
 
 bool OuvertureFichier(std::string fichiern);
 
-void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
+void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
 {
     int num=0;
     std::string fichier;
@@ -606,10 +607,10 @@ void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI
             }
     }
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
 }
 
-void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
+void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
 {
     Chargement("GrapheActuel.txt");
 
@@ -624,7 +625,7 @@ void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI,
     m_pondere=true;
 
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
 }
 
 void Graph::Calcul()
@@ -636,9 +637,9 @@ void Graph::Calcul()
     Normaliser();
 }
 
-void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI)
+void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
 {
-    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI);
+    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
     std::string line = "vide";
 
     std::cout << "                                         LISTE DES COMMANDES   " << std::endl;
@@ -647,11 +648,26 @@ void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP,
     std::cout << "                                     |  CD |  CVP |  CP |  CI |" << std::endl;
     std::cout << "                                     | NCD | NCVP | NCP | NCI |" << std::endl;
     std::cout << "                                     |          NALL          |" << std::endl;
+    std::cout << "                                     |          DIFF          |" << std::endl;
     std::cout << "                                     |         return         |" << std::endl;
     std::cout << "                                     --------------------------" << std::endl;
 
     do{
     getline(std::cin, line);
+
+    if(line == "DIFF")
+    {
+        if(DIFF == false && line == "DIFF")
+        {
+            DIFF = true;
+            line = "dessin";
+        }
+        if(DIFF == true && line == "DIFF")
+        {
+            DIFF = false;
+            line = "dessin";
+        }
+    }
 
     if(line == "ALL")
     {
@@ -774,7 +790,7 @@ void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP,
 
     if(line == "dessin")
     {
-        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI);
+        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
         line = "vide";
     }
     }while(line != "return");
@@ -851,4 +867,66 @@ void Graph::Sauvegarder_Ponderation(int mode)
     }
     else
         std::cout << "Probleme ouverture fichier" << std::endl;
+}
+
+void Graph::SaveComparaison()
+{
+    std::ofstream fichier;
+    fichier.open("Comparaison.txt");
+
+    if(fichier)
+    {
+        fichier << m_ordre << std::endl;
+        for(size_t i=0 ; i < m_sommets.size() ; i++)
+        {
+            m_sommets[i].SaveComparaison(fichier);
+        }
+    }
+    else
+        std::cout << "Probleme ouverture fichier" << std::endl;
+
+}
+
+
+void Graph::ChargerComparaison(std::vector<std::vector<double>>& IndicesPrec, std::vector<std::vector<double>>& NIndicesPrec)
+{
+    int ordre;
+    double indice=0, CdPrec=0,  CvpPrec=0,  CpPrec=0,  CiPrec=0;
+    double          NCdPrec=0, NCvpPrec=0, NCpPrec=0, NCiPrec=0;
+    IndicesPrec.clear();
+    NIndicesPrec.clear();
+    std::ifstream fichier("Comparaison.txt");
+    if(fichier)
+    {
+        fichier >> ordre;
+        for(int i=0 ; i < ordre ; i++)
+        {
+            std::vector<double> vec;
+            std::vector<double> Nvec;
+            fichier >> indice >> CdPrec >> CvpPrec >> CpPrec >> CiPrec >> NCdPrec >> NCvpPrec >> NCpPrec >> NCiPrec;
+            vec.push_back(indice);
+            vec.push_back(CdPrec);
+            vec.push_back(CvpPrec);
+            vec.push_back(CpPrec);
+            vec.push_back(CiPrec);
+            IndicesPrec.push_back(vec);
+            Nvec.push_back(indice);
+            Nvec.push_back(NCdPrec);
+            Nvec.push_back(NCvpPrec);
+            Nvec.push_back(NCpPrec);
+            Nvec.push_back(NCiPrec);
+            NIndicesPrec.push_back(Nvec);
+        }
+    }
+    else
+        std::cout << "Probleme ouverture fichier" << std::endl;
+
+
+    /// ////
+    //for(size_t i=0 ; i < IndicesPrec.size() ; i++)
+    //{
+    //        std::cout << "Indice : " << IndicesPrec[i][0] <<"  CdPrec : " << IndicesPrec[i][1] << "  CvpPrec : " << IndicesPrec[i][2] << "  CpPrec : " << IndicesPrec[i][3] << "  CiPrec : " << IndicesPrec[i][4] << std::endl;
+    //}
+    /// ////
+
 }

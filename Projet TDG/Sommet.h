@@ -10,7 +10,7 @@ class Sommet
     private :
         char m_nom;
         int m_indice;
-        int m_x, m_y;
+        double m_x, m_y;
         double m_N_Cd;
         double m_Cd;
         double m_Cvp;
@@ -28,8 +28,8 @@ class Sommet
         std::vector<Sommet*> m_successeurs;
 
     public :
-        Sommet(int indice, char nom, int x, int y);
-        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI);
+        Sommet(int indice, char nom, double x, double y);
+        void Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF);
         void AddSuccesseur(Sommet* s);
         void Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool oriente);
         void Afficher();
@@ -65,6 +65,9 @@ class Sommet
         void AfficherTout();
         void setSommet(int &indice, char &nom, int &x, int &y);
         void SuppSommet(int &id2);
+
+        void SaveComparaison(std::ofstream& fichier);
+        void ChargerComparaison();
 };
 
 
