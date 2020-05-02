@@ -87,7 +87,12 @@ int main()
         {
             if(Univers.size()>0)
             {
-                std::cout << "\n      1 : Supprimer une arete\n    2 : Afficher les connexites\n\t     Choix : ";
+                std::cout << "                                     ---------Supprimer---------" << std::endl;
+                std::cout << "                                    1-   Supprimer une arete   -1" << std::endl;
+                std::cout << "                                    2- Afficher les connexites -2" << std::endl;
+                std::cout << "                                                                 " << std::endl;
+                std::cout << "                                                 > ";
+
                 do
                 std::cin >> choix_m;
                 while (choix_m != 1 && choix_m != 2);

@@ -4,7 +4,12 @@
 #include "Sommet.h"
 #include "Arete.h"
 #include <iomanip>
+#include <iostream>
+namespace std {
+    const char* tab = "\t";
+}
 std::vector<double> RechercheSommetVec(int indice,std::vector<std::vector<double>> IndicesPrec);
+
 
 Sommet::Sommet(int indice, char nom, double x, double y)
 {
@@ -694,10 +699,7 @@ char Sommet::getNom()
 {
     return m_nom;
 }
-#include <iostream>
-namespace std {
-    const char* tab = "\t";
-}
+
 
 void Sommet::setSommet(int &indice, char &nom, int &x, int &y)
 {

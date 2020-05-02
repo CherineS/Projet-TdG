@@ -209,7 +209,9 @@ void Graph::Recherche_Connexite()
         nbConnex++;
 
         ///Affichage
-        std::cout << std::endl << "Composante connexe " << nbConnex << " : ";
+        std::cout << "                                     ---------Supprimer---------" << std::endl;
+        std::cout << "                                   --- " << nbConnex << " Composante(s) connexe ---" << std::endl;
+        std::cout << "                                       > ";
         for(size_t i=compteur2;i<ListeConnex.size();++i)
             std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
         std::cout << std::endl;
@@ -225,7 +227,11 @@ void Graph::SupprimerArete()
     int id1=0,id2=0;
     size_t i=0;
 
-    std::cout << "\n\t   ---Supprimer---\n\t1. Une certaine arete\n\t2. Une arete au hasard\n\t     Choix : ";
+    std::cout << "                                     ---------Supprimer---------" << std::endl;
+    std::cout << "                                    1-    Une certaine arete   -1" << std::endl;
+    std::cout << "                                    2-   Une arete au hasard   -2" << std::endl;
+    std::cout << "                                                                 " << std::endl;
+    std::cout << "                                                 > ";
 
     do
     std::cin >> choix;
@@ -233,7 +239,7 @@ void Graph::SupprimerArete()
 
     if(choix==1)
     {
-        std::cout << "Saisir son indice : ";
+        std::cout << "                                          Saisir son indice : ";
         std::cin >> indice;
 
         for(size_t i=0;i<m_aretes.size();++i)
@@ -271,8 +277,7 @@ void Graph::SupprimerArete()
         ///Suppression des aretes
         m_aretes.erase(m_aretes.begin()+indice);
         m_aretes.shrink_to_fit();
-        std::cout << "\nArete no " << indice << " supprimee\n";
-
+        std::cout << "                                         Arete no "<< indice <<" supprimee        " << std::endl;
         m_taille-=1;
     }
 }
