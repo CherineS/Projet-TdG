@@ -701,7 +701,7 @@ char Sommet::getNom()
 }
 
 
-void Sommet::setSommet(int &indice, char &nom, int &x, int &y)
+void Sommet::setSommet(int &indice, char &nom, double &x, double &y)
 {
     indice=m_indice;
     nom=m_nom;

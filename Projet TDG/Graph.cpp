@@ -819,7 +819,8 @@ void Graph::AfficherTout()
 
 void Graph::Sauvegarder(int mode)
 {
-    int indice, x, y, ind, ext1, ext2;
+    int indice, ind, ext1, ext2;
+    double x, y;
     char nom;
     std::ofstream fichier;
 
