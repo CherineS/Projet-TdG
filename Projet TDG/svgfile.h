@@ -5,6 +5,8 @@
 #include <fstream>
 #include <set>
 
+///FIchiers SVG issus des TP précédents
+
 constexpr char defcol[] = "black";
 
 class Svgfile

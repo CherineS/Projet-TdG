@@ -50,13 +50,14 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, int& indice)
+void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, int& indice, bool mexico)
 {
     Svgfile index;
+    if(mexico == false)
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI, IndicesPrec, NIndicesPrec, DIFF, m_sommets, indice);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI, IndicesPrec, NIndicesPrec, DIFF, m_sommets, indice, mexico);
         }
 }
 
@@ -562,7 +563,7 @@ void Graph::Memoire_Ponderation(std::string& fichier, int num)
 
 bool OuvertureFichier(std::string fichiern);
 
-void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
+void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico)
 {
     int num=0;
     std::string fichier;
@@ -570,6 +571,10 @@ void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI
     std::cout << "                                    Saisir le nom du fichier : ";
     std::cin >> fichier;
     }while(OuvertureFichier(fichier) == false && fichier != "1" && fichier != "2" && fichier != "3" && fichier != "4");
+    if(fichier == "Mexico.txt")
+        mexico = true;
+    else
+        mexico = false;
     Memoire(fichier, num);
     fichierG=fichier;
     Chargement(fichier);
@@ -611,10 +616,10 @@ void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI
             }
     }
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice, mexico);
 }
 
-void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
+void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico)
 {
     Chargement("GrapheActuel.txt");
 
@@ -629,7 +634,7 @@ void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI,
     m_pondere=true;
 
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice, mexico);
 }
 
 void Graph::Calcul()
@@ -641,9 +646,9 @@ void Graph::Calcul()
     Normaliser();
 }
 
-void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
+void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico)
 {
-    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
+    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice, mexico);
     std::string line = "vide";
 
     std::cout << "                                         LISTE DES COMMANDES   " << std::endl;
@@ -816,7 +821,7 @@ void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP,
 
     if(line == "dessin")
     {
-        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
+        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice, mexico);
         line = "vide";
     }
     }while(line != "return");

@@ -1,3 +1,7 @@
+/// Groupe  JPS1
+/// MIGNIEN Edouard
+/// SEO     Cherine
+/// TD 7
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -7,6 +11,13 @@
 #include "Arete.h"
 #include "Sommet.h"
 #include "Graph.h"
+
+///Sources :
+///Dégradé de couleur SVG : https://la-cascade.io/les-degrades-svg/
+///FIchiers SVG issus des TP précédents
+///Flèches orientées : http://xymaths.free.fr/Informatique-Programmation/javascript/canvas-dessin-fleche.php (3 lignes)
+///Sous programme d'arrondi de valeur : https://www.developpez.net/forums/d29018/c-cpp/cpp/arrondir-chiffre-2-chiffres-apres-virgule/ (2 lignes)
+///Dijkstra est identique à l'algorithme Dijkstra rendu au Tp 3, codé entièrement par nous même, sans source
 
 std::vector<double> RechercheSommetVec(int indice, std::vector<std::vector<double>>vec)
 {
@@ -42,7 +53,7 @@ int main()
     std::vector<Graph>Univers;
     std::vector<std::vector<double>> IndicesPrec,  NIndicesPrec;
     int choix_m=0, indice=0;
-    bool CVP=false, CD=false, CP=false, CI=false, NCD=false, NCP=false, NCI=false, DIFF=false;
+    bool CVP=false, CD=false, CP=false, CI=false, NCD=false, NCP=false, NCI=false, DIFF=false, mexico=false;
     std::string fichier;
     srand(time(NULL));
 
@@ -67,7 +78,7 @@ int main()
     case 1 :
         {
         Update_Univers(Univers);
-        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
+        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);
         Univers[0].Sauvegarder(1);
         Univers[0].Sauvegarder_Ponderation(1);
         }
@@ -76,13 +87,13 @@ int main()
         {
         Update_Univers(Univers);
         if(Univers.size()>0)
-            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
+            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);
         }
         break;
     case 3 :
         {
         if(Univers.size()>0)
-           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
+           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);
         }
         break;
     case 4 :
@@ -112,7 +123,7 @@ int main()
                     Univers[0].Chargement_Ponderation("PonderationActuelle.txt");
                     Univers[0].ChargerComparaison(IndicesPrec,  NIndicesPrec);
                     Univers[0].Calcul();
-                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
+                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);
                 }
                 else Univers[0].Recherche_Connexite();
             }

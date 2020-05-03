@@ -14,7 +14,7 @@ class Arete
         Arete(int indice, int id1, int id2);
         void Successeurs(std::vector<Sommet>& m_sommets, bool oriente);
         void Poids(double poids, int indice);
-        void DessinerPoids(Svgfile& index, int indice1, int x1, int y1, int indice2, int x2, int y2);
+        void DessinerPoids(Svgfile& index, int indice1, double x1, double y1, int indice2, double x2, double y2);
         void Afficher();
         double Recherche_Poids(double ind1, double ind2, bool oriente);
         void ParcoursConnex(std::vector<int> &Queue, int &compteur);

@@ -23,7 +23,7 @@ void Arete::Poids(double poids, int indice)
         m_poids = poids;
 }
 
-void Arete::DessinerPoids(Svgfile& index, int indice1, int x1, int y1, int indice2, int x2, int y2)
+void Arete::DessinerPoids(Svgfile& index, int indice1, double x1, double y1, int indice2, double x2, double y2)
 {
     x1=x1*100; y1=y1*100; x2=x2*100; y2=y2*100;
     if((m_id1 == indice1) && (m_id2==indice2))

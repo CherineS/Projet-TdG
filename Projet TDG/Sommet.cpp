@@ -9,7 +9,7 @@ namespace std {
     const char* tab = "\t";
 }
 std::vector<double> RechercheSommetVec(int indice,std::vector<std::vector<double>> IndicesPrec);
-
+void Mexico(Svgfile& index);
 
 Sommet::Sommet(int indice, char nom, double x, double y)
 {
@@ -51,7 +51,8 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
         }
     }
 }
-
+///Source :
+///Sous programme d'arrondi de valeur : https://www.developpez.net/forums/d29018/c-cpp/cpp/arrondir-chiffre-2-chiffres-apres-virgule/ (2 lignes)
 double Arrondir(double valeur)
 {
     int entier = (int)((0.0005 + valeur) * 1000.0);
@@ -128,7 +129,7 @@ double Sommet::Pourcentage(std::vector<Sommet>sommets, double val, std::string i
 }
 
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, std::vector<Sommet>sommets, int indice)
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, std::vector<Sommet>sommets, int indice, bool mexico)
 {
     double cd=0, cp=0, ci=0;
     double pourcent=0, val=0;
@@ -145,6 +146,13 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         cd = m_Cd;
     if(NCD == true)
         cd = m_N_Cd;
+
+    if(mexico == true)
+        Mexico(index);
+
+
+
+
 
 
 
@@ -427,7 +435,7 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         if(cp < 0 || cp>100000)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
-            if(NCD == true)
+            if(NCP == true)
                 index.addDisk(845, 370 +19 +66 +7+25, 4, "blue");
         index.addCircle(845, 370 +19 +66 +7+25, 7, 2, "blue");
         //index.addText(867, 370 +19 +7 +3 +66 +2+25, "Proximite", "black");
@@ -916,6 +924,116 @@ void Sommet::SaveComparaison(std::ofstream& fichier)
     fichier << m_indice << " " << m_Cd << " " << m_Cvp << " " << m_Cp << " " << m_Ci<< " " << m_N_Cd << " " << m_Cvp << " " << m_N_Cp << " " << m_N_Ci  << std::endl;
 }
 
+void Mexico(Svgfile& index)
+{
+    index.addRectangle(50, 690, 850, 790, "white", 2, "black");
+
+    index.addRectangle(90 -15, 733 -28, 117 -15, 760 -28, "MediumVioletRed	");
+    index.addText(101 -15 +30, 752-28, ":", "black");
+    index.addText(101 -15 +45, 752-28, "F", "black");
+    index.addText(101 -15, 752-28, "1", "white");
+    index.addText(100-15, 752-28, "1", "white");
+    index.addText(99-15, 752-28, "1", "white");
+    index.addText(101-15, 751-28, "1", "white");
+    index.addText(100-15, 751-28, "1", "white");
+    index.addText(99-15, 751-28, "1", "white");
+    index.addRectangle(90 -15, 733 +16, 117 -15, 760 +16, "DodgerBlue");
+    index.addText(101 -15 +30, 752+16, ":", "black");
+    index.addText(101 -15 +45, 752+16, "E", "black");
+    index.addText(101 -15, 752+16, "2", "white");
+    index.addText(100-15, 752+16, "2", "white");
+    index.addText(99-15, 752+16, "2", "white");
+    index.addText(101-15, 751+16, "2", "white");
+    index.addText(100-15, 751+16, "2", "white");
+    index.addText(99-15, 751+16, "2", "white");
+
+    index.addRectangle(90 -15 +130, 733 -28, 117 -15 +130, 760 -28, "Olive");
+    index.addText(101 -15 +30 +130, 752-28, ":", "black");
+    index.addText(101 -15 +45 +130, 752-28, "D", "black");
+    index.addText(101 -15 +130, 752-28, "3", "white");
+    index.addText(100-15 +130, 752-28, "3", "white");
+    index.addText(99-15 +130, 752-28, "3", "white");
+    index.addText(101-15 +130, 751-28, "3", "white");
+    index.addText(100-15 +130, 751-28, "3", "white");
+    index.addText(99-15 +130, 751-28, "3", "white");
+    index.addRectangle(90 -15 +130, 733 +16, 117 -15 +130, 760 +16, "PowderBlue");
+    index.addText(101 -15 +30 +130, 752+16, ":", "black");
+    index.addText(101 -15 +45 +130, 752+16, "S", "black");
+    index.addText(101-15 +130 , 752+16, "4", "white");
+    index.addText(100-15 +130, 752+16, "4", "white");
+    index.addText(99-15 +130, 752+16, "4", "white");
+    index.addText(101-15 +130, 751+16, "4", "white");
+    index.addText(100-15 +130, 751+16, "4", "white");
+    index.addText(99-15 +130, 751+16, "4", "white");
+
+    index.addRectangle(90 -15 +130 +130, 733 -28, 117 -15 +130 +130, 760 -28, "Goldenrod");
+    index.addText(101 -15 +30 +130 +130, 752-28, ":", "black");
+    index.addText(101 -15 +45 +130 +130, 752-28, "C", "black");
+    index.addText(101 -15 +130 +130, 752-28, "5", "white");
+    index.addText(100-15 +130 +130, 752-28, "5", "white");
+    index.addText(99-15 +130 +130, 752-28, "5", "white");
+    index.addText(101-15 +130 +130, 751-28, "5", "white");
+    index.addText(100-15 +130 +130, 751-28, "5", "white");
+    index.addText(99-15 +130 +130, 751-28, "5", "white");
+    index.addRectangle(90 -15 +130 +130, 733 +16, 117 -15 +130 +130, 760 +16, "Crimson");
+    index.addText(101 -15 +30 +130 +130, 752+16, ":", "black");
+    index.addText(101 -15 +45 +130 +130, 752+16, "A", "black");
+    index.addText(101-15 +130 +130 , 752+16, "6", "white");
+    index.addText(100-15 +130 +130, 752+16, "6", "white");
+    index.addText(99-15 +130 +130, 752+16, "6", "white");
+    index.addText(101-15 +130 +130, 751+16, "6", "white");
+    index.addText(100-15 +130 +130, 751+16, "6", "white");
+    index.addText(99-15 +130 +130, 751+16, "6", "white");
+
+    index.addRectangle(90 -15 +130 +130 +130, 733 -28, 117 -15 +130 +130 +130, 760 -28, "DarkOrange");
+    index.addText(101 -15 +30 +130 +130 +130, 752-28, ":", "black");
+    index.addText(101 -15 +45 +130 +130 +130, 752-28, "B", "black");
+    index.addText(101 -15 +130 +130 +130, 752-28, "7", "white");
+    index.addText(100-15 +130 +130 +130, 752-28, "7", "white");
+    index.addText(99-15 +130 +130 +130, 752-28, "7", "white");
+    index.addText(101-15 +130 +130 +130, 751-28, "7", "white");
+    index.addText(100-15 +130 +130 +130, 751-28, "7", "white");
+    index.addText(99-15 +130 +130 +130, 751-28, "7", "white");
+    index.addRectangle(90 -15 +130 +130 +130, 733 +16, 117 -15 +130 +130 +130, 760 +16, "SeaGreen");
+    index.addText(101 -15 +30 +130 +130 +130, 752+16, ":", "black");
+    index.addText(101 -15 +45 +130 +130 +130, 752+16, "H", "black");
+    index.addText(101-15 +130 +130 +130 , 752+16, "8", "white");
+    index.addText(100-15 +130 +130 +130, 752+16, "8", "white");
+    index.addText(99-15 +130 +130 +130, 752+16, "8", "white");
+    index.addText(101-15 +130 +130 +130, 751+16, "8", "white");
+    index.addText(100-15 +130 +130 +130, 751+16, "8", "white");
+    index.addText(99-15 +130 +130 +130, 751+16, "8", "white");
+
+    index.addRectangle(90 -15 +130 +130 +130 +130, 733 -7, 117 -15 +130 +130 +130 +130, 760 -7, "SaddleBrown");
+    index.addText(101 -15 +30 +130 +130 +130 +130, 752-7, ":", "black");
+    index.addText(101 -15 +45 +130 +130 +130 +130, 752-7, "G", "black");
+    index.addText(101 -15 +130 +130 +130 +130, 752-7, "9", "white");
+    index.addText(100-15 +130 +130 +130 +130, 752-7, "9", "white");
+    index.addText(99-15 +130 +130 +130 +130, 752-7, "9", "white");
+    index.addText(101-15 +130 +130 +130 +130, 751-7, "9", "white");
+    index.addText(100-15 +130 +130 +130 +130, 751-7, "9", "white");
+    index.addText(99-15 +130 +130 +130 +130, 751-7, "9", "white");
+    //index.addRectangle(90 -15 +130 +130 +130 +130, 733 +16, 117 -15 +130 +130 +130 +130, 760 +16, "red");
+
+    index.addRectangle(90 -15 +130 +130 +130 +130 +130, 733 -28, 117 -15 +130 +130 +130 +130 +130, 760 -28, "DarkMagenta");
+    index.addText(101 -15 +30 +130 +130 +130 +130 +130, 752-28, ":", "black");
+    index.addText(101 -15 +45 +130 +130 +130 +130 +130, 752-28, "K", "black");
+    index.addText(101 -15 +130 +130 +130 +130 +128, 752-28, "A", "white");
+    index.addText(100-15 +130 +130 +130 +130 +128, 752-28, "A", "white");
+    index.addText(99-15 +130 +130 +130 +130 +128, 752-28, "A", "white");
+    index.addText(101-15 +130 +130 +130 +130 +128, 751-28, "A", "white");
+    index.addText(100-15 +130 +130 +130 +130 +128, 751-28, "A", "white");
+    index.addText(99-15 +130 +130 +130 +130 +128, 751-28, "A", "white");
+    index.addRectangle(90 -15 +130 +130 +130 +130 +130, 733 +16, 117 -15 +130 +130 +130 +130 +130, 760 +16, "DarkGray");
+    index.addText(101 -15 +30 +130 +130 +130 +130 +130, 752+16, ":", "black");
+    index.addText(101 -15 +45 +130 +130 +130 +130 +130, 752+16, "J", "black");
+    index.addText(101-15 +130 +130 +130 +130 +128 , 752+16, "B", "white");
+    index.addText(100-15 +130 +130 +130 +130 +128, 752+16, "B", "white");
+    index.addText(99-15 +130 +130 +130 +130 +128, 752+16, "B", "white");
+    index.addText(101-15 +130 +130 +130 +130 +128, 751+16, "B", "white");
+    index.addText(100-15 +130 +130 +130 +130 +128, 751+16, "B", "white");
+    index.addText(99-15 +130 +130 +130 +130 +128, 751+16, "B", "white");
+}
 
 
 

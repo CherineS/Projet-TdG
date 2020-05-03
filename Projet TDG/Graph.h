@@ -18,7 +18,7 @@ class Graph
         void AddOriente_Ordre_Taille(bool oriente, int ordre, int taille);
         void AddSommet(int indice, char nom, double x, double y);
         void AddArete(int indice, int id1, int id2);
-        void Dessiner(bool& CVP, bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, int& indice);
+        void Dessiner(bool& CVP, bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, int& indice, bool mexico);
         void Successeurs();
         void Afficher();
         void Chargement(std::string nomF);
@@ -44,9 +44,9 @@ class Graph
         void Calcul();
         void Memoire(std::string& fichier, int& num);
         void Memoire_Ponderation(std::string& fichier, int num);
-        void Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice);
-        void Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice);
-        void Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice);
+        void Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico);
+        void Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico);
+        void Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice, bool& mexico);
         void AfficherTout();
         void Sauvegarder(int mode);
         void Sauvegarder_Ponderation(int mode);
