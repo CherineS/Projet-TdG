@@ -40,6 +40,7 @@ bool OuvertureFichier(std::string fichiern)
     return ouverture;
 }
 
+///Reinitialise un graphe
 void Update_Univers(std::vector<Graph>&Univers)
 {
     if(Univers.size() > 0)
@@ -112,18 +113,19 @@ int main()
 
                 if(choix_m==1)
                 {
+                    ///Sauvegarde du graphe + Centralites avant suppression d'une arete ("precedent")
                     Univers[0].Sauvegarder(0);
                     Univers[0].SaveComparaison();
                     Univers[0].Sauvegarder_Ponderation(0);
-                    Univers[0].SupprimerArete();
-                    Univers[0].Sauvegarder(1);
+                    Univers[0].SupprimerArete();    ///Suppression de l'arete
+                    Univers[0].Sauvegarder(1);  ///Sauvegarde du graphe actuel
                     Univers[0].Sauvegarder_Ponderation(1);
-                    Update_Univers(Univers);
-                    Univers[0].Chargement("GrapheActuel.txt");
+                    Update_Univers(Univers);    ///Reinitialisation du graphe
+                    Univers[0].Chargement("GrapheActuel.txt");  ///On ouvre le graphe + centralites apres suppression ("actuel")
                     Univers[0].Chargement_Ponderation("PonderationActuelle.txt");
                     Univers[0].ChargerComparaison(IndicesPrec,  NIndicesPrec);
-                    Univers[0].Calcul();
-                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);
+                    Univers[0].Calcul();    ///Calcul des successeurs + centralites + normalisation
+                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice, mexico);  ///Sortie en svg
                 }
                 else Univers[0].Recherche_Connexite();
             }

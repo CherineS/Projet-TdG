@@ -30,6 +30,7 @@ void Graph::AddOriente_Ordre_Taille(bool oriente, int ordre, int taille)
     }
 }
 
+///Ajoute un sommet dans la liste de sommets du graphe
 void Graph::AddSommet(int indice, char nom, double x, double y)
 {
     Sommet s(indice, nom, x, y);
@@ -135,6 +136,7 @@ void Graph::Chargement_Ponderation(std::string nomF)
         std::cout << "Probleme ouverture fichier" <<std::endl;
 }
 
+///Calcul de la centralite par degre
 void Graph::Centralite_Degre()
 {
     for(size_t i=0 ; i < m_sommets.size() ; i++ )
@@ -143,6 +145,7 @@ void Graph::Centralite_Degre()
     }
 }
 
+///Calcul de la centralite par vecteur propre
 void Graph::Centralite_Vecteur_Propre()
 {
     double lambda = 0, lambda_prec = 0;
@@ -169,6 +172,7 @@ void Graph::Centralite_Vecteur_Propre()
     //std::cout << "Lambda : " << lambda << std::endl;
 }
 
+///Cherche et affiche les sommets connexes
 void Graph::Recherche_Connexite()
 {
     int nbConnex=0, compteur=1, compteur2=0, prochain=0, present;
@@ -225,6 +229,7 @@ void Graph::Recherche_Connexite()
     std::cout << std::endl;
 }
 
+///Suppression d'une arete
 void Graph::SupprimerArete()
 {
     int choix, indice, found=0;
@@ -527,6 +532,7 @@ void Graph::Normaliser()
     }
 }
 
+///Graphe "Par défaut" (Pour eviter de taper leur nom systematiquement)
 void Graph::Memoire(std::string& fichier, int& num)
 {
     if(fichier == "1")
@@ -551,6 +557,7 @@ void Graph::Memoire(std::string& fichier, int& num)
     }
 }
 
+///Ponderations de graphe "Par défaut"
 void Graph::Memoire_Ponderation(std::string& fichier, int num)
 {
     if(num == 1)
@@ -650,6 +657,7 @@ void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI,
     Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice, mexico);
 }
 
+///Calcul des successeurs + centralites + normalisation
 void Graph::Calcul()
 {
     Successeurs();
@@ -916,6 +924,7 @@ void Graph::Sauvegarder_Ponderation(int mode)
         std::cout << "Probleme ouverture fichier" << std::endl;
 }
 
+///Sauvegarde des centralites
 void Graph::SaveComparaison()
 {
     std::ofstream fichier;
@@ -934,7 +943,7 @@ void Graph::SaveComparaison()
 
 }
 
-
+///Chargement des centralites sauvegardes
 void Graph::ChargerComparaison(std::vector<std::vector<double>>& IndicesPrec, std::vector<std::vector<double>>& NIndicesPrec)
 {
     int ordre;
@@ -978,6 +987,7 @@ void Graph::ChargerComparaison(std::vector<std::vector<double>>& IndicesPrec, st
 
 }
 
+///Pour k-Connexites : début
 void Graph::SupprimerAreteAuto(int indice)
 {
     int id1=0,id2=0;
@@ -1200,6 +1210,6 @@ void Graph::KConnexite()
     std::cout << "                                              K-Connexe " << std::endl;
     std::cout << "                                                > " << kconnexe << " <" << std::endl;
 }
-
+///Fin ssprgs pour k-connexites
 
 

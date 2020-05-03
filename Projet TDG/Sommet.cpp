@@ -51,6 +51,7 @@ void Sommet::Successeur(int id1, int id2, std::vector<Sommet>& sommets, bool ori
         }
     }
 }
+
 ///Source :
 ///Sous programme d'arrondi de valeur : https://www.developpez.net/forums/d29018/c-cpp/cpp/arrondir-chiffre-2-chiffres-apres-virgule/ (2 lignes)
 double Arrondir(double valeur)
@@ -128,7 +129,7 @@ double Sommet::Pourcentage(std::vector<Sommet>sommets, double val, std::string i
     return val;
 }
 
-
+///Affichage pour svg
 void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, std::vector<Sommet>sommets, int indice, bool mexico)
 {
     double cd=0, cp=0, ci=0;
@@ -770,7 +771,7 @@ void Sommet::TestRec(Sommet* s_depart, int& n, std::vector<int>& liste, double d
         /// ////
         if(poids == arrive->m_distance && m_indice == s_depart->m_indice)
         {
-            ///AfficherListe(liste2); /// OMG CA MARCHE
+            ///AfficherListe(liste2);
             arrive->AjouterPcc(liste2, n);
         }
         /// ////
@@ -826,6 +827,7 @@ void Sommet::AjouterPcc(std::vector<int> liste, int n)
     m_Pcc.push_back(liste);
 }
 
+///Affichage pour debug
 void AfficherListe(std::vector<int> liste2)
 {
     for(size_t i=0 ; i < liste2.size() ; i++)
@@ -847,6 +849,7 @@ void AfficherListe(std::vector<int> liste2)
     //std::cout << "STOP" << std::endl;
 }
 
+///Affichage pour debug
 void Sommet::AfficherPcc(Sommet* s_depart)
 {
     std::cout << "Il y a " << m_Pcc.size() << " plus court(s) chemin(s) entre " << s_depart->m_nom << " et " << m_nom <<std::endl;
@@ -878,6 +881,7 @@ void Sommet::CalculPcci(Sommet* si, Sommet* s_depart, bool oriente)
     //std::cout << "Le Sommet " << si->m_nom << " apparait " << pcci << " fois entre " << s_depart->m_nom << " et " << m_nom << std::endl;
 }
 
+///Normalisation
 void Sommet::Normaliser(int n)
 {
     m_N_Cd = m_Cd / (n-1) ;
@@ -900,6 +904,7 @@ void Sommet::setSommet(int &indice, char &nom, double &x, double &y)
     y=m_y;
 }
 
+///Suppression du successeur d'un sommet s'il n'est plus relié à lui
 void Sommet::SuppSommet(int &id2)
 {
     for(size_t i=0; i<m_successeurs.size(); ++i)
@@ -919,11 +924,14 @@ void Sommet::AfficherTout()
     //std::cout << "|    " << m_nom << "    ||     " << m_Cd << "     |    " << m_N_Cd << "   ||   " << m_Cvp << std::endl;
     std::cout << "|    " << m_nom << "    ||     " << m_Cd << std::tab << m_N_Cd << std::tab << std::tab << m_Cvp << std::tab << m_Cp << std::tab << m_N_Cp << std::tab << m_Ci << std::tab << std::tab << m_N_Ci << std::endl;
 }
+
+///Sauvegarde des centralites d'un sommet
 void Sommet::SaveComparaison(std::ofstream& fichier)
 {
     fichier << m_indice << " " << m_Cd << " " << m_Cvp << " " << m_Cp << " " << m_Ci<< " " << m_N_Cd << " " << m_Cvp << " " << m_N_Cp << " " << m_N_Ci  << std::endl;
 }
 
+///Légende des lignes de métro de Mexico (si son graphe est charge)
 void Mexico(Svgfile& index)
 {
     index.addRectangle(50, 690, 850, 790, "white", 2, "black");

@@ -23,6 +23,7 @@ void Arete::Poids(double poids, int indice)
         m_poids = poids;
 }
 
+///Affiche le poids au milieu des arêtes
 void Arete::DessinerPoids(Svgfile& index, int indice1, double x1, double y1, int indice2, double x2, double y2)
 {
     x1=x1*100; y1=y1*100; x2=x2*100; y2=y2*100;
@@ -58,7 +59,7 @@ double Arete::Recherche_Poids(double ind1, double ind2, bool oriente)
     return poids;
 }
 
-
+///
 void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur)
 {
     bool present1=0, present2=0;
@@ -72,6 +73,7 @@ void Arete::ParcoursConnex(std::vector<int> &Queue, int &compteur)
             present2=1;
     }
 
+    ///Si un des sommets est parcouru et son adjacence n'est pas marqué, on l'ajoute
     if(present1!=1 && present2==1)
     {
         Queue.push_back(m_id1);
