@@ -47,6 +47,7 @@ int main()
     srand(time(NULL));
 
     do{
+    std::cout << std::endl;
    std::cout <<  "                              ------------------ MENU ------------------" << std::endl
               << "                              1-          Charger un Graphe           -1" << std::endl
               << "                              2-     Charger systeme de ponderation   -2" << std::endl

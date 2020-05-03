@@ -1026,10 +1026,11 @@ void Graph::Recherche_Connexite_Auto(bool& stop)
 
         for(size_t i=compteur2;i<ListeConnex.size();++i)
             vec.push_back(m_sommets[ListeConnex[i]].getNom());
-        for(size_t i=compteur2;i<ListeConnex.size();++i)
-            std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+       // for(size_t i=compteur2;i<ListeConnex.size();++i)
+       //     std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+       // std::cout << std::endl;
 
-        if(vec.size() > 1)
+        if(vec.size() > 0)
         {
             nbConnex2+=1;
             vec.clear();
@@ -1037,6 +1038,7 @@ void Graph::Recherche_Connexite_Auto(bool& stop)
 
         compteur2+=compteur;
     }while(compteur2<m_ordre);
+    ///std::cout << std::endl;
 
     if(nbConnex2 > 1)
         stop = true;
@@ -1044,31 +1046,89 @@ void Graph::Recherche_Connexite_Auto(bool& stop)
 
 void Graph::KConnexite()
 {
+    bool d2=false, d3=false, d4=false;
     bool stop = false, debut = true;
-    size_t taille=0;
-    int kconnexe = 0;
+    size_t taille0=0, taille1=0, taille2=0, taille3=0;
+    int kconnexe = 1;
     std::vector<Graph> listeG;
-    Graph Initial(false, 1, 1), G(false, 1, 1), G2(false, 1, 1);
+    Graph Initial(false, 1, 1), G(false, 1, 1), G2(false, 1, 1), G3(false, 1, 1), G4(false, 1, 1);
 
     Sauvegarder(1);
     Sauvegarder_Ponderation(1);
     Initial.Chargement("GrapheActuel.txt");
     Initial.Chargement_Ponderation("PonderationActuelle.txt");
     G2=Initial;
-    taille = G2.m_aretes.size();
+    G3=Initial;
+    G4=Initial;
+    taille1 = G2.m_aretes.size();
+
 
     //G=Initial;
-    do{
-        taille = G2.m_aretes.size();
-        for(size_t i=0 ; i < taille ; i++)
+    taille3 = G4.m_aretes.size();
+    for(size_t l=0 ; l < taille3+1 ; l++)
         {
+            if(l == 1 && stop == false)
+                d4=true;
+
             if(debut == false)
             {
+            G4=Initial;
             listeG.push_back(G);
-            listeG[0]=Initial;
-            listeG[0].SupprimerAreteAuto(m_aretes[i].getIndice());
+            listeG[0]=G4;
+            listeG[0].SupprimerAreteAuto(m_aretes[l-1].getIndice());
             listeG[0].Sauvegarder(1);
             listeG[0].Sauvegarder_Ponderation(1);
+            listeG.clear();
+            listeG.push_back(G);
+            listeG[0].Chargement("GrapheActuel.txt");
+            listeG[0].Chargement_Ponderation("PonderationActuelle.txt");
+            G4 = listeG[0];
+            listeG.clear();
+            }
+
+
+
+        taille2 = G4.m_aretes.size();
+        for(size_t k=0 ; k < taille2+1 ; k++)
+        {
+            //std::cout << "K = " << k << std::endl;
+            if(k == 1 && stop == false)
+                d3=true;
+
+            if(debut == false)
+            {
+            G3=G4;
+            listeG.push_back(G);
+            listeG[0]=G3;
+            listeG[0].SupprimerAreteAuto(m_aretes[k-1].getIndice());
+            listeG[0].Sauvegarder(1);
+            listeG[0].Sauvegarder_Ponderation(1);
+            listeG.clear();
+            listeG.push_back(G);
+            listeG[0].Chargement("GrapheActuel.txt");
+            listeG[0].Chargement_Ponderation("PonderationActuelle.txt");
+            G3 = listeG[0];
+            listeG.clear();
+            }
+
+
+
+        taille1 = G3.m_aretes.size();
+        for(size_t i=0 ; i < taille1+1 ; i++)
+        {
+            if(i == 1 && stop == false)
+                d2=true;
+
+            if(debut == false)
+            {
+            G2 = G3;
+            listeG.push_back(G);
+            listeG[0]=G2;
+            listeG[0].SupprimerAreteAuto(m_aretes[i-1].getIndice());
+            listeG[0].Sauvegarder(1);
+            listeG[0].Sauvegarder_Ponderation(1);
+            listeG.clear();
+            listeG.push_back(G);
             listeG[0].Chargement("GrapheActuel.txt");
             listeG[0].Chargement_Ponderation("PonderationActuelle.txt");
             G2 = listeG[0];
@@ -1076,7 +1136,8 @@ void Graph::KConnexite()
             }
             debut = false;
 
-            for(size_t j=0 ; j < G2.m_aretes.size() ; j++)
+            taille0 = G2.m_aretes.size();
+            for(size_t j=0 ; j < taille0 ; j++)
             {
                 listeG.push_back(G);
                 listeG[0]=G2;
@@ -1095,15 +1156,27 @@ void Graph::KConnexite()
 
                 if(stop == true)
                 {
-                    kconnexe = i;
+                    //kconnexe = i;
+                    l=m_aretes.size();
+                    k=m_aretes.size();
                     j=m_aretes.size();
                     i=m_aretes.size();
                 }
             }
+
+        }
+        }
         }
 
-    }while();
-    std::cout << "K-Connexe : " << kconnexe << std::endl;
+        if(d2 == true)
+            kconnexe+=1;
+        if(d3 == true)
+            kconnexe+=1;
+        if(d4 == true)
+            kconnexe+=1;
+
+    std::cout << "                                              K-Connexe " << std::endl;
+    std::cout << "                                                > " << kconnexe << " <" << std::endl;
 }
 
 
