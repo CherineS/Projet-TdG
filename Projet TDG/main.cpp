@@ -139,11 +139,6 @@ int main()
     }
     }while(choix_m != 0);
 
-
-    int Fini=0;
-    std::cout << "FINI  =  ";
-    std::cin >> Fini;
-
     return 0;
 }
 
