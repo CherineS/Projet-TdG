@@ -60,10 +60,78 @@ double Arrondir(double valeur)
     return result;
 }
 
+double Sommet::Pourcentage(std::vector<Sommet>sommets, double val, std::string indice)
+{
+    double Vmax=0;
+    if(indice == "cd")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_Cd > Vmax)
+                Vmax = sommets[i].m_Cd;
+        }
+    }
+    if(indice == "ncd")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_N_Cd > Vmax)
+                Vmax = sommets[i].m_N_Cd;
+        }
+    }
 
-void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF)
+    if(indice == "cvp")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_Cvp > Vmax)
+                Vmax = sommets[i].m_Cvp;
+        }
+    }
+
+    if(indice == "cp")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_Cp > Vmax)
+                Vmax = sommets[i].m_Cp;
+        }
+    }
+    if(indice == "ncp")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_N_Cp > Vmax)
+                Vmax = sommets[i].m_N_Cp;
+        }
+    }
+
+    if(indice == "ci")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_Ci > Vmax)
+                Vmax = sommets[i].m_Ci;
+        }
+    }
+    if(indice == "nci")
+    {
+        for(size_t i=0 ; i < sommets.size() ; i++)
+        {
+            if(sommets[i].m_N_Ci > Vmax)
+                Vmax = sommets[i].m_N_Ci;
+        }
+    }
+
+    val = val * (1 / Vmax);
+    return val;
+}
+
+
+void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, bool CVP, bool CD, bool CP, bool CI, bool pondere, bool NCD, bool NCP, bool NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, std::vector<Sommet>sommets, int indice)
 {
     double cd=0, cp=0, ci=0;
+    double pourcent=0, val=0;
     int decalage=0;
     std::vector<double>vec;
     std::vector<double>Nvec;
@@ -73,22 +141,88 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     if(NIndicesPrec.size() > 0)
         Nvec = RechercheSommetVec(m_indice, NIndicesPrec);
 
-    if(NCD == true)
-        cd = m_N_Cd;
     if(NCD == false)
         cd = m_Cd;
+    if(NCD == true)
+        cd = m_N_Cd;
 
-    if( cd < 0.25)
+
+
+    switch(indice)
+    {
+    case 1 :
+        pourcent = Pourcentage(sommets, m_Cd, "cd");
+        break;
+    case 2 :
+        pourcent = Pourcentage(sommets, m_Cvp, "cvp");
+        break;
+    case 3 :
+        pourcent = Pourcentage(sommets, m_Cp, "cp");
+        break;
+    case 4 :
+        pourcent = Pourcentage(sommets, m_Ci, "ci");
+        break;
+    case 5 :
+        pourcent = Pourcentage(sommets, m_N_Cd, "ncd");
+        break;
+    case 6 :
+        pourcent = Pourcentage(sommets, m_N_Cp, "ncp");
+        break;
+    case 7 :
+        pourcent = Pourcentage(sommets, m_N_Ci, "nci");
+        break;
+    }
+    val = pourcent;
+    ///std::cout << "pourcentage = " << val <<std::endl;
+
+    if( val < 0.25)
         couleur = "cyan";
-    if( cd >= 0.25 && cd < 0.375)
+    if( val >= 0.25 && val < 0.375)
         couleur = "green";
-    if( cd >= 0.375 && cd < 0.5)
+    if( val >= 0.375 && val < 0.5)
         couleur = "blue";
-    if( cd >= 0.5 && cd < 0.75)
+    if( val >= 0.5 && val < 0.625)
+        couleur = "yellow";
+    if( val >= 0.625 && val < 0.75)
         couleur = "orange";
-    if( cd >= 0.75)
+    if( val >= 0.75)
         couleur = "red";
-    index.addDisk(m_x*100, m_y*100, 3, couleur);
+
+    if(indice == 0)
+        couleur = "black";
+
+    index.addRectangle(820, 35, 950, 280, "white", 2, "black");
+    index.addText(847, 61,  "Sommets en","black");
+    index.addText(847, 80 ,  "Pourcentage","black");
+
+    index.addDisk(850, 50 +50, 8, "cyan");
+    index.addDisk(850, 80 +50, 8, "lightgreen");
+    index.addDisk(850, 110 +50, 8, "green");
+    index.addDisk(850, 140 +50, 8, "yellow");
+    index.addDisk(850, 170 +50, 8, "orange");
+    index.addDisk(850, 200 +50, 8, "red");
+
+    index.addText(878, 50 +5 +50 ,  "0 - 25","black");
+    index.addText(878, 80 +5 +50,  "25 - 37,5","black");
+    index.addText(878, 110 +5 +50, "37,5 - 50","black");
+    index.addText(878, 140 +5 +50, "50 - 62,5","black");
+    index.addText(878, 170 +5 +50, "62,5 - 75","black");
+    index.addText(878, 200 +5 +50, "75 - 100","black");
+
+    //index.addRectangle(820, 35, 950, 280, "white", 2, "black");
+    index.addRectangle(840,90,860,260,"redrect",2,"black");
+    index.addRectangle(840,90,860,130,"bluerect");
+    index.addRectangle(840,129,860,148,"greenrect");
+    index.addRectangle(840,190,860,214,"yellow");
+    index.addRectangle(840,147,860,191,"yellowrect");
+    index.addRectangle(840,213,860,260,"redrect");
+
+    index.addRectangle(840,90,860,260,"testrect");
+    //index.addRectangle(840,90,860,260,"rvbrect");
+
+
+
+    index.addDisk(m_x*100, m_y*100, 5, couleur);
     std::string c(1, m_nom);
     index.addText(m_x*100 - 5, m_y*100 - 10, c,"black");
 

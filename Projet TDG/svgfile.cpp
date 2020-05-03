@@ -10,6 +10,7 @@ const std::string svgEnding = "\n\n</svg>\n";
 
 /// Effets "Boule en relief", voir données à la fin de ce fichier
 extern const std::string svgBallGradients;
+extern const std::string svgRectGradients;
 
 std::set<std::string> Svgfile::s_openfiles;
 
@@ -44,7 +45,7 @@ Svgfile::Svgfile(std::string _filename, int _width, int _height) :
 Svgfile::~Svgfile()
 {
     // Writing the gradients into the SVG file
-    m_ostrm << svgBallGradients;
+    m_ostrm << svgBallGradients << svgRectGradients;
 
     // Writing the ending into the SVG file
     m_ostrm << svgEnding;
@@ -149,7 +150,18 @@ void Svgfile::addRectangle(double x1, double y1, double x2, double y2, std::stri
             << x1 << "," << y2 << " "
             << x2 << "," << y2 << " "
             << x2 << "," << y1
-            << "\" style=\"fill:" << colorFill
+            << "\" style=\"fill:" << fillRectColor(colorFill)
+            << "\" />\n";
+}
+
+void Svgfile::addRectangleGrad(double x1, double y1, double x2, double y2, std::string colorFill)
+{
+    m_ostrm << "<polygon points=\" "
+            << x1 << "," << y1 << " "
+            << x1 << "," << y2 << " "
+            << x2 << "," << y2 << " "
+            << x2 << "," << y1
+            << "\" style=\"fill:" << fillRectColor(colorFill)
             << "\" />\n";
 }
 
@@ -161,7 +173,7 @@ void Svgfile::addRectangle(double x1, double y1, double x2, double y2, std::stri
             << x1 << "," << y2 << " "
             << x2 << "," << y2 << " "
             << x2 << "," << y1
-            << "\" style=\"fill:" << colorFill
+            << "\" style=\"fill:" << fillRectColor(colorFill)
             << ";stroke:" << colorStroke
             << ";stroke-width:" << thickness
             << "\" />\n";
@@ -239,11 +251,50 @@ std::string fillBallColor(std::string col)
     return col;
 }
 
-/// Effets "Boule en relief"
-/// Horrible bricolage : ces données devraient soit être dans un fichier auxiliaire
-/// ( c'était l'approche initiale qui marchait bien sur Firefox mais pas sur les autres )
-/// soit générées dynamiquement en fonction des besoins (couleurs paramétrables...)
-/// On fera mieux l'an prochain !
+std::string fillRectColor(std::string col)
+{
+    if ( col.size()>4 && col.substr(col.size()-4) == "rect" )
+        col =   "url(#" + col + ")";
+
+    return col;
+}
+
+
+///Source du degrade :
+///https://la-cascade.io/les-degrades-svg/
+extern const std::string svgRectGradients =
+"  \n\n<defs>\n"
+"    <linearGradient id=\"rvbrect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:rgb(0,255,0)\" />\n"
+"      <stop offset=\"50%\" style=\"stop-color:rgb(0,0,255)\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:rgb(255,0,0)\" />\n"
+"    </linearGradient>\n"
+"    <linearGradient id=\"testrect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:cyan\" />\n"
+"      <stop offset=\"20%\" style=\"stop-color:lightgreen\" />\n"
+"      <stop offset=\"40%\" style=\"stop-color:green\" />\n"
+"      <stop offset=\"60%\" style=\"stop-color:yellow\" />\n"
+"      <stop offset=\"80%\" style=\"stop-color:orange\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:red\" />\n"
+"    </linearGradient>\n"
+"    <linearGradient id=\"bluerect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:rgb(0,255,255)\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:rgb(0,255,0)\" />\n"
+"    </linearGradient>\n"
+"    <linearGradient id=\"greenrect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:rgb(0,255,0)\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:green\" />\n"
+"    </linearGradient>\n"
+"    <linearGradient id=\"yellowrect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:green\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:rgb(255,255,0)\" />\n"
+"    </linearGradient>\n"
+"    <linearGradient id=\"redrect\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n"
+"      <stop offset=\"0%\" style=\"stop-color:rgb(255,250,0)\" />\n"
+"      <stop offset=\"100%\" style=\"stop-color:rgb(255,0,0)\" />\n"
+"    </linearGradient>\n"
+"  </defs>\n";
+
 extern const std::string svgBallGradients =
 "  \n\n<defs>\n"
 "    <radialGradient id=\"redball\" cx=\"30%\" cy=\"30%\" r=\"100%\" fx=\"30%\" fy=\"30%\">\n"
@@ -282,3 +333,4 @@ extern const std::string svgBallGradients =
 "      <stop offset=\"100%\" style=\"stop-color:rgb(100,100,100)\" />\n"
 "    </radialGradient>\n"
 "  </defs>\n";
+

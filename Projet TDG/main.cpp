@@ -41,7 +41,7 @@ int main()
 {
     std::vector<Graph>Univers;
     std::vector<std::vector<double>> IndicesPrec,  NIndicesPrec;
-    int choix_m=0;
+    int choix_m=0, indice=0;
     bool CVP=false, CD=false, CP=false, CI=false, NCD=false, NCP=false, NCI=false, DIFF=false;
     std::string fichier;
     srand(time(NULL));
@@ -53,19 +53,20 @@ int main()
               << "                              3-     Calculer indices de centralite   -3" << std::endl
               << "                              4-        Tester la vulnerabilite       -4" << std::endl
               << "                              5-     Affichage Console des Indices    -5" << std::endl
+              << "                              6-             K Connexite              -6" << std::endl
               << "                              0-               Arreter                -0" << std::endl << std::endl
               << "                                               -> ";
     do{
     std::cin >> choix_m;
     }
-    while (choix_m != 0 && choix_m != 1 && choix_m != 2 && choix_m != 3 && choix_m != 4 && choix_m!= 5);
+    while (choix_m != 0 && choix_m != 1 && choix_m != 2 && choix_m != 3 && choix_m != 4 && choix_m!= 5 && choix_m != 6);
 
     switch(choix_m)
     {
     case 1 :
         {
         Update_Univers(Univers);
-        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
+        Univers[0].Menu1(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
         Univers[0].Sauvegarder(1);
         Univers[0].Sauvegarder_Ponderation(1);
         }
@@ -74,13 +75,13 @@ int main()
         {
         Update_Univers(Univers);
         if(Univers.size()>0)
-            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
+            Univers[0].Menu2(fichier, CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
         }
         break;
     case 3 :
         {
         if(Univers.size()>0)
-           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
+           Univers[0].Menu3(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
         }
         break;
     case 4 :
@@ -110,7 +111,7 @@ int main()
                     Univers[0].Chargement_Ponderation("PonderationActuelle.txt");
                     Univers[0].ChargerComparaison(IndicesPrec,  NIndicesPrec);
                     Univers[0].Calcul();
-                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF);
+                    Univers[0].Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec,  NIndicesPrec, DIFF, indice);
                 }
                 else Univers[0].Recherche_Connexite();
             }
@@ -119,6 +120,9 @@ int main()
     case 5 :
         if(Univers.size()>0)
            Univers[0].AfficherTout();
+        break;
+    case 6 :
+        Univers[0].KConnexite();
         break;
     }
     }while(choix_m != 0);

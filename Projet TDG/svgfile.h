@@ -49,6 +49,7 @@ class Svgfile
         void addRectangle(double x1, double y1, double x2, double y2, std::string colorFill);
         void addRectangle(double x1, double y1, double x2, double y2, std::string colorFill,
                           double thickness, std::string colorStroke);
+        void addRectangleGrad(double x1, double y1, double x2, double y2, std::string colorFill);
 
         static std::string makeRGB(int r, int g, int b);
 
@@ -60,6 +61,7 @@ class Svgfile
 std::string makeRGB(int r, int g, int b);
 
 std::string fillBallColor(std::string col);
+std::string fillRectColor(std::string col);
 
 #endif // SVGFILE_H_INCLUDED
 

@@ -28,7 +28,6 @@ void Graph::AddOriente_Ordre_Taille(bool oriente, int ordre, int taille)
     {
         m_distances.push_back(vec);
     }
-
 }
 
 void Graph::AddSommet(int indice, char nom, double x, double y)
@@ -51,13 +50,13 @@ void Graph::Successeurs()
     }
 }
 
-void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF)
+void Graph::Dessiner(bool& CVP , bool& CD, bool& CP, bool& CI, bool& N_CD, bool& N_CP, bool& N_CI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool DIFF, int& indice)
 {
     Svgfile index;
         index.addGrid(100, 1, "grey");
         for(size_t i=0 ; i < m_sommets.size() ; i++)
         {
-            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI, IndicesPrec, NIndicesPrec, DIFF);
+            m_sommets[i].Dessiner(index, m_oriente, m_aretes, CVP, CD, CP, CI, m_pondere, N_CD, N_CP, N_CI, IndicesPrec, NIndicesPrec, DIFF, m_sommets, indice);
         }
 }
 
@@ -563,7 +562,7 @@ void Graph::Memoire_Ponderation(std::string& fichier, int num)
 
 bool OuvertureFichier(std::string fichiern);
 
-void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
+void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
 {
     int num=0;
     std::string fichier;
@@ -612,10 +611,10 @@ void Graph::Menu1(std::string& fichierG, bool& CVP, bool& CD, bool& CP, bool& CI
             }
     }
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
 }
 
-void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
+void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
 {
     Chargement("GrapheActuel.txt");
 
@@ -630,7 +629,7 @@ void Graph::Menu2(std::string fichierG, bool& CVP, bool& CD, bool& CP, bool& CI,
     m_pondere=true;
 
     Calcul();
-    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
+    Dessiner(CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
 }
 
 void Graph::Calcul()
@@ -642,9 +641,9 @@ void Graph::Calcul()
     Normaliser();
 }
 
-void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF)
+void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP, bool& NCI, std::vector<std::vector<double>> IndicesPrec, std::vector<std::vector<double>> NIndicesPrec, bool& DIFF, int& indice)
 {
-    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
+    Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
     std::string line = "vide";
 
     std::cout << "                                         LISTE DES COMMANDES   " << std::endl;
@@ -654,11 +653,33 @@ void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP,
     std::cout << "                                     | NCD | NCVP | NCP | NCI |" << std::endl;
     std::cout << "                                     |          NALL          |" << std::endl;
     std::cout << "                                     |          DIFF          |" << std::endl;
+    std::cout << "                                     | CCD | CCVP | CCP | CCI |" << std::endl;
+    std::cout << "                                     |NCCD | NCCVP|NCCP | NCCI|" << std::endl;
     std::cout << "                                     |         return         |" << std::endl;
     std::cout << "                                     --------------------------" << std::endl;
 
     do{
     getline(std::cin, line);
+
+    if(line == "NO COLOR")
+        indice=0;
+    if(line == "CCD")
+        indice=1;
+    if(line == "CCVP")
+        indice=2;
+    if(line == "CCP")
+        indice=3;
+    if(line == "CCI")
+        indice=4;
+    if(line == "NCCD")
+        indice=5;
+    if(line == "NCCP")
+        indice=6;
+    if(line == "NCCI")
+        indice=7;
+    if(line == "NO COLOR" || line == "CCD" || line == "CCVP" || line == "CCP" || line == "CCI" || line == "NCCD" || line == "NCCP" || line == "NCCI")
+        line = "dessin";
+
 
     if(line == "DIFF")
     {
@@ -795,7 +816,7 @@ void Graph::Menu3(bool& CVP, bool& CD, bool& CP, bool& CI, bool& NCD, bool& NCP,
 
     if(line == "dessin")
     {
-        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF);
+        Dessiner( CVP, CD, CP, CI, NCD, NCP, NCI, IndicesPrec, NIndicesPrec, DIFF, indice);
         line = "vide";
     }
     }while(line != "return");
@@ -936,3 +957,154 @@ void Graph::ChargerComparaison(std::vector<std::vector<double>>& IndicesPrec, st
     /// ////
 
 }
+
+void Graph::SupprimerAreteAuto(int indice)
+{
+    int id1=0,id2=0;
+
+        for(size_t i=0;i<m_aretes.size();++i)
+        {
+            if(m_aretes[i].RechercheIndice(indice)==true)
+            {
+                m_aretes[i].setArete(indice,id1,id2);
+                indice=i;
+                break;
+            }
+        }
+        ///Suppression des successeurs
+        if(m_oriente==false)
+        {
+            m_sommets[id1].SuppSommet(id2);
+            m_sommets[id2].SuppSommet(id1);
+        }
+        else if(m_oriente==true)
+            m_sommets[id1].SuppSommet(id2);
+
+        ///Suppression des aretes
+        m_aretes.erase(m_aretes.begin()+indice);
+        m_aretes.shrink_to_fit();
+        m_taille-=1;
+}
+
+void Graph::Recherche_Connexite_Auto(bool& stop)
+{
+    int nbConnex=0, compteur=1, compteur2=0, prochain=0, present, nbConnex2=0;
+    std::vector<int> ListeConnex;
+    std::vector<char> vec;
+    stop = false;
+
+    do{
+        compteur=1;
+        for(size_t i=0;i<m_sommets.size();++i)  ///Recherche si il existe un sommet non marque
+        {
+            present=0;
+
+            for(size_t j=0;j<ListeConnex.size();++j)
+            {
+                if(ListeConnex[j]==m_sommets[i].get_indice())
+                {
+                    present=1;
+                    break;
+                }
+            }
+            if(present!=1)
+            {
+                prochain=m_sommets[i].get_indice();
+                break;
+            }
+        }
+        ListeConnex.push_back(prochain);
+
+        for(size_t i=0;i<m_aretes.size()/2;++i) ///Le refaire plusieurs fois
+        {
+            for(size_t j=0;j<m_aretes.size();++j)  ///Recherche si l'arete a deja ete parcouru
+            {
+                m_aretes[j].ParcoursConnex(ListeConnex,compteur);
+            }
+        }
+        nbConnex++;
+
+        for(size_t i=compteur2;i<ListeConnex.size();++i)
+            vec.push_back(m_sommets[ListeConnex[i]].getNom());
+        for(size_t i=compteur2;i<ListeConnex.size();++i)
+            std::cout << m_sommets[ListeConnex[i]].getNom() << " ";
+
+        if(vec.size() > 1)
+        {
+            nbConnex2+=1;
+            vec.clear();
+        }
+
+        compteur2+=compteur;
+    }while(compteur2<m_ordre);
+
+    if(nbConnex2 > 1)
+        stop = true;
+}
+
+void Graph::KConnexite()
+{
+    bool stop = false, debut = true;
+    size_t taille=0;
+    int kconnexe = 0;
+    std::vector<Graph> listeG;
+    Graph Initial(false, 1, 1), G(false, 1, 1), G2(false, 1, 1);
+
+    Sauvegarder(1);
+    Sauvegarder_Ponderation(1);
+    Initial.Chargement("GrapheActuel.txt");
+    Initial.Chargement_Ponderation("PonderationActuelle.txt");
+    G2=Initial;
+    taille = G2.m_aretes.size();
+
+    //G=Initial;
+    do{
+        taille = G2.m_aretes.size();
+        for(size_t i=0 ; i < taille ; i++)
+        {
+            if(debut == false)
+            {
+            listeG.push_back(G);
+            listeG[0]=Initial;
+            listeG[0].SupprimerAreteAuto(m_aretes[i].getIndice());
+            listeG[0].Sauvegarder(1);
+            listeG[0].Sauvegarder_Ponderation(1);
+            listeG[0].Chargement("GrapheActuel.txt");
+            listeG[0].Chargement_Ponderation("PonderationActuelle.txt");
+            G2 = listeG[0];
+            listeG.clear();
+            }
+            debut = false;
+
+            for(size_t j=0 ; j < G2.m_aretes.size() ; j++)
+            {
+                listeG.push_back(G);
+                listeG[0]=G2;
+
+                listeG[0].SupprimerAreteAuto(m_aretes[j].getIndice());
+                listeG[0].Sauvegarder(1);
+                listeG[0].Sauvegarder_Ponderation(1);
+                listeG.clear();
+                listeG.push_back(G);
+                listeG[0].Chargement("GrapheActuel.txt");
+                listeG[0].Chargement_Ponderation("PonderationActuelle.txt");
+
+                listeG[0].Recherche_Connexite_Auto(stop);
+
+                listeG.clear();
+
+                if(stop == true)
+                {
+                    kconnexe = i;
+                    j=m_aretes.size();
+                    i=m_aretes.size();
+                }
+            }
+        }
+
+    }while();
+    std::cout << "K-Connexe : " << kconnexe << std::endl;
+}
+
+
+
