@@ -191,7 +191,11 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     if(indice == 0)
         couleur = "black";
 
-    index.addRectangle(820, 35, 950, 280, "white", 2, "black");
+    index.addRectangle(820, 35, 950, 280 +50, "white", 2, "black");
+    index.addRectangle(820, 320 +25, 950, 542 +25, "white", 2, "black");
+    index.addText(862, 346+25, "Indices", "black");
+    index.addText(845, 346 +19+25, "de Centralite", "black");
+    index.addText(839.5, 527+25, "N", "black");
     index.addText(847, 61,  "Sommets en","black");
     index.addText(847, 80 ,  "Pourcentage","black");
 
@@ -220,7 +224,42 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
     index.addRectangle(840,90,860,260,"testrect");
     //index.addRectangle(840,90,860,260,"rvbrect");
 
+    index.addRectangle(835, 275, 935, 280 +50 -15, "white", 2, "black");
 
+    switch(indice)
+    {
+    case 1 :
+        index.addText(875 -9, 370 +19 +7 +3 +2 -102, "Degre", "black");
+        break;
+    case 2 :
+        index.addText(873 -2 -9, 370 +19 +7 +3 -5 -102, "Vecteur", "black");
+        index.addText(876 -2 -9, 370 +19 +7 +3 +10 -102, "Propre", "black");
+        break;
+    case 3 :
+        index.addText(867 -9, 370 +19 +7 +3 +2 -102, "Proximite", "black");
+        break;
+    case 4 :
+        index.addText(856 -15, 370 +19 +7 +3 +2 -102, "Intermediarite", "black");
+        break;
+    case 5 :
+        index.addText(875 -9, 370 +19 +7 +3 +2 -102, "Degre", "black");
+        break;
+    case 6 :
+        index.addText(867 -9, 370 +19 +7 +3 +2 -102, "Proximite", "black");
+        break;
+    case 7 :
+        index.addText(856 -15, 370 +19 +7 +3 +2 -102, "Intermediarite", "black");
+        break;
+    }
+
+
+    ///INDICES
+    index.addText(875, 370 +19 +7 +3 +2+25, "Degre", "black");
+    index.addText(873 -2, 370 +19 +7 +3 +33 -5+25, "Vecteur", "black");
+    index.addText(876 -2, 370 +19 +7 +3 +33 +10+25, "Propre", "black");
+    index.addText(867, 370 +19 +7 +3 +66 +2+25, "Proximite", "black");
+    index.addText(856, 370 +19 +7 +3 +99 +2+25, "Intermediarite", "black");
+    /// ////
 
     index.addDisk(m_x*100, m_y*100, 5, couleur);
     std::string c(1, m_nom);
@@ -270,18 +309,21 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
             }
         }
 
-    index.addText(m_x*100 - 14, m_y*100 + 16, cd, "yellow");
-    index.addText(m_x*100 - 16, m_y*100 + 18, cd, "yellow");
-    index.addText(m_x*100 - 15, m_y*100 + 17, cd, "black");
+    //index.addText(m_x*100 - 14, m_y*100 + 16, cd, "yellow");
+    //index.addText(m_x*100 - 16, m_y*100 + 18, cd, "yellow");
+    index.addText(m_x*100 - 15, m_y*100 + 17, cd, "orange");
 
 
-    index.addLine(30, 31, 50, 31, "yellow");
-    index.addLine(30, 29, 50, 29, "yellow");
-    index.addLine(30, 30, 50, 30, "black");
+    //index.addLine(30, 31, 50, 31, "yellow");
+    //index.addLine(30, 29, 50, 29, "yellow");
+    if(NCD==true)
+        index.addDisk(845, 370 +19 +7+25, 4, "orange");
+    index.addCircle(845, 370 +19 +7+25, 7, 2, "orange");
+    //index.addLine(30, 30, 50, 30, "orange");
 
-    index.addText(66, 36, "Indice de centralite par Degre", "yellow");
-    index.addText(64, 34, "Indice de centralite par Degre", "yellow");
-    index.addText(65, 35, "Indice de centralite par Degre", "black");
+    //index.addText(66, 36, "Indice de centralite par Degre", "yellow");
+    //index.addText(64, 34, "Indice de centralite par Degre", "yellow");
+    //index.addText(875, 370 +19 +7 +3 +2, "Degre", "black");
     }
 
 
@@ -315,8 +357,11 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         if(m_Cvp < 0)
             index.addText(m_x*100-16, m_y*100+33, "nan","green");
 
-        index.addLine(30, 50, 50, 50, "green");
-        index.addText(65, 55, "Indice de centralite par Vecteur Propre", "green");
+        index.addCircle(845, 370 +19 +33 +7+25, 7, 2, "green");
+        index.addDisk(845, 370 +19 +33 +7+25, 4, "green");
+        //index.addText(853, 370 +19 +7 +3 +33, "Vecteur Propre", "green");
+        //index.addText(873 -2, 370 +19 +7 +3 +33 -5+25, "Vecteur", "black");
+        //index.addText(876 -2, 370 +19 +7 +3 +33 +10+25, "Propre", "black");
     }
 
     if(NCP == true)
@@ -382,8 +427,10 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         if(cp < 0 || cp>100000)
             index.addText(m_x*100-16, m_y*100+51, "inf","blue");
 
-        index.addLine(30+300+235, 30, 50+300+235, 30, "blue");
-        index.addText(65+300-40, 35, "Indice de centralite de Proximite", "blue");
+            if(NCD == true)
+                index.addDisk(845, 370 +19 +66 +7+25, 4, "blue");
+        index.addCircle(845, 370 +19 +66 +7+25, 7, 2, "blue");
+        //index.addText(867, 370 +19 +7 +3 +66 +2+25, "Proximite", "black");
     }
 
     if(NCI == true)
@@ -449,8 +496,10 @@ void Sommet::Dessiner(Svgfile& index, bool oriente, std::vector<Arete>& aretes, 
         if(ci < 0 || ci > 100000)
             index.addText(m_x*100-16, m_y*100+69, "inf","darkred");
 
-        index.addLine(30+300+235, 50, 50+300+235, 50, "darkred");
-        index.addText(65+300-40, 55, "Indice de centralite d'Intermediarite", "darkred");
+            if(NCI == true)
+                index.addDisk(845, 370 +19 +99 +7+25, 4,"darkred");
+        index.addCircle(845, 370 +19 +99 +7+25, 7, 2, "darkred");
+        //index.addText(856, 370 +19 +7 +3 +99 +2+25, "Intermediarite", "black");
     }
 
 
